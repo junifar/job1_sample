@@ -1,0 +1,123 @@
+
+.wlps-form-group{
+  display: flex;
+
+  .wlps-form-icon{
+    align-items: center;
+    display: flex;
+    padding: 0 $padding-size-sm;
+  }
+
+  .SingleDatePickerInput{
+    background-color: transparent;
+    border: 0;
+    width: 100%;
+
+    .DateInput{
+      background: transparent;
+      width: 100%;
+
+      input{
+        background-color: rgba($white, .25);
+        border: 0;
+        border-radius: $radius-size-sm;
+        color: $white;
+        cursor: pointer;
+        font-size: $text-size;
+        font-weight: 600;
+        line-height: 1.5;
+        padding: $padding-size-md;
+        width: 100%;
+
+        @include placeholder{
+          color: darken($text-color-light, 10%);
+          font-weight: 400;
+        }
+
+        &.DateInput_input__focused{
+          background-color: rgba($white, .5);
+          border-bottom: 0.3em solid $white;
+          padding-bottom: ($padding-size-md - 0.3em);
+        }
+      }
+    }
+
+    &__showClearDate{
+      padding-right: 0;
+    }
+
+    &_clearDate{
+
+      &_svg{
+        fill: $white;
+      }
+
+      &__default:hover{
+        background: transparent;
+      }
+    }
+
+    .DayPickerKeyboardShortcuts_show__bottomRight{
+      border-right-color: $secondary-color;
+    }
+  }
+}
+
+.wlps-input{
+  background-color: rgba($white, .25);
+  border: 0;
+  border-radius: $radius-size-sm;
+  color: $text-color-light;
+  padding: $padding-size-md;
+  font-weight: 600;
+  font-size: $text-size;
+  transition: none;
+  width: 100%;
+
+  @include placeholder {
+    color: $text-color-light-secondary;
+    font-weight: 400;
+  }
+
+  &:focus, &:active{
+    background-color: rgba($white, .5);
+    border-top: 0.3em solid rgba($white, .5);
+    border-bottom: 0.3em solid $white;
+    color: $text-color-light;
+    padding-top: ($padding-size-md - 0.3em);
+    padding-bottom: ($padding-size-md - 0.3em);
+
+    @include box-shadow(none);
+  }
+}
+
+@media (max-width: $screen-size-md){
+
+  .wlps-input{
+    font-size: 80%;
+    padding: $padding-size-sm;
+
+    &:focus, &:active{
+      border-top: 0.2em solid rgba($white, .5);
+      border-bottom: 0.2em solid $white;
+      padding-top: ($padding-size-sm - 0.2em);
+      padding-bottom: ($padding-size-sm - 0.2em);
+    }
+  }
+
+  .wlps-form-group{
+    .SingleDatePickerInput{
+      .DateInput{
+        input{
+          font-size: 80%;
+          padding: $padding-size-sm;
+
+          &.DateInput_input__focused{
+            border-bottom: 0.2em solid $white;
+            padding-bottom: ($padding-size-sm - 0.2em);
+          }
+        }
+      }
+    }
+  }
+}

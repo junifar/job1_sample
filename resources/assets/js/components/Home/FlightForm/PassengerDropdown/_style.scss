@@ -1,0 +1,84 @@
+.my-passengerdropdown{
+  position: relative;
+  display: block;
+
+  &-label{
+    color: $white;
+    font-size: 80%;
+    display: flex;
+    border-radius: $radius-size-sm;
+
+    &:hover{
+      background-color: rgba($white, 0.3);
+      cursor: pointer;
+    }
+
+    &-text{
+      padding: $padding-size-xs;
+
+      &::after{
+        display: inline-block;
+        width: 0;
+        height: 0;
+        margin-left: 0.255em;
+        vertical-align: 0.255em;
+        content: "";
+        border-top: 0.3em solid;
+        border-right: 0.3em solid transparent;
+        border-bottom: 0;
+        border-left: 0.3em solid transparent;
+      }
+    }
+
+    .material-icons{
+      font-size: 80%;
+      display: none;
+    }
+  }
+
+  &-popup{
+    z-index: 10;
+    position: absolute;
+    background: white;
+    min-width: 100%;
+    box-shadow: $box-shadow-reg;
+    border-radius: $radius-size-sm;
+
+    &.hide{
+      display: none;
+    }
+
+    &-button{
+      text-align: center;
+      border-top: 1px solid darken($white, 5%);
+      padding: $padding-size-sm;
+
+      &:hover{
+        background-color: darken($white, 5%);
+        cursor: pointer;
+      }
+    }
+
+    &-item{
+      display: flex;
+
+      &-label{
+        padding: $padding-size-md;
+        flex: 1;
+      }
+
+      &-counter{
+        display: flex;
+
+        &-in{
+          padding: $padding-size-md;
+
+          &.clickable:hover{
+            cursor: pointer;
+            background-color: darken($white, 5%);
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+// External styling
+// @import "styles/external/normalize.css";  // Normalize for creating initial state of styling for all browser
+@import "styles/external/bootstrap/bootstrap.scss";  // Bootstrap for initial design system
+
+// Main variable
+@import 'styles/main/colors';
+@import 'styles/main/variables';
+@import 'styles/main/mixin';
+@import 'styles/main/animation';
+// Main styles
+body{
+  font-family: 'Roboto', sans-serif;
+}
+@import 'styles/main/form';
+// Main styles for external sources
+@import 'styles/main/material-icons';
+// Main Components
+@import "components/_Main/Dropdown/dropdown";
+@import "components/_Main/Input/style";
+@import "components/_Main/Button/style";
+@import "components/_Main/MyButton/style";
+@import "components/_Main/DropdownSearch/style";
+// Components
+@import "routes/style";
+@import "components/Home/style";
+@import "components/SearchResult/style";
+@import "components/Faq/style";
+@import "components/Login/style";
+@import "components/SignUp/style";
+@import "components/Booking/style";
+@import "components/PaymentMethod/style";
+@import "components/UserDashboard/style";
+
+// Modifiers
+@import 'styles/main/modifiers';

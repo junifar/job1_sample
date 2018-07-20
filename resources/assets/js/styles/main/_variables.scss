@@ -1,0 +1,61 @@
+$screen-size-xl: 1200px;
+$screen-size-lg: 992px;
+$screen-size-md: 768px;
+$screen-size-sm: 576px;
+
+$container-size-lg: 1024px;
+
+// heading
+$heading-size-xxl: 2.25rem;
+$heading-size-xl: 2rem;
+$heading-size-lg: 1.75rem;
+$heading-size-md: 1.5rem;
+$heading-size-sm: 1.25rem;
+$heading-size-xs: 1rem;
+$heading-size-xxs: 0.75rem;
+// text
+$text-size-xxl: 3rem;
+$text-size-xl: 2rem;
+$text-size-lg: 1.5rem;
+$text-size: 1rem;
+$text-size-sm: .75rem;
+$text-size-xs: .5rem;
+$text-size-xxs: .25rem;
+
+// padding
+$padding-size-xxl: 3em;
+$padding-size-xl: 2em;
+$padding-size-lg: 1.5em;
+$padding-size-md: 1em;
+$padding-size-sm: 0.75em;
+$padding-size-xs: 0.5em;
+$padding-size-xxs: 0.25em;
+
+$anti-padding-size-md: ($padding-size-md*-1);
+
+// margin
+$margin-size-xxl: 4.5em;
+$margin-size-xl: 2em;
+$margin-size-lg: 1.5em;
+$margin-size-md: 1em;
+$margin-size-sm: 0.75em;
+$margin-size-xs: 0.5em;
+$margin-size-xxs: 0.25em;
+
+// radius
+$radius-size-xxl: 30px;
+$radius-size-xl: 15px;
+$radius-size-lg: 10px;
+$radius-size-md: 5px;
+$radius-size-sm: 2px;
+
+// box-shadow
+$box-shadow-reg: 0 0 2px rgba(0,0,0,0.12), 0 2px 2px rgba(0,0,0,0.24);
+$box-shadow-high: 0 15px 12px rgba(0,0,0,0.22), 0 0 38px rgba(0,0,0,0.30);
+
+// image
+$image-width-sm: 5em;
+$image-width-xs: 3em;
+
+// navbar-size
+$navbar-size: 54px;

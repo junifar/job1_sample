@@ -1,0 +1,144 @@
+.garuda-form{
+
+  &-group{
+    margin: $margin-size-md 0;
+
+    &:first-child{
+      margin-top: 0;
+    }
+
+    &:last-child{
+      margin-bottom: 0;
+    }
+  }
+
+  &-content{
+    border: 1px solid $garuda-light-grey;
+    display: flex;
+
+    .wlps-form-icon{
+      display: flex;
+      background-color: $white;
+      padding: $padding-size-md;
+
+      .material-icons{
+        align-self: center;
+        color: $garuda-blue;
+      }
+    }
+
+    .Select{
+      flex: 1;
+
+      &-control{
+        background-color: $white;
+        border: 0;
+        border-radius: 0;
+        height: 100%;
+      }
+
+      &-placeholder{
+        display: flex;
+        align-items: center;
+        color: lighten($garuda-blue, 25%);
+      }
+
+      &-value{
+        display: flex;
+        align-items: center;
+
+        &-label{
+          color: $garuda-blue !important;
+        }
+      }
+
+      &-input{
+        height: 100%;
+
+        input{
+          height: 100%;
+          padding: 0;
+          color: $garuda-blue;
+        }
+      }
+
+      .ReactVirtualized__List{
+        padding: $padding-size-md;
+      }
+    }
+
+    .SingleDatePicker{
+      flex: 1;
+
+      div:first-child{
+        height: 100%;
+      }
+
+      .SingleDatePickerInput{
+        width: 100%;
+        height: 100%;
+        border: 0;
+
+        .DateInput{
+          width: 100%;
+          height: 100%;
+
+          .DateInput_input{
+            height: 100%;
+            color: $garuda-blue;
+
+            @include placeholder{
+              color: lighten($garuda-blue, 25%);
+            }
+          }
+
+          .DateInput_input_focused{
+            border-bottom: 0;
+          }
+        }
+      }
+    }
+  }
+
+  &-counter{
+    background-color: $white;
+    display: flex;
+    flex: 1;
+
+    &-label{
+      flex: 1;
+    }
+
+    &-label, &-action{
+      display: flex;
+
+      span{
+        align-self: center;
+        color: $garuda-blue;
+        padding: $padding-size-md;
+
+        .material-icons{
+          color: $garuda-blue;
+
+          &:hover{
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+
+  &-button{
+    border-radius: 0;
+    background-color: $garuda-red;
+    border: 0;
+
+    &:hover{
+      background-color: lighten($garuda-red, 10%);
+    }
+
+    &-container{
+      text-align: right;
+    }
+  }
+}

@@ -1,0 +1,11 @@
+@media (max-width: $screen-size-md) {
+  .hide-on-md{
+    display: none;
+  }
+}
+
+@media (min-width: $screen-size-md){
+  .show-on-md{
+    display: none;
+  }
+}

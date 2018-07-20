@@ -1,0 +1,17 @@
+.my-mandiriclickpay{
+  background-color: $mandiri-color;
+  border-top-left-radius: $radius-size-sm;
+  border-top-right-radius: $radius-size-sm;
+  box-shadow: $box-shadow-reg;
+
+  &-button{
+    background-color: $mandiri-color;
+    border-top-color: lighten($mandiri-color, 10%) !important;
+    border-bottom-left-radius: $radius-size-sm;
+    border-bottom-right-radius: $radius-size-sm;
+
+    &:hover{
+      background-color: lighten($mandiri-color, 10%) !important;
+    }
+  }
+}

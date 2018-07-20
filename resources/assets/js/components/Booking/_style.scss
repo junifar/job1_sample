@@ -1,0 +1,141 @@
+.my-booking{
+
+  &-body{
+    max-width: 25em;
+    margin: 0 auto;
+  }
+
+  &-flightdetail{
+    margin: $margin-size-md 0;
+  }
+
+  &-card{
+    &-title{
+      color: $white;
+      padding: $padding-size-md 0;
+      font-weight: bold;
+    }
+  }
+
+  &-contactform{
+    max-width: $container-size-lg;
+    margin: 0 auto;
+
+    .garuda-login-container{
+      max-width: none;
+    }
+  }
+
+  &-passengerinfo{
+    &-title{
+      padding: $padding-size-md 0;
+      font-weight: bold;
+      text-align: center;
+      color: $primary-color;
+      font-size: $text-size-lg;
+    }
+  }
+
+  &-detail{
+    max-width: $container-size-lg;
+    margin: $margin-size-md auto;
+    box-shadow: $box-shadow-reg;
+    border-radius: $radius-size-sm;
+
+    &-title{
+      padding: $padding-size-xs $padding-size-md;
+      color: $white;
+      background-color: $primary-color;
+      font-weight: bold;
+
+      p{
+        margin-bottom: 0;
+      }
+
+      i.material-icons{
+        padding: $padding-size-xs;
+      }
+    }
+
+    &-info{
+      color: $grey;
+
+      th{
+        padding-right: $padding-size-xl;
+        font-weight: 400;
+      }
+
+      &-container{
+        padding: $padding-size-md;
+        border-left: 1px solid $light-grey;
+      }
+    }
+
+    &-content{
+      padding: $padding-size-md;
+
+      &-header{
+        padding: $padding-size-md;
+
+        &-title{
+          font-weight: bold;
+          font-size: $text-size-lg;
+
+          p{
+            margin-bottom: 0;
+          }
+        }
+      }
+
+      &-body{
+        display: flex;
+      }
+    }
+
+    &-inner{
+      padding: $padding-size-md;
+      margin-left: 2em;
+    }
+
+    &-wrap{
+      border-left: 3px solid $primary-color;
+      padding: $padding-size-md;
+    }
+
+    &-time{
+      font-weight: bold;
+    }
+
+    &-airport{
+      color: $grey;
+    }
+
+    &-terminal{
+      color: $grey;
+      font-size: 80%;
+    }
+  }
+
+  &-button{
+    margin: $margin-size-md auto;
+
+    .my-button-primary{
+      box-shadow: $box-shadow-reg;
+    }
+  }
+}
+
+@media (max-width: $screen-size-md) {
+  .my-booking-detail{
+
+    &-inner{
+      margin-left: 0;
+    }
+
+    &-content-body{
+      flex-direction: column;
+    }
+  }
+}
+
+@import 'PassengerForm/style';

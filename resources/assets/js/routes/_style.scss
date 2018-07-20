@@ -1,0 +1,12 @@
+.my-routes-container{
+  margin-top: $navbar-size;
+
+  &.blur{
+    -webkit-filter: blur(10px);
+    filter: blur(10px);
+  }
+}
+
+@import 'Navbar/style';
+@import 'Modal/style';
+@import 'FlightDetail/style';

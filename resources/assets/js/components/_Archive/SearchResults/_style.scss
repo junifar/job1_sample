@@ -1,0 +1,40 @@
+.search-results{
+  color: #333;
+
+  &__header{
+    text-align: center;
+    margin-bottom: 1em;
+
+    &__title{
+      font-size: $heading-size-md;
+      margin-bottom: 0;
+    }
+
+    &__text{
+      font-size: $heading-size-xs;
+    }
+  }
+
+  &_waiting{
+    font-size: $text-size-lg;
+    padding: $padding-size-md;
+    text-align: center;
+  }
+}
+
+@media (max-width: $screen-size-sm) {
+  .search-results{
+
+    &__header{
+      &__title{
+        font-size: $heading-size-xs;
+      }
+
+      &__text{
+        font-size: $heading-size-xxs;
+      }
+    }
+  }
+}
+
+@import './FlightResultCard/style';

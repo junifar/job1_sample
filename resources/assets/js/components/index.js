@@ -1,0 +1,12 @@
+export {default as Booking} from "./Booking";
+export {default as Faq} from "./Faq";
+export {default as ForgotPassword} from "./ForgotPassword";
+export {default as Home} from "./Home";
+export {default as Login} from "./Login";
+export {default as NotFound} from "./NotFound";
+export {default as PaymentMethod} from "./PaymentMethod";
+export {default as SearchResult} from "./SearchResult";
+export {default as SignUp} from "./SignUp";
+export {default as UserDashboard} from "./UserDashboard";
+export {default as PaymentDashboard} from "./PaymentDashboard";
+export {default as FlightDetail} from "./FlightDetail";

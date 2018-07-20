@@ -1,0 +1,23 @@
+.my-button{
+  &-primary{
+    @include button($primary-color);
+
+    &.accent{
+      @include button($accent-color);
+    }
+
+    &.disabled{
+      opacity: 0.65;
+      pointer-events: none;
+      @include button(#c1c5c4);
+    }
+
+    &-outline{
+      @include button-outline($primary-color);
+
+      &.accent{
+        @include button-outline($accent-color);
+      }
+    }
+  }
+}

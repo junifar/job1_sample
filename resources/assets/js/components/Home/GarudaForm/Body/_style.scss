@@ -1,0 +1,10 @@
+
+.garuda-form{
+
+  &-body{
+    padding: $padding-size-md;
+    background-color: $garuda-light-grey;
+  }
+}
+
+@import './Form/style';

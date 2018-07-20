@@ -1,0 +1,45 @@
+.garuda-input{
+  .form-control{
+    border-radius: $radius-size-sm;
+    border: 0;
+    background-color: transparentize($white, 0.7);
+    color: $white;
+    padding: $padding-size-sm $padding-size-md;
+
+    @include placeholder{
+      color: darken($white, 10%);
+    }
+  }
+
+  &.inline{
+    margin-bottom: 0;
+  }
+
+  &.form-group:last-child{
+    margin-bottom: 0;
+  }
+}
+
+.my-input{
+  border-radius: $radius-size-sm;
+  border: 0;
+  background-color: transparentize($white, 0.7);
+  color: $white;
+  font-weight: bold;
+  padding: $padding-size-sm $padding-size-md;
+  outline: none;
+
+  @include placeholder{
+    color: darken($white, 5%);
+    font-weight: 400;
+  }
+
+  &:focus{
+    background-color: $white;
+    color: $black;
+
+    @include placeholder{
+      color: darken($white, 30%);
+    }
+  }
+}

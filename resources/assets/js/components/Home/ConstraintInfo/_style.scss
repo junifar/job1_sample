@@ -1,0 +1,77 @@
+.garuda-constraintinfo{
+  margin-top: $margin-size-xl;
+  background-color: $primary-color;
+  box-shadow: $box-shadow-reg;
+  display: flex;
+  flex-direction: column;
+
+  &-title{
+    display: flex;
+    font-size: $text-size;
+    font-weight: bold;
+    color: $white;
+    padding: $padding-size-xs;
+    padding-bottom: 0;
+
+    span{
+      align-self: center;
+      flex: 1;
+    }
+
+    .material-icons{
+      padding: 5px;
+      align-self: center;
+      font-size: $text-size-xl;
+    }
+  }
+
+  &-lists{
+    color: $white;
+    text-align: left;
+    padding: $padding-size-xs;
+
+    ul{
+      margin: 0;
+    }
+
+    li{
+      list-style-type: none;
+      display: flex;
+
+      span{
+        align-self: center;
+      }
+
+      .material-icons{
+        font-size: $text-size-sm;
+        padding: 3px;
+        align-self: center;
+      }
+    }
+  }
+
+  &-exit.material-icons{
+    font-size: $text-size;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  &-button{
+    padding: $padding-size-xs;
+    text-align: center;
+
+    &-button{
+      background-color: rgba(0,0,0,0);
+      border: 1px solid $white;
+      border-radius: 0;
+      color: $white;
+      font-weight: bold;
+
+      &:hover{
+        background-color: $white;
+        color: $garuda-light-blue;
+        border: 1px solid $white;
+      }
+    }
+  }
+}

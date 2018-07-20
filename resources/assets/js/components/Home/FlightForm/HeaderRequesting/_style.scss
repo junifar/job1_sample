@@ -1,0 +1,14 @@
+.my-headerrequesting{
+  background-color: $light-grey-2;
+  box-shadow: $box-shadow-reg;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  padding: $padding-size-lg;
+  margin: $margin-size-md 0;
+
+  &-title{
+    padding: $padding-size-md;
+  }
+}

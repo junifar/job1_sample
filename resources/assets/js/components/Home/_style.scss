@@ -1,0 +1,48 @@
+
+$blue: #3F51B5;
+body{
+  background-color: #FAFAFA;
+  -webkit-font-smoothing: antialiased;
+}
+.home{
+  font-family: 'Roboto', sans-serif;
+  color: #757575;
+  width: 100%;
+  padding-top: $padding-size-lg;
+
+  &-body{
+    height: 100%;
+    max-width: $container-size-lg;
+    margin: 0 auto;
+  }
+
+  &-header{
+    max-width: 100%;
+    margin: 0 auto;
+    margin-top: -1.5em;
+  }
+}
+
+.wlps-bg-img{
+  width: 85%;
+  max-height: 300px;
+  margin: 0 7.5%;
+  position: absolute;
+  align-items: center;
+  top: 0;
+  z-index: -1;
+  object-fit: cover;
+  object-position: center -32em;
+}
+
+.hide{
+  display: none;
+}
+
+@import './FlightForm/style';
+@import './SearchResult/style';
+@import './Carousel/style';
+@import './GarudaForm/style';
+@import './FeatureInfo/style';
+@import './ConstraintInfo/style';
+@import './SearchInfo/style';

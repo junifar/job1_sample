@@ -1,0 +1,26 @@
+@mixin button($bgcolor, $textcolor: $white){
+  padding: $padding-size-sm $padding-size-md;
+  text-align: center;
+  background-color: $bgcolor;
+  color: $textcolor;
+  font-weight: bold;
+  border-radius: $radius-size-sm;
+
+  &:hover{
+    background-color: lighten($bgcolor, 5%);
+  }
+}
+
+@mixin button-outline($color){
+  padding: $padding-size-sm $padding-size-md;
+  text-align: center;
+  color: $color;
+  font-weight: bold;
+  border-radius: $radius-size-sm;
+  border: 1pt solid $color;
+
+  &:hover{
+    background-color: $color;
+    color: $white;
+  }
+}

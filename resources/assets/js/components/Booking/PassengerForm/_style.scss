@@ -1,0 +1,54 @@
+.my-passengerform{
+
+  &-container{
+    display: flex;
+    flex-direction: row;
+    max-width: $container-size-lg;
+    overflow: scroll;
+    margin: auto;
+    padding: $padding-size-md 0;
+    border-left: 1px solid $light-grey;
+    border-right: 1px solid $light-grey;
+
+    .garuda-login{
+      margin: 0 $margin-size-md;
+
+      &:first-child{
+        margin-left: $padding-size-xs;
+      }
+
+      &:last-child{
+        margin-right: $padding-size-xs;
+      }
+
+      &-card-container{
+        margin-top: 0;
+      }
+    }
+  }
+}
+
+@media (max-width: $screen-size-md){
+  .my-passengerform{
+
+    &-container{
+      flex-direction: column;
+      overflow: auto;
+      margin: 0;
+      padding: 0;
+      border: 0;
+
+      .garuda-login{
+        margin: $margin-size-md 0;
+
+        &:first-child{
+          margin-top: 0;
+        }
+
+        &:last-child{
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}

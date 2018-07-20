@@ -1,0 +1,48 @@
+.garuda-searchinfo{
+
+  &-container{
+    border: 1px solid #333333;
+    display: flex;
+    flex-direction: column;
+    padding: $padding-size-lg;
+    margin-bottom: $margin-size-md;
+  }
+
+  &-item{
+    display: flex;
+  }
+
+  &-icon{
+    .material-icons{
+      font-size: $text-size-xxl;
+      padding: $padding-size-xs;
+      color: $garuda-indigo;
+    }
+  }
+
+  &-text{
+    align-self: center;
+    padding: $padding-size-xs;
+    color: $garuda-indigo;
+  }
+
+  &-title{
+    font-weight: bold;
+  }
+
+  &-subtitle{
+    font-size: $text-size-sm;
+  }
+
+  &-info{
+    padding: $padding-size-lg;
+    padding-top: 0;
+    font-weight: bold;
+    color: $garuda-light-black;
+    flex: 1;
+  }
+
+  &-button{
+    justify-content: flex-end;
+  }
+}

@@ -1,0 +1,12 @@
+.garuda-form{
+
+  &-container{
+    background-color: $white;
+    box-shadow: $box-shadow-reg;
+    margin-top: $margin-size-sm;
+    margin-bottom: $margin-size-sm;
+  }
+}
+
+@import './Header/style';
+@import './Body/style';

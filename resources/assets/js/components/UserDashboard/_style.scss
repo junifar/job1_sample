@@ -1,0 +1,79 @@
+.my-dashboardmenu{
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  padding: $padding-size-lg 0;
+  background-color: $light-grey-3;
+  height: 100%;
+
+  &-link{
+    padding: $padding-size-md $padding-size-xxl;
+    font-weight: bold;
+    color: $primary-color;
+
+    &:hover{
+      background-color: rgba($primary-color, 0.5);
+      color: $white;
+      text-decoration: none;
+    }
+
+    &.active{
+      background-color: $primary-color;
+      color: $white;
+    }
+  }
+}
+
+.my-dashboardcontent{
+  margin-left: 230px;
+}
+
+.my-userdashboard-body-title{
+  padding: $padding-size-md;
+  font-weight: bold;
+}
+
+.my-userdashboard-emptybody{
+  padding: $padding-size-lg;
+  text-align: center;
+}
+
+.my-userdashboard-flightcard{
+  margin: 1em;
+  box-shadow: $box-shadow-reg;
+  background-color: $light-grey-3;
+  border-radius: $radius-size-sm;
+
+  &-col{
+    display: flex;
+  }
+
+  &-item{
+    padding: $padding-size-md $padding-size-lg;
+
+    &-label{
+      font-size: 70%;
+    }
+  }
+
+  &-status{
+    display: flex;
+    padding: $padding-size-sm;
+    background-color: $primary-color;
+    border-bottom-left-radius: $radius-size-sm;
+    border-bottom-right-radius: $radius-size-sm;
+    color: $white;
+
+    &-value{
+      flex: 1;
+    }
+
+    &.status-1{
+      background-color: $status-1;
+    }
+
+    &.status-4{
+      background-color: $status-4;
+    }
+  }
+}

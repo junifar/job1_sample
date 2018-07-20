@@ -1,0 +1,11 @@
+.carousel-item {
+  width:900px;
+  height:500px;
+  margin: auto;
+}
+
+.front-pictures{
+  object-fit: cover;
+  height: 35em;
+  width: 100%;
+}

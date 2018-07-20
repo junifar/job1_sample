@@ -1,0 +1,215 @@
+.flight-form{
+  background-color: $primary-color;
+  border-radius: 2px;
+  margin: $margin-size-md 0 $margin-size-md 0;
+
+  @include box-shadow($box-shadow-reg);
+
+  &__header{
+    padding: $padding-size-md $padding-size-sm 0 $padding-size-sm;
+    display: flex;
+  }
+
+  &__body{
+    color: $white;
+    max-width: $container-size-lg;
+    padding: $padding-size-sm;
+  }
+
+  &__origin{
+    padding-right: 1px;
+  }
+
+  &__destination{
+    padding-left: 1px;
+  }
+
+  &__footer{
+    padding: $padding-size-xxs 0;
+    text-align: right;
+
+    .dropdown{
+      display: inline-block;
+    }
+
+    .btn{
+      color: rgba($text-color-light, .6);
+      font-size: $text-size-sm;
+      background-color: transparent;
+      border: 1px solid rgba($white, .4);
+      display: inline-block;
+      margin: $margin-size-sm;
+
+      span{
+        font-weight: 700;
+      }
+    }
+  }
+}
+
+.wlps-search{
+
+  &-container{
+    text-align: right;
+  }
+
+  &-btn{
+    background-color: $accent-color;
+    font-size: $text-size;
+    padding: $padding-size-xs $padding-size-md $padding-size-xs $padding-size-sm;
+    border-radius: $radius-size-xxl;
+
+    .wlps-form-icon {
+      margin-right: $margin-size-sm;
+
+      i{
+        font-size: $text-size-lg;
+      }
+    }
+  }
+}
+
+.wlps-form-group{
+
+  .Select{
+    width: 100%;
+
+    .VirtualizedSelectOption{
+      color: $text-color-dark;
+      padding: $padding-size-sm;
+      font-size: $text-size-sm;
+    }
+
+    &-control{
+      background-color: rgba($white, .25);
+      border: 0;
+      border-radius: $radius-size-sm;
+      cursor: text;
+      height: 56px;
+    }
+
+    &-input{
+      padding: $padding-size-sm;
+      line-height: 1.5;
+
+      input{
+        color: $text-color-light;
+        font-weight: 600;
+      }
+    }
+
+    &-value{
+      padding: 0 !important;
+
+      &-label{
+        display: block;
+        padding: $padding-size-sm;
+        line-height: 2;
+        color: $text-color-light !important;
+        font-weight: 600;
+        font-size: $text-size;
+      }
+    }
+
+    &-placeholder{
+      color: $text-color-light-secondary;
+      padding: $padding-size-md;
+      line-height: 1.5;
+    }
+
+    &-arrow-zone{
+      display: none;
+    }
+
+    &.is-focused > .Select-control{
+      background-color: rgba($white, .5);
+    }
+  }
+}
+
+@media (min-width: $screen-size-md){
+
+  .wlps-form-group{
+    margin-bottom: 0;
+  }
+  .flight-form{
+
+    &__place{
+      padding-right: 0;
+    }
+
+    &__date{
+      padding-left: 0;
+    }
+  }
+
+  .wlps-search{
+
+    &-btn{
+      position: absolute;
+      height: 3em;
+      width: 3em;
+      right: -3em;
+      top: -51px;
+    }
+
+    &-label{
+      display: none;
+    }
+  }
+}
+
+@media (max-width: $screen-size-md){
+  .wlps-form-group{
+
+    .Select{
+
+      &-control{
+        height: 38.188px;
+      }
+
+      &-value-label{
+        font-size: $text-size-sm;
+        padding: $padding-size-sm;
+      }
+
+      &-input{
+        font-size: $text-size-sm;
+        padding: $padding-size-xxs $padding-size-sm;
+      }
+
+      &-placeholder{
+        cursor: text;
+        font-size: $text-size-sm;
+        padding: $padding-size-md $padding-size-sm;
+      }
+
+      &-option{
+        font-size: $text-size-sm;
+      }
+    }
+  }
+
+  .wlps-search{
+
+    &-btn{
+      font-size: 90%;
+      padding: $padding-size-xxs $padding-size-sm $padding-size-xxs $padding-size-xs;
+      position: absolute;
+      right: 1em;
+      bottom: -1.75em;
+
+      .wlps-form-icon {
+        margin-right: $margin-size-xs;
+
+        i{
+          font-size: 90%;
+        }
+      }
+    }
+  }
+}
+
+@import "HeaderResult/style";
+@import "HeaderRequesting/style";
+@import "PassengerDropdown/style";

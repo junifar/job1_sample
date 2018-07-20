@@ -1,0 +1,1 @@
+export const UPDATE_ITINERARIES = 'form/UPDATE_ITINERARIES';

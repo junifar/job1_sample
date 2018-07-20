@@ -1,0 +1,18 @@
+.my-headerresult{
+  background-color: $primary-color;
+  color: $white;
+  box-shadow: $box-shadow-reg;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  padding: $padding-size-lg;
+  margin: $margin-size-md 0;
+  border-radius: $radius-size-sm;
+
+  &-title{
+    font-weight: bold;
+    font-size: $text-size-lg;
+    padding: $padding-size-xs;
+  }
+}

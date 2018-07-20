@@ -1,0 +1,12 @@
+.wlps-dropdown{
+  .btn{
+    background-color: transparent;
+    border: 0;
+    font-size: $text-size-sm;
+
+    &:focus, &:active{
+      @include box-shadow(none !important);
+      background-color: rgba($white, .2) !important;
+    }
+  }
+}

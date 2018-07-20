@@ -1,0 +1,103 @@
+.my-searchresult{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+  &-container{
+    max-width: $container-size-lg;
+    margin: 0 auto;
+  }
+
+  &-row{
+    background-color: #F5F5F5;
+    box-shadow: $box-shadow-reg;
+    margin-bottom: $margin-size-sm;
+
+    &:hover{
+      background-color: $white;
+      cursor: pointer;
+    }
+
+    &:first-child{
+      border-top-left-radius: $radius-size-sm;
+      border-top-right-radius: $radius-size-sm;
+    }
+
+    &:last-child{
+      border-bottom-left-radius: $radius-size-sm;
+      border-bottom-right-radius: $radius-size-sm;
+    }
+
+    &.header{
+      background-color: rgba($white, 0);
+      box-shadow: none;
+      color: $text-color-dark-primary;
+      text-transform: uppercase;
+
+      th{
+        font-weight: 300;
+      }
+    }
+  }
+
+  &-column{
+    padding: $padding-size-md;
+    vertical-align: top;
+
+    &.priceheader{
+      text-align: center;
+    }
+
+    &.pricetag{
+      border-left: 1px solid $light-grey;
+      border-right: 1px solid $light-grey;
+      vertical-align: top;
+      width: 20%;
+    }
+
+    &.airlinelogo{
+      padding: 0 $padding-size-xs;
+    }
+  }
+
+  &-text{
+    margin: 0;
+    font-size: $text-size;
+
+    &-wlpsfare, &-normalfare{
+      font-weight: bold;
+      text-align: center;
+      color: $orange-accent;
+    }
+  }
+
+  &-subtext{
+    margin: 0;
+    color: $grey;
+    font-size: $text-size-sm;
+
+    &.pricesubtext{
+      text-align: center;
+    }
+
+    &.airlinename{
+      text-align: center;
+    }
+  }
+
+  &-button{
+
+    &-title{
+      font-weight: 300;
+      font-size: $text-size-sm;
+      text-transform: uppercase;
+    }
+
+    &-subtext{
+      font-weight: 300;
+      font-size: $text-size-sm;
+    }
+  }
+}
+
+@import "FlightCard/style";

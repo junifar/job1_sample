@@ -1,0 +1,54 @@
+.garuda-featureinfo{
+  margin-top: $margin-size-lg;
+  margin-bottom: $margin-size-lg;
+  background-color: $garuda-light-grey;
+  box-shadow: $box-shadow-reg;
+  padding: $padding-size-lg;
+  padding-bottom: $padding-size-xxl;
+
+  &-header{
+    margin-bottom: $margin-size-xxl;
+    color: $primary-color;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  &-container{
+    display: flex;
+  }
+
+  &-item{
+    flex: 1;
+  }
+
+  &-icon{
+    text-align: center;
+    margin-bottom: $margin-size-md;
+
+    .material-icons{
+      background-color: $primary-color;
+      font-size: $text-size-xxl;
+      color: $white;
+      padding: $padding-size-xxs;
+      border-radius: 100em;
+    }
+  }
+
+  &-text{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  &-title{
+    font-size: $text-size-sm;
+    color: $primary-color;
+    font-weight: bold;
+  }
+
+  &-subtitle{
+    font-size: $text-size-sm;
+  }
+
+
+}

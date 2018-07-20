@@ -1,0 +1,55 @@
+.my-paymentmethod{
+
+  &-group{
+    max-width: $container-size-lg;
+    margin: auto;
+
+    &-title{
+      padding: $padding-size-md;
+      font-weight: bold;
+    }
+
+    &-card{
+      padding: $padding-size-md;
+      box-shadow: $box-shadow-reg;
+      border-radius: $radius-size-sm;
+      display: flex;
+
+      &-text{
+        flex: 1;
+        font-weight: bold;
+      }
+
+      &-subtext{
+        color: $grey;
+      }
+    }
+
+    &-list{
+      box-shadow: $box-shadow-reg;
+      border-radius: $radius-size-sm;
+      display: flex;
+      flex-direction: column;
+    }
+
+    &-listitem{
+      display: flex;
+      padding: $padding-size-md;
+      border-bottom: 1px solid $light-grey;
+
+      &:hover{
+        cursor: pointer;
+        background-color: darken($white, 5%);
+      }
+
+      &-name{
+        flex: 1;
+        text-align: left;
+      }
+
+
+    }
+  }
+}
+
+@import 'MandiriClickpay/style';

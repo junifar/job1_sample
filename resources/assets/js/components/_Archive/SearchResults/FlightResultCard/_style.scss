@@ -1,0 +1,46 @@
+.flight-result-card{
+  background-color: $white;
+  border-bottom: 1px solid darken($white, 10%);
+  box-shadow: $box-shadow-reg;
+  border-radius: 2px;
+  padding: $padding-size-sm $padding-size-md;
+
+  &__img{
+
+  }
+
+  &__text{
+    font-size: $text-size;
+    strong{
+      font-weight: 600;
+    }
+  }
+
+  &__subtext{
+    font-size: 80%;
+    color: darken($white, 50%);
+  }
+
+  &__container:last-child{
+    text-align: right;
+  }
+}
+
+@media (max-width: $screen-size-sm) {
+
+  .flight-result-card{
+    padding: $padding-size-xs $padding-size-sm;
+
+    &__img{
+      max-width: $image-width-xs;
+    }
+
+    &__text{
+      font-size: 75%;
+    }
+
+    &__subtext{
+      font-size: 60%;
+    }
+  }
+}

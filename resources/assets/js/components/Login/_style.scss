@@ -1,0 +1,102 @@
+.garuda-login{
+  display: flex;
+  justify-content: center;
+
+  &-container{
+    width: 25em;
+    max-width: 25em;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  &-title{
+    color: $white;
+    padding: $padding-size-xl $padding-size-md;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  &-subtitle{
+    color: $white;
+    text-align: center;
+    margin-bottom: $margin-size-lg;
+  }
+
+  &-form{
+    display: flex;
+    flex-direction: column;
+  }
+
+  &-input{
+    margin: $margin-size-md 0;
+  }
+
+  &-forgot{
+    text-align: right;
+    color: $white;
+    font-size: 90%;
+    margin-top: $margin-size-sm;
+    margin-bottom: $margin-size-sm;
+
+    div{
+      cursor: pointer;
+      padding: $padding-size-sm;
+
+      &:hover{
+        background-color: rgba($white, 0.5);
+      }
+    }
+  }
+
+
+
+  &-card{
+    padding: $padding-size-md $padding-size-xxl;
+
+    &-container{
+      border-radius: $radius-size-sm;
+      background-color: $primary-color;
+      box-shadow: $box-shadow-reg;
+      margin-top: $margin-size-md;
+    }
+
+    &.button{
+      text-align: center;
+      border-top: 1px solid lighten($primary-color, 5%);
+      color: $white;
+      font-weight: bold;
+
+      &:hover{
+        background-color: lighten($primary-color, 5%);
+        cursor: pointer;
+      }
+    }
+
+    &-mid{
+      text-align: right;
+    }
+
+    &-divider{
+      text-align: center;
+      color: $garuda-light-grey2;
+      margin: 0;
+      border-top: 1px solid $garuda-light-grey;
+      margin-top: 1em;
+      padding-top: 0.5em;
+      font-size: 70%;
+    }
+
+    &.register{
+      background-color: $white;
+    }
+
+    &.facebook{
+      background-color: $white;
+    }
+
+    &.google{
+      background-color: $white;
+    }
+  }
+}

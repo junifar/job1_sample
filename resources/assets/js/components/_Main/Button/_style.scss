@@ -1,0 +1,102 @@
+$backgroundcolor: $white;
+$primaryc: $primary-color;
+$secondc: $white;
+$accentc: $accent-color;
+
+.garuda-button{
+  padding: $padding-size-sm $padding-size-md;
+  text-align: center;
+  background-color: $secondc;
+  color: $primaryc;
+  font-weight: bold;
+  border-radius: $radius-size-sm;
+  box-shadow: $box-shadow-reg;
+  margin-top: $margin-size-xs;
+  margin-bottom: $margin-size-xs;
+
+  &:hover{
+    cursor: pointer;
+    background-color: darken($backgroundcolor, 10%);
+  }
+
+  &.link{
+    background-color: rgba($white, 0);
+    color: $white;
+    font-weight: normal;
+    box-shadow: none;
+    display: inline-block;
+    margin: 0;
+
+    &:hover{
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+
+  &.outline{
+    background-color: rgba($white, 0);
+    box-shadow: none;
+    border: 1px solid $primaryc;
+
+    &:hover{
+      background-color: $primaryc;
+      color: $white;
+
+      &.accentc{
+        background-color: $accentc;
+      }
+    }
+
+    &.accentc{
+      border-color: $accentc;
+      color: $accentc;
+
+      &:hover{
+        color: $white;
+      }
+    }
+  }
+
+  &.register{
+    background-color:$garuda-light-grey;
+    color: $primaryc;
+
+    &:hover{
+      background-color: lighten($garuda-light-grey, 5%);
+    }
+  }
+
+  &.accentc{
+    background-color: lighten($accentc, 10%);
+    color: $white;
+
+    &:hover{
+      background-color: lighten($accentc, 15%);
+    }
+  }
+
+  &.facebook{
+    background-color: lighten($facebook-color, 10%);
+    color: $white;
+    &:hover{
+      background-color: lighten($facebook-color, 15%);
+    }
+  }
+
+  &.googleplus{
+    background-color: lighten($googleplus-color, 10%);
+    color: $white;
+    &:hover{
+      background-color: lighten($googleplus-color, 15%);
+    }
+  }
+
+  &.fullbg{
+    background-color: $primary-color;
+    color: $white;
+  }
+
+  &.noshadow{
+    box-shadow: none;
+  }
+}
