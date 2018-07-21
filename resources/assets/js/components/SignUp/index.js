@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import { Form } from 'reactstrap';
+import { Form, FormGroup, Input, Label, FormText } from 'reactstrap';
 
-import { Input, Button } from '../_Main';
+import { Button } from '../_Main';
 
 class SignUp extends Component{
 
@@ -111,51 +111,59 @@ class SignUp extends Component{
   render(){
     return(
         <div>
-              <form className="form-signin">
-                  <div className="garuda-login">
-                      <div  className="garuda-login-container">
-                          <div className="garuda-login-card-container">
-                              <div className="garuda-login-card">
+          <form className="form-signin">
+              <div className="garuda-login">
+                  <div  className="garuda-login-container">
+
+                      <div className="garuda-login-card-container">
+                          <div className="garuda-login-card">
+                              <div className="garuda-login-card-top">
                                   <div className="garuda-login-picture">
                                       <div className="garuda-login-title">DAFTAR</div>
                                   </div>
                               </div>
+
+                              <div className="garuda-login-card-mid">
+                                  <Form className="garuda-login-form">
+                                      {/*<Input className="my-auth-input" placeholder="Username" type="text" onChange={this.onUsernameChange} value={this.state.username}/>*/}
+                                      {/*<Input className="my-auth-input" placeholder="Full Name" type="text" onChange={this.onNameChange} value={this.state.name}/>*/}
+                                      {/*<Input className="my-auth-input" placeholder="Email" type="text" onChange={this.onEmailChange} value={this.state.email}/>*/}
+                                      {/*<Input className="my-auth-input" placeholder="Password" type="password" onChange={this.onPasswordChange} value={this.state.password}/>*/}
+                                      {/*<Input className="my-auth-input" placeholder="Password Confirmation" type="password" onChange={this.onPasswordConfirmationChange} value={this.state.password_confirmation}/>*/}
+                                      {/*<Input className="my-auth-input" placeholder="Phone" type="text" onChange={this.onPhoneChange} value={this.state.phone}/>*/}
+                                      {/*<Input className="my-auth-input" placeholder="Birthday" type="string" onChange={this.onBirthDateChange} value={this.state.birth_date}/>*/}
+
+                                      <FormGroup>
+                                        <Input className="my-auth-input" placeholder="Username" type="text" onChange={this.onUsernameChange} value={this.state.username}/>
+                                      </FormGroup>
+                                      <FormGroup>
+                                        <Input className="my-auth-input" placeholder="Full Name" type="text" onChange={this.onNameChange} value={this.state.name}/>
+                                      </FormGroup>
+                                      <FormGroup>
+                                          <Input className="my-auth-input" placeholder="Email" type="text" onChange={this.onEmailChange} value={this.state.email}/>
+                                      </FormGroup>
+                                      <FormGroup>
+                                        <Input className="my-auth-input" placeholder="Password" type="password" onChange={this.onPasswordChange} value={this.state.password}/>
+                                      </FormGroup>
+                                      <FormGroup>
+                                        <Input className="my-auth-input" placeholder="Password Confirmation" type="password" onChange={this.onPasswordConfirmationChange} value={this.state.password_confirmation}/>
+                                      </FormGroup>
+                                      <FormGroup>
+                                        <Input className="my-auth-input" placeholder="Phone" type="text" onChange={this.onPhoneChange} value={this.state.phone}/>
+                                      </FormGroup>
+                                      <FormGroup>
+                                        <Input className="my-auth-input" name="birthday" placeholder="Birthday" type="string" onChange={this.onBirthDateChange} value={this.state.birth_date}/>
+                                      </FormGroup>
+                                  </Form>
+                              </div>
+                          </div>
+                          <div className="garuda-login-card button" onClick={this.onSignUp}>
+                              <span>Daftar</span>
                           </div>
                       </div>
                   </div>
-
-                  <p className="mt-5 mb-3 text-muted text-center">© 2017-2018</p>
-              </form>
-
-             <div className="garuda-login">
-               <div  className="garuda-login-container">
-
-                 <div className="garuda-login-card-container">
-                   <div className="garuda-login-card">
-                     <div className="garuda-login-card-top">
-                       <div className="garuda-login-picture">
-                         <div className="garuda-login-title">DAFTAR</div>
-                       </div>
-                     </div>
-
-                     <div className="garuda-login-card-mid">
-                      <Form className="garuda-login-form">
-                         <Input className="my-auth-input" placeholder="Username" type="text" onChange={this.onUsernameChange} value={this.state.username}/>
-                         <Input className="my-auth-input" placeholder="Full Name" type="text" onChange={this.onNameChange} value={this.state.name}/>
-                         <Input className="my-auth-input" placeholder="Email" type="text" onChange={this.onEmailChange} value={this.state.email}/>
-                         <Input className="my-auth-input" placeholder="Password" type="password" onChange={this.onPasswordChange} value={this.state.password}/>
-                         <Input className="my-auth-input" placeholder="Password Confirmation" type="password" onChange={this.onPasswordConfirmationChange} value={this.state.password_confirmation}/>
-                         <Input className="my-auth-input" placeholder="Phone" type="text" onChange={this.onPhoneChange} value={this.state.phone}/>
-                         <Input className="my-auth-input" placeholder="Birthday" type="string" onChange={this.onBirthDateChange} value={this.state.birth_date}/>
-                       </Form>
-                     </div>
-                  </div>
-                   <div className="garuda-login-card button" onClick={this.onSignUp}>
-                     <span>Daftar</span>
-                   </div>
-                 </div>
               </div>
-             </div>
+          </form>
         </div>
 
     );

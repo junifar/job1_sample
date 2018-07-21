@@ -7270,6 +7270,7 @@ body {
   background-color: #FFFFFF; }
 
 .garuda-login {
+  margin-top: 100px;
   display: flex;
   justify-content: center;}
   .garuda-login-container {
