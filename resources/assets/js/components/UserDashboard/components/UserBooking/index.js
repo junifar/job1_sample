@@ -80,38 +80,40 @@ export default class UserBooking extends Component{
                   return (
                       <div key={q.id}>
                         <Row onClick={this.forwardPage.bind(this,q)} style={{padding: "10px"}}>
-                          <Col>
+                          <Col className="col-md-11">
+                          <Col className="col-md-3">
                             <span className="font-lower-grey">FROM</span>
                             <br/>
                             <span className="font-normal-bold">{q.dep.destination.city}
                               ({q.dep.destination.iata})</span>
                           </Col>
-                          <Col>
+                          <Col className="col-md-3">
                             <span className="font-lower-grey">TO</span>
                             <br/>
                             <span className="font-normal-bold">{q.dep.origin.city} ({q.dep.origin.iata})</span>
                           </Col>
-                          <Col>
+                          <Col className="col-md-3">
                             <span className="font-lower-grey">DATE</span>
                             <br/>
                             <span>{moment(q.dep.departureTime).format("ddd, D MMM YYYY")}</span>
                           </Col>
-                          <Col style={{maxWidth: "10%"}}>
-                            <span className="font-lower-grey">TIME</span>
+                          <Col className="col-md-4">
+                            <span className="font-lower-grey">TIME</span> <span className="wlps-form-icon"></span>
                             <br/>
                             <span>{moment(q.dep.departureTime).format("HH:mm")}</span>
                           </Col>
-                          <Col>
+                          <Col className="col-md-3">
                             <span className="font-lower-grey">AIRLINE</span>
                             <br/>
                             <span>{q.dep.airline.name}</span>
                           </Col>
-                          <Col style={{textAlign: "right"}}>
-                            <span className="wlps-form-icon"><i className="material-icons">more_vert</i></span>
                           </Col>
+                            <Col className="col-md-1">
+                                <i className="material-icons">more_vert</i>
+                            </Col>
                         </Row>
                         { q.status.code == 'PAY' &&
-                        <Row className="queue-pay">
+                        <Row className="queue-pay col-md-3">
                           <Col colSpan="6">
                             PAY
                           </Col>

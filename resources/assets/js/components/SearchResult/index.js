@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 import { Button, MyButton, Input } from '../_Main';
+import { bindActionCreators } from 'redux';
+import { Progress } from 'reactstrap';
+import * as ItinerariesActionCreators from '../../actions/itineraries';
+
 // Component
 import FlightCard from './FlightCard';
 import FlightForm from './FlightForm';
@@ -15,7 +19,84 @@ export default class SearchResult extends Component{
     super(props);
 
     this.state = {
-      showForm: false
+      showForm: false,
+      requesting: false,
+      received: false,
+      itineraries: {},
+      progress: 1
+    }
+  }
+
+  onChangeRequesting = (val) => {
+    this.setState({
+      requesting: val
+    });
+  }
+
+  requestFlights = () => {
+     const params =  {
+       origin: this.props.location.state.origin,
+       destination: this.props.location.state.destination,
+       departureDate: this.props.location.state.departureDate,
+       adults: this.props.location.state.adults,
+       children: this.props.location.state.children,
+       infants: this.props.location.state.infants
+     };
+    let serviceClass = "eco";
+    if (this.props.location.state.seatclass == 'Business Class') {
+      params.serviceClass = "exe";
+    } else if (this.props.location.state.seatclass == 'First Class') {
+      serviceClass = "1st";
+    }
+
+      if (this.props.location.state.returnDate) {
+        params.returnDate = this.props.location.state.returnDate;
+      }
+
+     const url = '/v1/flight/search';
+     this.setState({progress: 1});
+     this.interval = setInterval(this.loadingProgress, 100);
+
+     let axiosConfig = {
+       headers: {
+         'Content-Type': 'application/json'
+       }
+     };
+
+     // requesting to api
+     axios.post(url, params, axiosConfig).then((res) => {
+       this.setState({progress: 100});
+       clearInterval(this.interval);
+       if (res.data.status == 'false') {
+        this.props.openModal("Flight not found.");
+       } else {
+         // *** Success Request Flight ***
+         if (res.data.data[0] == null) {
+          this.props.openModal("Flight not found.");
+         } else {
+           this.setState({itineraries: res.data.data[0].dep});
+          }
+        }
+
+       /*this.props.onChangeRequesting(false);
+       this.props.openRequesting(false);
+       this.props.onChangeReceived(true);*/
+     }).catch((error) => {
+       // *** Failed Request Flight ***
+       /*this.props.onChangeRequesting(false);
+       this.props.openRequesting(false);
+       this.props.openModal("Maaf terdapat kesalahan pada server.");*/
+     });
+
+  };
+
+  loadingProgress = () => {
+    this.setState({
+      progress: this.state.progress + 10 * (1 / this.state.progress)
+    });
+
+    if (this.state.progress > 100) {
+      clearInterval(this.interval);
     }
   }
 
@@ -46,6 +127,11 @@ export default class SearchResult extends Component{
   }
 
   render(){
+    if (this.props.location.state.search) {
+      this.requestFlights();
+      this.props.location.state.search = false;
+    }
+
     return(
       <div className="my-searchresult-container">
 
@@ -121,20 +207,30 @@ export default class SearchResult extends Component{
         </div>
 
         <div className="my-searchresult">
-          <SearchInfo itineraries={this.props.location.state.itineraries} seat_class={this.props.location.state.seat_class} adults={this.props.location.state.adults} children={this.props.location.state.children}
+          { this.state.itineraries && (this.state.itineraries.length > 0) &&
+          <SearchInfo itineraries={this.state.itineraries}
+                      seat_class={this.props.location.state.seatclass} adults={this.props.location.state.adults}
+                      children={this.props.location.state.children}
                       infants={this.props.location.state.infants} toggleShowForm={this.toggleShowForm}/>
+          }
           { this.state.showForm &&
-            <FlightForm />
+            <FlightForm
+                onChangeRequesting={this.onChangeRequesting}/>
+          }
+          { (this.state.progress > 1 && this.state.progress < 100) &&
+          <div className="my-headerrequesting">
+            <div className="my-headerrequesting-title">Searching.. {this.state.progress.toFixed(0)} %</div>
+            <Progress animated color="info" max="100" value={this.state.progress}/>
+          </div>
           }
           <table className="my-searchresult-table">
-            { (this.props.location.state.itineraries.length > 0) &&
             <tbody>
             <ResultHeader
-                seat_class={this.props.location.state.seat_class}/>
+                seat_class={this.props.location.state.seatclass}/>
 
-            { this.props.location.state.itineraries.map((itinerary, index) => {
+            { this.state.itineraries && (this.state.itineraries.length > 0) && this.state.itineraries.map((itinerary, index) => {
               return(
-                  <tr>
+                  <tr id={index}>
                     <td colSpan="7">
                       <table style={{width: "100%", backgroundColor: "#FFFFFF",  border: "1px solid #dddddd"}}>
                       <FlightCard
@@ -144,6 +240,8 @@ export default class SearchResult extends Component{
                           destination_iata={itinerary.destination.iata}
                           origin={itinerary.origin.name}
                           destination={itinerary.destination.name}
+                          origin_city={itinerary.origin.city}
+                          destination_city={itinerary.destination.city}
                           departure_date={moment(itinerary.departureTime)}
                           arrival_date={moment(itinerary.arrivalTime)}
                           normal_fare={(itinerary.fare == null ? null : itinerary.fare.totalPrice)}
@@ -153,42 +251,9 @@ export default class SearchResult extends Component{
                           currency="IDR"
                           facility="20kg baggage"
                           itinerarty_type="normal"
-                          seat_class={this.props.location.state.seat_class}
+                          seat_class={this.props.location.state.seatclass}
                           onClick={(e) => this.onClickFlightCard(itinerary, e)}
                       />
-                      <tr>
-                        <td colSpan="6" style={{ paddingLeft: "110px"}}><hr/></td>
-                      </tr>
-                      <tr>
-                        <td colSpan="2">
-                          <table>
-                            <tr>
-                              <td style={{padding: "0px 10px 20px 10px"}}>
-                                <span style={{display: "flex", width: "25px", height: "25px"}}>
-                                <img src="https://www.gstatic.com/flights/airline_logos/70px/GA.png" className="img-fluid flight-result-card__img" alt="Responsive" />
-                                  </span>
-                                <span style={{display: "flex"}}>Garuda</span>
-                                <span style={{display: "flex"}}>{this.props.location.state.seat_class}</span>
-                              </td>
-                              <td>
-                              </td>
-                            </tr>
-                          </table>
-                        </td>
-                        <td>
-                          <span className="my-booking-detail-time" style={{display: "flex"}}>{moment(itinerary.departureTime).format("HH:mm")}</span>
-                          <span className="my-booking-detail-time" style={{display: "flex"}}>{moment(itinerary.departureTime).format("dddd, DD MMM")}</span>
-                          <span className="my-booking-detail-time" style={{display: "flex"}}>{itinerary.duration}</span>
-                          <span className="my-booking-detail-time" style={{display: "flex"}}>{moment(itinerary.arrivalTime).format("HH:mm")}</span>
-                          <span className="my-booking-detail-time" style={{display: "flex"}}>{moment(itinerary.arrivalTime).format("dddd, DD MMM")}</span>
-                        </td>
-                        <td colSpan="2">
-                          sfdsasdsa
-                        </td>
-                        <td colSpan="2">
-                          sfdsasdsa
-                        </td>
-                      </tr>
                     </table>
                     </td>
                   </tr>
@@ -196,8 +261,6 @@ export default class SearchResult extends Component{
             })
             }
             </tbody>
-            
-            }
           </table>
             </div>
       </div>

@@ -35,6 +35,7 @@ export default class SearchResult extends Component {
   }
 
   render(){
+    console.log("param :"+this.props.location.state.params);
     return(
       <table className="my-searchresult-table">
         { (this.props.itineraries.length > 0) &&

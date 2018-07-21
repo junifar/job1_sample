@@ -2,12 +2,15 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Form } from 'reactstrap';
+import PropTypes from 'prop-types';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as userActionCreators from '../../actions/user';
 
 import { Input, Button } from '../_Main';
+
+import Api from '../../scripts/Api';
 
 class Login extends Component{
 
@@ -41,10 +44,10 @@ class Login extends Component{
     onLogin =  () => {
       var error = false;
       var err = "";
-      if (this.state.email === "") {
+      if (this.state.email == "") {
         err = '^Please enter your email address.';
         error = true;
-      } else if (this.state.password === "") {
+      } else if (this.state.password == "") {
         err = '^Please enter your password.';
         error = true;
       }

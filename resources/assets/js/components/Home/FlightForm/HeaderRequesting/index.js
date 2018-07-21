@@ -25,7 +25,7 @@ export default class HeaderRequesting extends Component{
   }
 
   componentWillUnmount(){
-    console.log("interval unmount");
+    //console.log("interval unmount");
     clearInterval(this.interval);
   }
 
@@ -35,7 +35,7 @@ export default class HeaderRequesting extends Component{
   }
 
   loadingProgress = () => {
-    console.log("interval unmount :"+this.props.isOpen);
+    console.log("interval unmount :"+this.state.loadprogress);
     var a = 1;
       if (this.props.isOpen) {
         this.setState({
@@ -57,12 +57,9 @@ export default class HeaderRequesting extends Component{
   }
 
   render(){
-    console.log("interval will mount 123");
-    if (this.props.isOpen) {
-      if (this.state.loadprogress < 100) {
+    if (this.props.isOpen && this.state.loadprogress < 100) {
         this.loadingProgress();
       }
-    }
     return(
         <div>
           <RModal isOpen={this.props.isOpen} modalTransition={{ timeout: 20 }} backdropTransition={{ timeout: 10 }}

@@ -49,21 +49,20 @@ export default class UserProfile extends Component{
   render(){
     return (
       <div>
+          <div className="row">&nbsp;</div>
+          <div className="row pull-right">
+              <div className="col-md-12">
+                  <div className="garuda-button garuda-userdashboard-submit">
+                      <strong>Edit Profile</strong>
+                  </div>
+                  <div className="garuda-button garuda-userdashboard-submit">
+                      <strong>Edit Password</strong>
+                  </div>
+              </div>
+          </div>
         <div className="my-userdashboard-body">
           <table className="my-userdashboard-table">
-            <tbody>
-              <tr className="my-userdashboard-tr">
-                <td className="my-userdashboard-td-left">{this.state.profile === null ? `` : this.state.profile.name}</td>
-                <td className="my-userdashboard-td-right">
-                  <div className="garuda-button garuda-userdashboard-submit">
-                    <strong>Edit Profile</strong>
-                  </div>
-                  <div className="garuda-button garuda-userdashboard-submit">
-                    <strong>Edit Password</strong>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
+
             <div className="dropdown-divider">
             </div>
             <tbody>

@@ -80,32 +80,32 @@ export default class UserQueue extends Component{
                   return (
                       <div key={q.queueId}>
                         <Row onClick={this.forwardPage.bind(this,q)} style={{padding: "10px"}}>
-                          <Col>
+                          <Col className="col-md-3">
                             <span className="font-lower-grey">FROM</span>
                             <br/>
                             <span className="font-normal-bold">{q.destination.city} ({q.destination.iata})</span>
                           </Col>
-                          <Col>
+                          <Col className="col-md-3">
                             <span className="font-lower-grey">TO</span>
                             <br/>
                             <span className="font-normal-bold">{q.origin.city} ({q.origin.iata})</span>
                           </Col>
-                          <Col>
+                          <Col className="col-md-3">
                             <span className="font-lower-grey">DATE</span>
                             <br/>
                             <span>{moment(q.departureTime).format("ddd, D MMM YYYY")}</span>
                           </Col>
-                          <Col style={{maxWidth: "10%"}}>
+                          <Col className="col-md-3">
                             <span className="font-lower-grey">TIME</span>
                             <br/>
                             <span>{moment(q.departureTime).format("HH:mm")}</span>
                           </Col>
-                          <Col>
+                          <Col className="col-md-3"l>
                             <span className="font-lower-grey">AIRLINE</span>
                             <br/>
                             <span>{q.airline.name}</span>
                           </Col>
-                          <Col style={{textAlign: "right"}}>
+                          <Col className="col-md-3">
                             <span className="wlps-form-icon"><i className="material-icons">more_vert</i></span>
                           </Col>
                         </Row>

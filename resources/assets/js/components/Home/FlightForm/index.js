@@ -31,7 +31,6 @@ class FlightForm extends Component{
     requesting: PropTypes.bool,
     received: PropTypes.bool,
     openModal: PropTypes.func,
-    openRequesting: PropTypes.func,
     departure_date: momentPropTypes.momentObj,
     arrival_date: momentPropTypes.momentObj,
     origin: PropTypes.string,
@@ -57,7 +56,7 @@ class FlightForm extends Component{
       airports: {},
       airports1: {},
       nonstop: false,
-      trip: "Direct",
+      trip: "One-Way",
       seat_class: "Economy Class",
       query: "",
       showArvDate: false,
@@ -142,28 +141,17 @@ class FlightForm extends Component{
         this.setState({
           query: value
         });
+
         // Create timeout to give user time to type
         clearTimeout(this.triggerRequest);
-        this.triggerRequest = setTimeout(this.requestAirports(), 200);
-      }
-    }
-
-    updateQuery1 = (value) => {
-      // Assume minimal 3 character before request to server
-      if(value.length >= 3){
-        this.setState({
-          query: value
-        });
-        // Create timeout to give user time to type
-        clearTimeout(this.triggerRequest1);
-        this.triggerRequest1 = setTimeout(this.requestAirports1(), 200);
+        this.triggerRequest = setTimeout(this.requestAirports(value), 200);
       }
     }
 
     // *** Actions ***
-    requestAirports = () => {
+    requestAirports = (value) => {
       const params =  {
-          "keyword" : this.state.query,
+          "keyword" : value,
           "perPage" : 1000
       };
 
@@ -193,40 +181,9 @@ class FlightForm extends Component{
       clearTimeout(this.triggerRequest); // Set timout for interval 200ms while witing user to type
     };
 
-    requestAirports1 = () => {
-    const params =  {
-      "keyword" : this.state.query,
-      "perPage" : 1000
-    };
-
-    const url = '/v1/flight/airport';
-
-    let axiosConfig = {
-      headers: {
-        'Content-Type': 'application/json'
-      }};
-
-    axios.post(url,params,axiosConfig).then((res) => {
-      // *** Success Get Airport ***
-      res.data.data.forEach((airport, index) => {
-        var citiesOption = this.state.airports;
-        citiesOption[airport.iata] = `${airport.city} | ${airport.iata}`;
-        this.setState({
-            airports1: citiesOption
-          });
-      });
-
-    }).catch((error) => {
-      // *** Failed Get Airport ***
-      //this.props.openModal("Maaf terdapat kesalahan pada server.");
-    });
-
-    clearTimeout(this.triggerRequest1); // Set timout for interval 200ms while witing user to type
-  };
-
     requestFlights = () => {
       // Requesting state for loading
-      this.props.onChangeRequesting(true);
+
       if (!this.props.origin) {
         this.props.openModal("Choose the origin flight.");
         this.props.onChangeRequesting(false);
@@ -239,8 +196,25 @@ class FlightForm extends Component{
         return;
       }
 
+      const params =  {
+        //itineraries: {},
+        origin: this.props.origin,
+        destination: this.props.destination,
+        departureDate: this.props.departure_date.format("YYYY-MM-DD"),
+        seatclass: this.state.seat_class,
+        adults: this.state.adults,
+        children: this.state.children,
+        infants: this.state.infants
+      };
+
+      if (this.state.trip == 'Return') {
+        params.returnDate = this.props.arrival_date.format("YYYY-MM-DD")
+      }
+
+      this.props.onChangeRequesting(true, params);
+
       // Redux data init
-      const updateItineraries = bindActionCreators(ItinerariesActionCreators.updateItineraries, this.props.dispatch);
+      /*const updateItineraries = bindActionCreators(ItinerariesActionCreators.updateItineraries, this.props.dispatch);
 
       const params =  {
           origin: this.props.origin,
@@ -256,7 +230,8 @@ class FlightForm extends Component{
       let axiosConfig = {
         headers: {
           'Content-Type': 'application/json'
-      }};
+        }
+      };
 
       // requesting to api
       axios.post(url, params, axiosConfig).then((res) => {
@@ -280,13 +255,10 @@ class FlightForm extends Component{
         this.props.openRequesting(false);
         this.props.openModal("Maaf terdapat kesalahan pada server.");
       });
-
+*/
     };
 
   render(){
-    if(this.props.requesting){
-      this.props.openRequesting(this.props.requesting);
-    }
 
     var portal = false;
     if (window.innerWidth <= 768) {
@@ -297,12 +269,6 @@ class FlightForm extends Component{
     for (var key in this.state.airports) {
       var airport = {value: key, label: this.state.airports[key]}
       arrayOfAirports.push(airport);
-    }
-
-    var arrayOfAirports1 = [];
-    for (var key in this.state.airports1) {
-      var airport1 = {value: key, label: this.state.airports1[key]}
-      arrayOfAirports1.push(airport1);
     }
 
     const { dispatch } = this.props;
@@ -344,7 +310,7 @@ class FlightForm extends Component{
                   simpleValue
                   clearable={false}
                   options={arrayOfAirports}
-                  onInputChange={this.updateQuery1}
+                  onInputChange={this.updateQuery}
                   noResultsText=""
                 />
               </FormGroup>

@@ -6,9 +6,7 @@ import PropTypes from 'prop-types';
 import { Row, Col} from 'reactstrap';
 
 import FlightForm from './FlightForm';
-import SearchResult from './SearchResult';
 import Carousel from './Carousel';
-import HeaderRequesting from './FlightForm/HeaderRequesting';
 
 import { bindActionCreators } from 'redux';
 import * as ItinerariesActionCreators from '../../actions/itineraries';
@@ -42,7 +40,7 @@ class Home extends Component {
       requesting: false,
       received: false,
       seat_class: "Economy Class",
-      adults: 1
+      adults: 1,
     }
   }
 
@@ -53,28 +51,32 @@ class Home extends Component {
       });
     }
 
-    onChangeRequesting = (val) => {
+    onChangeRequesting = (val, params) => {
       this.setState({
         requesting: val
       });
+
+      this.props.history.push({
+        pathname: '/searchresult',
+        state: {
+          origin: params.origin,
+          destination: params.destination,
+          departureDate: params.departureDate,
+          returnDate: params.returnDate,
+          seatclass: params.seatclass,
+          adults: params.adults,
+          children: params.children,
+          infants: params.infants,
+          search: true
+        }
+      });
+      window.scrollTo(0, 0);
     }
 
     onChangeReceived = (val) => {
       this.setState({
         received: val
       });
-
-      this.props.history.push({
-        pathname: '/searchresult',
-        state: {
-          itineraries: this.props.itineraries,
-          seat_class: this.state.seat_class,
-          adults: this.state.adults,
-          children: this.state.children,
-          infants: this.state.infants
-        }
-      });
-      window.scrollTo(0, 0);
     }
 
     onChangeSeatClass = (val) => {
@@ -165,7 +167,8 @@ const mapStateToProps = state => (
     children: state.form.children,
     infants: state.form.infants,
     seat_class: state.form.seat_class,
-    itineraries: state.itineraries
+    itineraries: state.itineraries,
+    requesting: state.requesting
   }
 );
 
