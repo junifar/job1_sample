@@ -108,22 +108,36 @@ class Home extends Component {
   render(){
     return(
       <div className="home">
+          {/*<div className="garuda-top-margin">&nbsp;</div>*/}
+          {/*<div className="container">*/}
+              {/*<div className="row">*/}
+                  {/*<div className="col-md-6">*/}
+                      {/*<Carousel*/}
+                          {/*items={[*/}
+                              {/*{index: 0, caption: 'QUEUE TO GET LOWER PRICE', subcaption: 'With Flylist.ID we can either buy flight tickets directlu or queue to get a lower price near departure time, if tickets are still available', src: '/images/queue002.jpeg'},*/}
+                              {/*{index: 1, caption: 'WATCH PROBABILITY STATUS', subcaption: 'While queueing, observe your chance to get the ticket. You might want to stop waiting and buy ticket with normal price if you have low probability', src: '/images/queue002.jpeg'},*/}
+                              {/*{index: 2, caption: 'PAY ONE YOU GET SEAT OFFER', subcaption: 'Starting from 24-hour prior to departure, system will after available seats to the people queueing. Once you receive sear offer, you have until one hour to pay before seat is offered to someone else', src: '/images/queue002.jpeg'}*/}
+                          {/*]}>*/}
+                      {/*</Carousel>*/}
+                  {/*</div>*/}
+                  {/*<div className="col-md-6">*/}
+                      {/*<h1>Contact us</h1>*/}
+                  {/*</div>*/}
+              {/*</div>*/}
+          {/*</div>*/}
         <div className="home-body">
           <div>
             <div className="my-userdashboard-body">
-              <table className="my-userdashboard-table">
-                <tbody>
-                <tr className="my-userdashboard-tr">
-                  <td className="home-body-left">
+                <div className="col-md-6">
                     <Carousel
-                        items={[
-                      {index: 0, caption: 'QUEUE TO GET LOWER PRICE', subcaption: 'With Flylist.ID we can either buy flight tickets directlu or queue to get a lower price near departure time, if tickets are still available', src: '/images/queue002.jpeg'},
-                      {index: 1, caption: 'WATCH PROBABILITY STATUS', subcaption: 'While queueing, observe your chance to get the ticket. You might want to stop waiting and buy ticket with normal price if you have low probability', src: '/images/queue002.jpeg'},
-                      {index: 2, caption: 'PAY ONE YOU GET SEAT OFFER', subcaption: 'Starting from 24-hour prior to departure, system will after available seats to the people queueing. Once you receive sear offer, you have until one hour to pay before seat is offered to someone else', src: '/images/queue002.jpeg'}
+                      items={[
+                          {index: 0, caption: 'QUEUE TO GET LOWER PRICE', subcaption: 'With Flylist.ID we can either buy flight tickets directlu or queue to get a lower price near departure time, if tickets are still available', src: '/images/queue002.jpeg'},
+                          {index: 1, caption: 'WATCH PROBABILITY STATUS', subcaption: 'While queueing, observe your chance to get the ticket. You might want to stop waiting and buy ticket with normal price if you have low probability', src: '/images/queue002.jpeg'},
+                          {index: 2, caption: 'PAY ONE YOU GET SEAT OFFER', subcaption: 'Starting from 24-hour prior to departure, system will after available seats to the people queueing. Once you receive sear offer, you have until one hour to pay before seat is offered to someone else', src: '/images/queue002.jpeg'}
                       ]}>
-                    </Carousel>
-                  </td>
-                  <td className="home-body-right">
+                  </Carousel>
+                </div>
+                <div className="col-md-6">
                     <FlightForm
                         onChangeItineraries={this.onChangeItineraries}
                         onChangeRequesting={this.onChangeRequesting}
@@ -138,10 +152,8 @@ class Home extends Component {
                         openRequesting={this.props.openRequesting}
                         originName={this.props.originName}
                     />
-                  </td>
-                </tr>
-                </tbody>
-              </table>
+                </div>
+
             </div>
           </div>
         </div>
