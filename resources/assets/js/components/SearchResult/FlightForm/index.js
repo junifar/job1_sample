@@ -11,6 +11,20 @@ import DropdownSearch from '../../_Main/DropdownSearch/DropdownSearch';
 
 export default class FlightForm extends Component{
 
+  static propTypes = {
+    origin_value: PropTypes.string,
+    destination_value: PropTypes.string,
+    departure_date: momentPropTypes.momentObj,
+    arrival_date: momentPropTypes.momentObj,
+    adult_value: PropTypes.number,
+    children_value: PropTypes.number,
+    infants_onseat_value: PropTypes.number,
+    infants_onlap_value: PropTypes.number,
+    seat_class: PropTypes.string,
+    onChangeItineraries: PropTypes.func,
+    onChangeRequesting: PropTypes.func
+  }
+
   constructor(props) {
     super(props);
 
@@ -32,6 +46,109 @@ export default class FlightForm extends Component{
       query: "",
     };
   }
+
+  updateOrigin = (value) => {
+    this.setState({
+      origin: value
+    });
+    console.log(value);
+  }
+
+  updateDestination = (value) => {
+    this.setState({
+      destination: value
+    });
+    console.log(value);
+  }
+
+  updateAdults = (e) => {
+    this.setState({
+      adults: parseInt(e.target.innerHTML, 10)
+    });
+  }
+
+  updateSeatClass = (e) => {
+    this.setState({
+      seat_class: e.target.innerHTML
+    });
+  }
+
+  updateQuery = (value) => {
+    if (this.triggerRequest){
+      clearTimeout(this.triggerRequest);
+    }
+    this.setState({
+      query: value
+    });
+    this.triggerRequest = setTimeout(this.requestAirports, 200);
+  }
+
+  updateNonstop = (value) => {
+    var isnonstop = false;
+    switch (value) {
+      case "Round Trip":
+        isnonstop = false;
+        break;
+      case "One-way":
+        isnonstop = true;
+        break;
+      case "Multi-city":
+        isnonstop = false;
+        break;
+      default:
+        break;
+    }
+    this.setState({
+      nonstop: isnonstop
+    });
+  }
+
+  updateTrip = (e) => {
+    this.setState({
+      trip: e.target.innerHTML
+    });
+    this.updateNonstop(e.target.innerHTML);
+  }
+
+  requestAirports = () => {
+    axios({
+      method: 'post',
+      url: '/api/v1/users',
+      params: {
+        query: this.state.query
+      }
+    }).then((res) => {
+      console.log(res);
+    }).catch((error) => {
+      console.log(error);
+    });
+  };
+
+  requestFlights = () => {
+    this.props.onChangeRequesting(true);
+    var isnonstop = "false";
+    if (this.state.nonstop) {
+      isnonstop = "true";
+    }
+    var properties = "?";
+    properties += "origin=" + this.state.origin;
+    properties += "&destination=" + this.state.destination;
+    properties += "&departure_date=" + this.state.departure_date.format("YYYY-MM-DD");
+    properties += "&arrival_date=" + this.state.arrival_date.format("YYYY-MM-DD");
+    properties += "&adults=" + this.state.adults;
+    properties += "&nonstop=" + isnonstop;
+    properties += "&seat_class=" + this.state.seat_class;
+    properties += "&currency=IDR";
+    fetch("/v1/itineraries"+properties)
+      .then(response => response.json())
+      .then(data => {
+        this.props.onChangeItineraries(data.results);
+        this.props.onChangeRequesting(false);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
   render(){
     var portal = false;
@@ -123,124 +240,3 @@ export default class FlightForm extends Component{
     );
   }
 }
-
-
-
-FlightForm.propTypes = {
-  origin_value: PropTypes.string,
-  destination_value: PropTypes.string,
-  departure_date: momentPropTypes.momentObj,
-  arrival_date: momentPropTypes.momentObj,
-  adult_value: PropTypes.number,
-  children_value: PropTypes.number,
-  infants_onseat_value: PropTypes.number,
-  infants_onlap_value: PropTypes.number,
-  seat_class: PropTypes.string,
-  onChangeItineraries: PropTypes.func,
-  onChangeRequesting: PropTypes.func
-}
-
-
-
-FlightForm.updateOrigin = (value) => {
-  this.setState({
-    origin: value
-  });
-  console.log(value);
-}
-
-FlightForm.updateDestination = (value) => {
-  this.setState({
-    destination: value
-  });
-  console.log(value);
-}
-
-FlightForm.updateAdults = (e) => {
-  this.setState({
-    adults: parseInt(e.target.innerHTML, 10)
-  });
-}
-
-FlightForm.updateSeatClass = (e) => {
-  this.setState({
-    seat_class: e.target.innerHTML
-  });
-}
-
-FlightForm.updateQuery = (value) => {
-  if (this.triggerRequest){
-    clearTimeout(this.triggerRequest);
-  }
-  this.setState({
-    query: value
-  });
-  this.triggerRequest = setTimeout(this.requestAirports, 200);
-}
-
-FlightForm.updateNonstop = (value) => {
-  var isnonstop = false;
-  switch (value) {
-    case "Round Trip":
-      isnonstop = false;
-      break;
-    case "One-way":
-      isnonstop = true;
-      break;
-    case "Multi-city":
-      isnonstop = false;
-      break;
-    default:
-      break;
-  }
-  this.setState({
-    nonstop: isnonstop
-  });
-}
-
-FlightForm.updateTrip = (e) => {
-  this.setState({
-    trip: e.target.innerHTML
-  });
-  this.updateNonstop(e.target.innerHTML);
-}
-
-FlightForm.requestAirports = () => {
-  axios({
-    method: 'post',
-    url: '/api/v1/users',
-    params: {
-      query: this.state.query
-    }
-  }).then((res) => {
-    console.log(res);
-  }).catch((error) => {
-    console.log(error);
-  });
-};
-
-FlightForm.requestFlights = () => {
-  this.props.onChangeRequesting(true);
-  var isnonstop = "false";
-  if (this.state.nonstop) {
-    isnonstop = "true";
-  }
-  var properties = "?";
-  properties += "origin=" + this.state.origin;
-  properties += "&destination=" + this.state.destination;
-  properties += "&departure_date=" + this.state.departure_date.format("YYYY-MM-DD");
-  properties += "&arrival_date=" + this.state.arrival_date.format("YYYY-MM-DD");
-  properties += "&adults=" + this.state.adults;
-  properties += "&nonstop=" + isnonstop;
-  properties += "&seat_class=" + this.state.seat_class;
-  properties += "&currency=IDR";
-  fetch("/v1/itineraries"+properties)
-    .then(response => response.json())
-    .then(data => {
-      this.props.onChangeItineraries(data.results);
-      this.props.onChangeRequesting(false);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-};

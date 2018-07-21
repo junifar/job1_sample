@@ -21,6 +21,22 @@ export default class PaymentMethod extends Component{
   //   });
   // }
 
+  directPayment = () => {
+    if(this.props.location.state){
+      this.props.history.push({
+        pathname: '/paymentmethod/mandiriclickpay',
+        state: {
+          booking: this.props.location.state.booking,
+          adults: this.props.location.state.adults,
+          children: this.props.location.state.children,
+          infants: this.props.location.state.infants,
+          contact: this.props.location.state.contact,
+          total_price: this.props.location.state.total_price
+        }
+      });
+    }
+  }
+
   render(){
     return(
       <div className="my-paymentmethod">
@@ -57,21 +73,5 @@ export default class PaymentMethod extends Component{
         </div>
       </div>
     );
-  }
-}
-
-PaymentMethod.directPayment = () => {
-  if(this.props.location.state){
-    this.props.history.push({
-      pathname: '/paymentmethod/mandiriclickpay',
-      state: {
-        booking: this.props.location.state.booking,
-        adults: this.props.location.state.adults,
-        children: this.props.location.state.children,
-        infants: this.props.location.state.infants,
-        contact: this.props.location.state.contact,
-        total_price: this.props.location.state.total_price
-      }
-    });
   }
 }

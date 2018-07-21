@@ -20,7 +20,10 @@ export default class Navbar extends Component {
     });
   }
 
- 
+  refreshNavbar = (user, token) => {
+    this.props.onLoginState(user, token);
+  }
+
   render(){
     console.log("navbar user :"+this.props.user);
     return(
@@ -87,9 +90,4 @@ export default class Navbar extends Component {
     )
   }
 }
-
-Navbar.refreshNavbar = (user, token) => {
-  this.props.onLoginState(user, token);
-}
-
 

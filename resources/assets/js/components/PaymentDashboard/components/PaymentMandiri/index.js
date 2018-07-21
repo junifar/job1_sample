@@ -3,7 +3,9 @@ import { Input, InputMask1, MyButton } from '../../../_Main';
 import PropTypes from 'prop-types';
 
 export default class PaymentMandiri extends Component{
-
+    static propTypes = {
+        debitcard: PropTypes.string
+    }
 
     constructor(props) {
         super(props);
@@ -14,7 +16,55 @@ export default class PaymentMandiri extends Component{
         };
     }
 
+    onDebitCardChange = (e) => {
+        this.setState({
+            debitcard: e
+        });
+    }
 
+    onTokenChange = (e) => {
+        this.setState({
+            mandiritoken: e
+        });
+    }
+
+    sendPayment = () => {
+        var cardnumber = this.state.debitcard.replace(/-/g,"");
+        var dataSend = {
+            bookingId : this.props.booking.id,
+            invoiceNumber :this.props.booking.invoiceNumber,
+            method : 1,
+                cardNumber : cardnumber, //4616999900000028
+            authorizationCode : this.state.mandiritoken, //"000000"
+            amount : this.props.booking.payment
+        };
+        var url = "/v1/flight/payment";
+
+        console.log(dataSend);
+        let axiosConfig = {
+            headers: {
+                'Content-Type': 'application/json',
+                'WLPS_TOKEN': this.props.token
+            }};
+
+        axios.post(url, dataSend, axiosConfig).then((res) => {
+            if (res.data.status) {
+                this.props.openModal("Success.");
+            } else {
+                this.props.openModal("Failed :."+(res.data.message == null ? '' : res.data.message));
+            }
+
+        }).catch((error) => {
+            console.log('err :'+error.status);
+            switch (error.status) {
+                case 401: // Unauthorized
+                    this.props.openModal("Anda perlu mendaftar/masuk sebagai pengguna untuk dapat menggunakan fitur ini.");
+                    break;
+                default:
+                    this.props.openModal("Maaf terdapat kesalahan pada server.");
+            }
+        });
+    }
 
   render(){
     return(
@@ -62,58 +112,4 @@ export default class PaymentMandiri extends Component{
         </div>
     );
   }
-}
-
-PaymentMandiri.propTypes = {
-    debitcard: PropTypes.string
-}
-
-PaymentMandiri.onDebitCardChange = (e) => {
-    this.setState({
-        debitcard: e
-    });
-}
-
-PaymentMandiri.onTokenChange = (e) => {
-    this.setState({
-        mandiritoken: e
-    });
-}
-
-PaymentMandiri.sendPayment = () => {
-    var cardnumber = this.state.debitcard.replace(/-/g,"");
-    var dataSend = {
-        bookingId : this.props.booking.id,
-        invoiceNumber :this.props.booking.invoiceNumber,
-        method : 1,
-        cardNumber : cardnumber, //4616999900000028
-        authorizationCode : this.state.mandiritoken, //"000000"
-        amount : this.props.booking.payment
-    };
-    var url = "/v1/flight/payment";
-
-    console.log(dataSend);
-    let axiosConfig = {
-        headers: {
-            'Content-Type': 'application/json',
-            'WLPS_TOKEN': this.props.token
-        }};
-
-    axios.post(url, dataSend, axiosConfig).then((res) => {
-        if (res.data.status) {
-            this.props.openModal("Success.");
-        } else {
-            this.props.openModal("Failed :."+(res.data.message == null ? '' : res.data.message));
-        }
-
-    }).catch((error) => {
-        console.log('err :'+error.status);
-        switch (error.status) {
-            case 401: // Unauthorized
-                this.props.openModal("Anda perlu mendaftar/masuk sebagai pengguna untuk dapat menggunakan fitur ini.");
-                break;
-            default:
-                this.props.openModal("Maaf terdapat kesalahan pada server.");
-        }
-    });
 }

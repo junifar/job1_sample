@@ -7,6 +7,33 @@ import ResultHeader from './ResultHeader';
 
 export default class SearchResult extends Component {
 
+  static propTypes = {
+    itineraries: PropTypes.array,
+    requesting: PropTypes.bool,
+    onClick: PropTypes.func,
+    seat_class: PropTypes.string,
+    openModal: PropTypes.func,
+    user: PropTypes.object,
+    token: PropTypes.string
+  }
+
+  onClickFlightCard = (itinerary, itinerary_type) => {
+    if (!this.props.user) {
+      this.props.openModal("Untuk melanjutkan silahkan anda Login terlebih dahulu.","/login");
+    } else {
+      this.props.history.push({
+        pathname: '/booking',
+        state: {
+          itinerary: itinerary,
+          itinerary_type: itinerary_type,
+          user: this.props.user,
+          token: this.props.token
+        }
+      });
+      window.scrollTo(0, 0);
+    }
+  }
+
   render(){
     return(
       <table className="my-searchresult-table">
@@ -42,31 +69,4 @@ export default class SearchResult extends Component {
       </table>
     );
   }
-}
-
-SearchResult.propTypes = {
-    itineraries: PropTypes.array,
-    requesting: PropTypes.bool,
-    onClick: PropTypes.func,
-    seat_class: PropTypes.string,
-    openModal: PropTypes.func,
-    user: PropTypes.object,
-    token: PropTypes.string
-}
-
-SearchResult.onClickFlightCard = (itinerary, itinerary_type) => {
-    if (!this.props.user) {
-        this.props.openModal("Untuk melanjutkan silahkan anda Login terlebih dahulu.","/login");
-    } else {
-        this.props.history.push({
-            pathname: '/booking',
-            state: {
-                itinerary: itinerary,
-                itinerary_type: itinerary_type,
-                user: this.props.user,
-                token: this.props.token
-            }
-        });
-        window.scrollTo(0, 0);
-    }
 }

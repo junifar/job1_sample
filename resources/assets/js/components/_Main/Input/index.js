@@ -3,6 +3,19 @@ import { Form as RForm, FormGroup, Input as RInput } from 'reactstrap';
 import PropTypes from 'prop-types';
 
 export default class Input extends Component{
+
+  static propTypes = {
+    placeholder: PropTypes.string,
+    type: PropTypes.string,
+    value: PropTypes.string,
+    className: PropTypes.string,
+    onChange: PropTypes.func,
+  };
+
+  static defaultProps = {
+    type: "text",
+  };
+
   render(){
     return(
         <input
@@ -19,15 +32,3 @@ export default class Input extends Component{
     );
   }
 }
-
-Input.propTypes = {
-  placeholder: PropTypes.string,
-  type: PropTypes.string,
-  value: PropTypes.string,
-  className: PropTypes.string,
-  onChange: PropTypes.func,
-};
-
-Input.defaultProps = {
-  type: "text",
-};

@@ -15,6 +15,37 @@ export default class UserProfile extends Component{
     this.requestMyProfile();
   }
 
+  requestMyProfile = () => {
+    const url = '/v1/user/my';
+
+    let axiosConfig = {
+      headers: {
+        'Content-Type': 'application/json',
+        'WLPS_TOKEN': this.state.token
+      }};
+
+    axios.post(url,"",axiosConfig).then((res) => {
+      if (res.data.data.length > 0) {
+        this.setState({
+          profile: res.data.data[0]
+        });
+      }
+    }).catch((error) => {
+      switch (+error.response.status) {
+        case 401: // Unauthorized
+          this.props.openModal("Your session is expired, please do relogin.");
+          this.props.history.push('/');
+          break;
+        default:
+          this.props.openModal("Maaf terdapat kesalahan pada server.");
+
+          this.props.history.push('/');
+          window.scrollTo(0,0);
+      }
+    });
+
+  }
+
   render(){
     return (
       <div>
@@ -66,35 +97,4 @@ export default class UserProfile extends Component{
       </div>
     );
   }
-}
-
-UserProfile.requestMyProfile = () => {
-  const url = '/v1/user/my';
-
-  let axiosConfig = {
-    headers: {
-      'Content-Type': 'application/json',
-      'WLPS_TOKEN': this.state.token
-    }};
-
-  axios.post(url,"",axiosConfig).then((res) => {
-    if (res.data.data.length > 0) {
-      this.setState({
-        profile: res.data.data[0]
-      });
-    }
-  }).catch((error) => {
-    switch (+error.response.status) {
-      case 401: // Unauthorized
-        this.props.openModal("Your session is expired, please do relogin.");
-        this.props.history.push('/');
-        break;
-      default:
-        this.props.openModal("Maaf terdapat kesalahan pada server.");
-
-        this.props.history.push('/');
-        window.scrollTo(0,0);
-    }
-  });
-
 }

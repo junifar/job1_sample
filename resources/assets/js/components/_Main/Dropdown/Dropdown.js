@@ -4,6 +4,13 @@ import { Dropdown as RDropdown, DropdownToggle, DropdownMenu, DropdownItem } fro
 
 export default class Dropdown extends Component{
 
+  static propTypes = {
+    header: PropTypes.string,
+    items: PropTypes.array,
+    size: PropTypes.string,
+    onChange: PropTypes.func,
+  }
+
   constructor(props) {
     super(props);
 
@@ -13,7 +20,11 @@ export default class Dropdown extends Component{
     };
   }
 
-
+  toggle = () => {
+    this.setState({
+      dropdownOpen: !this.state.dropdownOpen
+    });
+  }
 
   render(){
     return(
@@ -35,17 +46,4 @@ export default class Dropdown extends Component{
   }
 
 
-}
-
-Dropdown.propTypes = {
-    header: PropTypes.string,
-    items: PropTypes.array,
-    size: PropTypes.string,
-    onChange: PropTypes.func,
-}
-
-Dropdown.toggle = () => {
-    this.setState({
-        dropdownOpen: !this.state.dropdownOpen
-    });
 }

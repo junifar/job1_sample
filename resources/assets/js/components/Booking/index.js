@@ -18,7 +18,23 @@ import Api from '../../scripts/Api';
 
 class Booking extends Component{
 
-
+  static propTypes = {
+    departure_date: momentPropTypes.momentObj,
+    arrival_date: momentPropTypes.momentObj,
+    origin: PropTypes.string,
+    destination: PropTypes.string,
+    originName: PropTypes.string,
+    destinationName: PropTypes.string,
+    originAirport: PropTypes.string,
+    destinationAirport: PropTypes.string,
+    adults: PropTypes.number,
+    children: PropTypes.number,
+    infants: PropTypes.number,
+    seat_class: PropTypes.string,
+    itinerary: PropTypes.object,
+    itinerary_type: PropTypes.string,
+    token: PropTypes.string
+  };
 
   constructor(props){
     super(props);
@@ -72,6 +88,253 @@ class Booking extends Component{
       this.state.infants.push(pass);
     }
   }
+
+  // *** Actions ***
+  // Parse state on form to data of passengers
+  formToArrayOfPassenger = () => {
+    var passengerData = [];
+
+    for(var i = 0; i < this.state.adults.length; i++){
+      passengerData.push({
+        category: "Adult",
+        name: this.state.adults[i].full_name,
+        title: this.state.adults[i].title
+      });
+    }
+
+    for(var i = 0; i < this.state.children.length; i++){
+      console.log('the title :'+this.state.children[i].title);
+      passengerData.push({
+        category: "Child",
+        name: this.state.children[i].full_name,
+        title: this.state.children[i].title,
+        birtDate: this.state.children[i].date_of_birth
+      });
+    }
+
+    for(var i = 0; i < this.state.infants.length; i++){
+      passengerData.push({
+        category: "Infant",
+        name: this.state.infants[i].full_name,
+        title: this.state.infants[i].title,
+        birtDate: this.state.infants[i].date_of_birth
+      });
+    }
+
+    return passengerData;
+  }
+
+  // Create body json for request to booking
+  formToParameterRequest = () => {
+    var passengerData = this.formToArrayOfPassenger();
+    //this.props.location.state.itinerary.probability = this.props.location.state.itinerary.probability.value;
+
+    var dataSend = {
+      searchLogId: this.props.location.state.itinerary.searchLogId,
+      number: this.props.location.state.itinerary.number,
+      flightNumber: this.props.location.state.itinerary.flightNumber,
+      contact: {
+        title: this.state.title,
+        name: this.state.name,
+        phone: this.state.phone,
+        email: this.state.email
+      },
+      passengers: passengerData
+    }
+    return dataSend;
+  }
+
+  // Request for booking
+  sendBookFlightRequest = () => {
+    const url = '/v1/flight/booking';
+    const params = this.formToParameterRequest(); 
+
+    let axiosConfig = {
+      headers: {
+        'Content-Type': 'application/json',
+        'WLPS_TOKEN': this.props.location.state.token
+    }};
+
+    axios.post(url,params,axiosConfig).then((res) => {
+      if (res.data.status) {
+        this.props.history.push({
+          pathname: '/payment',
+          state: {
+            booking: res.data.data[0],
+            token: this.props.location.state.token
+          }
+        });
+        window.scrollTo(0,0);
+      } else {
+        this.props.openModal("Ada kesalah sistem, silahkan coba beberapa saat lagi.");
+      }
+    }).catch((error) => {
+      console.log('err :'+error.status);
+      switch (error.status) {
+        case 401: // Unauthorized
+          this.props.openModal("Anda perlu mendaftar/masuk sebagai pengguna untuk dapat menggunakan fitur ini.");
+          break;
+        default:
+          this.props.openModal("Maaf terdapat kesalahan pada server.");
+      }
+    });
+  }
+
+  sendQueueBookFlightRequest = () => {
+    const url = '/v1/flight/queue';
+    const params = this.formToParameterRequest();
+
+    let axiosConfig = {
+      headers: {
+        'Content-Type': 'application/json',
+        'WLPS_TOKEN': this.props.location.state.token
+      }};
+
+    axios.post(url,params,axiosConfig).then((res) => {
+      if (res.data.status) {
+        this.props.openModal("Queue Success");
+        this.props.history.push({
+          pathname: '/user/queue'
+        });
+        window.scrollTo(0,0);
+      } else {
+        this.props.openModal("Ada kesalah sistem, silahkan coba beberapa saat lagi.");
+      }
+    }).catch((error) => {
+      console.log('err :'+error);
+      switch (error.status) {
+        case 401: // Unauthorized
+          this.props.openModal("Anda perlu mendaftar/masuk sebagai pengguna untuk dapat menggunakan fitur ini.");
+          break;
+        default:
+          this.props.openModal("Maaf terdapat kesalahan pada server.");
+      }
+    });
+  }
+
+  // *** State Modifiers ***
+  // Go to review
+  goToReview = () => {
+    this.setState({
+      review: true
+    });
+  }
+
+    onEmailChange = (value) => {
+      this.setState({
+        email: value
+      });
+    }
+
+    onReemailChange = (value) => {
+      this.setState({
+        reemail: value
+      });
+    }
+
+    onPhoneChange = (value) => {
+      this.setState({
+        phone: value
+      });
+    }
+
+    onContactNameChange = (value) => {
+      this.setState({
+        name: value
+      });
+    }
+
+    onContactTitleChange = (value) => {
+      this.setState({
+        title: value
+      });
+    }
+
+    onTitleChange = (pass, index, value) => {
+      switch (pass) {
+        case this.ADULTS:
+          this.state.adults[index].title = value;
+          break;
+        case this.CHILDREN:
+          this.state.children[index].title = value;
+          break;
+        default:
+          break;
+      }
+      this.setState(this.state);
+    }
+
+    onFirstNameChange = (pass, index, value) => {
+      switch (pass) {
+        case this.ADULTS:
+          this.state.adults[index].first_name = value;
+          break;
+        case this.CHILDREN:
+          this.state.children[index].first_name = value;
+          break;
+        case this.INFANTS:
+          this.state.infants[index].first_name = value;
+          break;
+        default:
+          break;
+      }
+      this.setState(this.state);
+    }
+
+    onLastNameChange = (pass, index, value) => {
+      switch (pass) {
+        case this.ADULTS:
+          this.state.adults[index].last_name = value;
+          break;
+        case this.CHILDREN:
+          this.state.children[index].last_name = value;
+          break;
+        case this.INFANTS:
+          this.state.infants[index].last_name = value;
+          break;
+        default:
+          break;
+      }
+      this.setState(this.state);
+    }
+
+    onFullNameChange = (pass, index, value) => {
+      switch (pass) {
+        case this.ADULTS:
+          this.state.adults[index].full_name = value;
+          break;
+        case this.CHILDREN:
+          this.state.children[index].full_name = value;
+          break;
+        case this.INFANTS:
+          this.state.infants[index].full_name = value;
+          break;
+        default:
+          break;
+      }
+      this.setState(this.state);
+    }
+
+    onDateOfBirthChange = (pass, index, value) => {
+      switch (pass) {
+        case this.ADULTS:
+          this.state.adults[index].date_of_birth = value;
+          break;
+        case this.CHILDREN:
+          this.state.children[index].date_of_birth = value;
+          break;
+        case this.INFANTS:
+          this.state.infants[index].date_of_birth = value;
+          break;
+        default:
+          break;
+      }
+      this.setState(this.state);
+    }
+
+    continues = () => {
+      console.log("in continue");
+    }
 
   // *** Render ***
   render(){
@@ -335,273 +598,6 @@ class Booking extends Component{
       </div>
     );
   }
-}
-
-Booking.propTypes = {
-    departure_date: momentPropTypes.momentObj,
-    arrival_date: momentPropTypes.momentObj,
-    origin: PropTypes.string,
-    destination: PropTypes.string,
-    originName: PropTypes.string,
-    destinationName: PropTypes.string,
-    originAirport: PropTypes.string,
-    destinationAirport: PropTypes.string,
-    adults: PropTypes.number,
-    children: PropTypes.number,
-    infants: PropTypes.number,
-    seat_class: PropTypes.string,
-    itinerary: PropTypes.object,
-    itinerary_type: PropTypes.string,
-    token: PropTypes.string
-};
-
-
-
-// *** Actions ***
-// Parse state on form to data of passengers
-Booking.formToArrayOfPassenger = () => {
-    var passengerData = [];
-
-    for(var i = 0; i < this.state.adults.length; i++){
-        passengerData.push({
-            category: "Adult",
-            name: this.state.adults[i].full_name,
-            title: this.state.adults[i].title
-        });
-    }
-
-    for(var i = 0; i < this.state.children.length; i++){
-        console.log('the title :'+this.state.children[i].title);
-        passengerData.push({
-            category: "Child",
-            name: this.state.children[i].full_name,
-            title: this.state.children[i].title,
-            birtDate: this.state.children[i].date_of_birth
-        });
-    }
-
-    for(var i = 0; i < this.state.infants.length; i++){
-        passengerData.push({
-            category: "Infant",
-            name: this.state.infants[i].full_name,
-            title: this.state.infants[i].title,
-            birtDate: this.state.infants[i].date_of_birth
-        });
-    }
-
-    return passengerData;
-}
-
-// Create body json for request to booking
-Booking.formToParameterRequest = () => {
-    var passengerData = this.formToArrayOfPassenger();
-    //this.props.location.state.itinerary.probability = this.props.location.state.itinerary.probability.value;
-
-    var dataSend = {
-        searchLogId: this.props.location.state.itinerary.searchLogId,
-        number: this.props.location.state.itinerary.number,
-        flightNumber: this.props.location.state.itinerary.flightNumber,
-        contact: {
-            title: this.state.title,
-            name: this.state.name,
-            phone: this.state.phone,
-            email: this.state.email
-        },
-        passengers: passengerData
-    }
-    return dataSend;
-}
-
-// Request for booking
-Booking.sendBookFlightRequest = () => {
-    const url = '/v1/flight/booking';
-    const params = this.formToParameterRequest();
-
-    let axiosConfig = {
-        headers: {
-            'Content-Type': 'application/json',
-            'WLPS_TOKEN': this.props.location.state.token
-        }};
-
-    axios.post(url,params,axiosConfig).then((res) => {
-        if (res.data.status) {
-            this.props.history.push({
-                pathname: '/payment',
-                state: {
-                    booking: res.data.data[0],
-                    token: this.props.location.state.token
-                }
-            });
-            window.scrollTo(0,0);
-        } else {
-            this.props.openModal("Ada kesalah sistem, silahkan coba beberapa saat lagi.");
-        }
-    }).catch((error) => {
-        console.log('err :'+error.status);
-        switch (error.status) {
-            case 401: // Unauthorized
-                this.props.openModal("Anda perlu mendaftar/masuk sebagai pengguna untuk dapat menggunakan fitur ini.");
-                break;
-            default:
-                this.props.openModal("Maaf terdapat kesalahan pada server.");
-        }
-    });
-}
-
-Booking.sendQueueBookFlightRequest = () => {
-    const url = '/v1/flight/queue';
-    const params = this.formToParameterRequest();
-
-    let axiosConfig = {
-        headers: {
-            'Content-Type': 'application/json',
-            'WLPS_TOKEN': this.props.location.state.token
-        }};
-
-    axios.post(url,params,axiosConfig).then((res) => {
-        if (res.data.status) {
-            this.props.openModal("Queue Success");
-            this.props.history.push({
-                pathname: '/user/queue'
-            });
-            window.scrollTo(0,0);
-        } else {
-            this.props.openModal("Ada kesalah sistem, silahkan coba beberapa saat lagi.");
-        }
-    }).catch((error) => {
-        console.log('err :'+error);
-        switch (error.status) {
-            case 401: // Unauthorized
-                this.props.openModal("Anda perlu mendaftar/masuk sebagai pengguna untuk dapat menggunakan fitur ini.");
-                break;
-            default:
-                this.props.openModal("Maaf terdapat kesalahan pada server.");
-        }
-    });
-}
-
-// *** State Modifiers ***
-// Go to review
-Booking.goToReview = () => {
-    this.setState({
-        review: true
-    });
-}
-
-Booking.onEmailChange = (value) => {
-    this.setState({
-        email: value
-    });
-}
-
-Booking.onReemailChange = (value) => {
-    this.setState({
-        reemail: value
-    });
-}
-
-Booking.onPhoneChange = (value) => {
-    this.setState({
-        phone: value
-    });
-}
-
-Booking.onContactNameChange = (value) => {
-    this.setState({
-        name: value
-    });
-}
-
-Booking.onContactTitleChange = (value) => {
-    this.setState({
-        title: value
-    });
-}
-
-Booking.onTitleChange = (pass, index, value) => {
-    switch (pass) {
-        case this.ADULTS:
-            this.state.adults[index].title = value;
-            break;
-        case this.CHILDREN:
-            this.state.children[index].title = value;
-            break;
-        default:
-            break;
-    }
-    this.setState(this.state);
-}
-
-Booking.onFirstNameChange = (pass, index, value) => {
-    switch (pass) {
-        case this.ADULTS:
-            this.state.adults[index].first_name = value;
-            break;
-        case this.CHILDREN:
-            this.state.children[index].first_name = value;
-            break;
-        case this.INFANTS:
-            this.state.infants[index].first_name = value;
-            break;
-        default:
-            break;
-    }
-    this.setState(this.state);
-}
-
-Booking.onLastNameChange = (pass, index, value) => {
-    switch (pass) {
-        case this.ADULTS:
-            this.state.adults[index].last_name = value;
-            break;
-        case this.CHILDREN:
-            this.state.children[index].last_name = value;
-            break;
-        case this.INFANTS:
-            this.state.infants[index].last_name = value;
-            break;
-        default:
-            break;
-    }
-    this.setState(this.state);
-}
-
-Booking.onFullNameChange = (pass, index, value) => {
-    switch (pass) {
-        case this.ADULTS:
-            this.state.adults[index].full_name = value;
-            break;
-        case this.CHILDREN:
-            this.state.children[index].full_name = value;
-            break;
-        case this.INFANTS:
-            this.state.infants[index].full_name = value;
-            break;
-        default:
-            break;
-    }
-    this.setState(this.state);
-}
-
-Booking.onDateOfBirthChange = (pass, index, value) => {
-    switch (pass) {
-        case this.ADULTS:
-            this.state.adults[index].date_of_birth = value;
-            break;
-        case this.CHILDREN:
-            this.state.children[index].date_of_birth = value;
-            break;
-        case this.INFANTS:
-            this.state.infants[index].date_of_birth = value;
-            break;
-        default:
-            break;
-    }
-    this.setState(this.state);
-}
-
-Booking.continues = () => {
-    console.log("in continue");
 }
 
 const mapStateToProps = state => (

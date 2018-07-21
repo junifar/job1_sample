@@ -2,6 +2,19 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 export default class Button extends Component{
+
+  static propTypes = {
+    onClick: PropTypes.func,
+    name: PropTypes.string,
+    link: PropTypes.bool,
+    outline: PropTypes.bool,
+    facebook: PropTypes.bool,
+    googleplus: PropTypes.bool,
+    register: PropTypes.bool,
+    accentc: PropTypes.bool,
+    noshadow: PropTypes.bool,
+  };
+
   render(){
     var classStyle = "garuda-button";
     if (this.props.link){
@@ -32,15 +45,3 @@ export default class Button extends Component{
     );
   }
 }
-Button.propTypes = {
-  onClick: PropTypes.func,
-  name: PropTypes.string,
-  link: PropTypes.bool,
-  outline: PropTypes.bool,
-  facebook: PropTypes.bool,
-  googleplus: PropTypes.bool,
-  register: PropTypes.bool,
-  accentc: PropTypes.bool,
-  noshadow: PropTypes.bool,
-};
-

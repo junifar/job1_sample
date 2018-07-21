@@ -5,6 +5,10 @@ import PropTypes from 'prop-types';
 
 export default class PaymentDashboard extends Component{
 
+    static propTypes = {
+        booking: PropTypes.object
+    }
+
     constructor(props) {
         super(props);
 
@@ -37,8 +41,4 @@ export default class PaymentDashboard extends Component{
       </div>
     );
   }
-}
-
-PaymentDashboard.propTypes = {
-    booking: PropTypes.object
 }

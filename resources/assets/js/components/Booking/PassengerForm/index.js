@@ -7,6 +7,16 @@ import Dropdown from '../../_Main/Dropdown/Dropdown';
 
 export default class PassengerForm extends Component{
 
+  static propTypes = {
+    index: PropTypes.number,
+    onFullNameChange: PropTypes.func,
+    onDateOfBirthChange: PropTypes.func,
+    passenger_type: PropTypes.string,
+    title: PropTypes.string,
+    full_name: PropTypes.string,
+    date_of_birth: PropTypes.string
+  }
+
   constructor(props) {
     super(props);
 
@@ -16,6 +26,34 @@ export default class PassengerForm extends Component{
       month: "Bulan",
       year: "Tahun"
     };
+  }
+
+  onPassTitleChange = (e) => {
+    this.setState({
+      title: e.target.innerHTML
+    });
+
+    this.props.onTitleChange(e.target.innerHTML);
+  }
+
+  onDayChange = (e) => {
+    this.setState({
+      day: e.target.innerHTML
+    });
+  }
+
+  onMonthChange = (e) => {
+    this.setState({
+      month: e.target.innerHTML
+    });
+  }
+
+  onYearChange = (e) => {
+    this.setState({
+      year: e.target.innerHTML
+    });
+
+    this.props.onDateOfBirthChange(this.state.day + "-" + this.state.month + "-" + e.target.innerHTML);
   }
 
   render(){    
@@ -100,44 +138,3 @@ export default class PassengerForm extends Component{
     );
   }
 }
-
-
-
-PassengerForm.propTypes = {
-    index: PropTypes.number,
-    onFullNameChange: PropTypes.func,
-    onDateOfBirthChange: PropTypes.func,
-    passenger_type: PropTypes.string,
-    title: PropTypes.string,
-    full_name: PropTypes.string,
-    date_of_birth: PropTypes.string
-}
-
-PassengerForm.onPassTitleChange = (e) => {
-    this.setState({
-        title: e.target.innerHTML
-    });
-
-    this.props.onTitleChange(e.target.innerHTML);
-}
-
-PassengerForm.onDayChange = (e) => {
-    this.setState({
-        day: e.target.innerHTML
-    });
-}
-
-PassengerForm.onMonthChange = (e) => {
-    this.setState({
-        month: e.target.innerHTML
-    });
-}
-
-PassengerForm.onYearChange = (e) => {
-    this.setState({
-        year: e.target.innerHTML
-    });
-
-    this.props.onDateOfBirthChange(this.state.day + "-" + this.state.month + "-" + e.target.innerHTML);
-}
-

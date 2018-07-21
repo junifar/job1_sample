@@ -10,6 +10,12 @@ export default class PassengerDropdown extends Component{
     }
   }
 
+  toggleOpen = () => {
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
+  }
+
   render(){
     return(
       <div className="my-passengerdropdown">
@@ -54,10 +60,4 @@ export default class PassengerDropdown extends Component{
       </div>
     );
   }
-}
-
-PassengerDropdown.toggleOpen = () => {
-    this.setState({
-        isOpen: !this.state.isOpen
-    });
 }

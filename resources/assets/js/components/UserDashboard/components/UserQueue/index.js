@@ -17,6 +17,47 @@ export default class UserQueue extends Component{
   componentWillMount(){
     this.requestMyQueue();
   }
+
+  requestMyQueue = () => {
+    const url = '/v1/flight/my/queue';
+
+    let axiosConfig = {
+      headers: {
+        'Content-Type': 'application/json',
+        'WLPS_TOKEN': this.state.token
+      }};
+
+    axios.post(url,"",axiosConfig).then((res) => {
+      if (res.data.data.length > 0) {
+        this.setState({
+          queue: res.data.data
+        });
+      }
+    }).catch((error) => {
+      switch (+error.response.status) {
+        case 401: // Unauthorized
+          this.props.openModal("Your session is expired, please do relogin.");
+          this.props.history.push('/');
+          break;
+        default:
+          this.props.openModal("Maaf terdapat kesalahan pada server.");
+
+          this.props.history.push('/');
+        window.scrollTo(0,0);
+      }
+    });
+
+  }
+
+  forwardPage= (h) => {
+    this.props.history.push({
+      pathname: '/User/queuedetail',
+      state: {
+        itinerary: h
+      }
+    });
+    window.scroll(0,0);
+  }
   render() {
     if (this.state.queue === null) {
       return (
@@ -130,45 +171,3 @@ export default class UserQueue extends Component{
   }
 }
 
-
-
-UserQueue.requestMyQueue = () => {
-  const url = '/v1/flight/my/queue';
-
-  let axiosConfig = {
-    headers: {
-      'Content-Type': 'application/json',
-      'WLPS_TOKEN': this.state.token
-    }};
-
-  axios.post(url,"",axiosConfig).then((res) => {
-    if (res.data.data.length > 0) {
-      this.setState({
-        queue: res.data.data
-      });
-    }
-  }).catch((error) => {
-    switch (+error.response.status) {
-      case 401: // Unauthorized
-        this.props.openModal("Your session is expired, please do relogin.");
-        this.props.history.push('/');
-        break;
-      default:
-        this.props.openModal("Maaf terdapat kesalahan pada server.");
-
-        this.props.history.push('/');
-      window.scrollTo(0,0);
-    }
-  });
-
-}
-
-UserQueue.forwardPage= (h) => {
-  this.props.history.push({
-    pathname: '/User/queuedetail',
-    state: {
-      itinerary: h
-    }
-  });
-  window.scroll(0,0);
-}

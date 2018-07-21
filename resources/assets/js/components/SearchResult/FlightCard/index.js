@@ -5,7 +5,9 @@ import moment from 'moment';
 import { MyButton } from '../../_Main';
 
 export default class FlightCard extends Component{
-    
+    onClick = (e) => {
+        this.props.onClick(e);
+    }
 
     sort(key) {
         const columnState = !this.state[`toggle-${key}`];
@@ -107,8 +109,4 @@ export default class FlightCard extends Component{
 
     );
   }
-}
-
-FlightCard.onClick = (e) => {
-    this.props.onClick(e);
 }

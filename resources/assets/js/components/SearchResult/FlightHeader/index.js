@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 export default class ResultHeader extends Component{
+    static propTypes = {
+        seat_class: PropTypes.string
+    };
 
     render(){
         return(
@@ -18,8 +21,3 @@ export default class ResultHeader extends Component{
         );
     }
 }
-
-
-ResultHeader.propTypes = {
-    seat_class: PropTypes.string
-};

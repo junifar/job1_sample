@@ -7,6 +7,19 @@ import Dropdown from '../../_Main/Dropdown/Dropdown';
 
 export default class ContactForm extends Component{
 
+  static propTypes = {
+    onEmailChange: PropTypes.func,
+    onReemailChange: PropTypes.func,
+    onPhoneChange: PropTypes.func,
+    onTitleChange: PropTypes.func,
+    email: PropTypes.string,
+    reemail: PropTypes.string,
+    phone: PropTypes.string,
+    name: PropTypes.string,
+    title: PropTypes.string,
+    onNameChange: PropTypes.func
+  }
+
   constructor(props) {
     super(props);
 
@@ -16,6 +29,19 @@ export default class ContactForm extends Component{
     };
   }
 
+  onTitleStateChange = (e) => {
+    this.setState({
+      title: e.target.innerHTML
+    });
+
+    this.props.onContactTitleChange(e.target.innerHTML);
+  }
+
+  editContact = () => {
+    this.setState({
+      edit_contact: !this.state.edit_contact
+    });
+  }
 
   render(){
     console.log("review :"+this.props.review);
@@ -83,33 +109,4 @@ export default class ContactForm extends Component{
       </div>
     );
   }
-}
-
-
-
-ContactForm.propTypes = {
-    onEmailChange: PropTypes.func,
-    onReemailChange: PropTypes.func,
-    onPhoneChange: PropTypes.func,
-    onTitleChange: PropTypes.func,
-    email: PropTypes.string,
-    reemail: PropTypes.string,
-    phone: PropTypes.string,
-    name: PropTypes.string,
-    title: PropTypes.string,
-    onNameChange: PropTypes.func
-}
-
-ContactForm.onTitleStateChange = (e) => {
-    this.setState({
-        title: e.target.innerHTML
-    });
-
-    this.props.onContactTitleChange(e.target.innerHTML);
-}
-
-ContactForm.editContact = () => {
-    this.setState({
-        edit_contact: !this.state.edit_contact
-    });
 }

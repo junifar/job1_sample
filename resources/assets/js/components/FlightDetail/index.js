@@ -16,6 +16,23 @@ class FlightDetail extends Component{
     this.requestDetail();
   }
 
+  requestDetail = () => {
+    console.log("requesting");
+    const config = {
+      method: 'get',
+      headers: this.props.user,
+      url: `/api/v1/bookings/${this.props.location.state.bookingid}/ticket`
+    }
+    axios(config)
+      .then((res) => {
+        console.log(res);
+        var user = Api.parseHeader(res, this.props.user);
+        console.log(user);
+        const loginUser = bindActionCreators(userActionCreators.login, this.props.dispatch);
+        loginUser(user);        // save header as redux state
+      });
+  }
+
   render(){
     return(
       <div className="my-flightdetail">
@@ -26,23 +43,6 @@ class FlightDetail extends Component{
 }
 
 // *** Redux State To Props ***
-
-FlightDetail.requestDetail = () => {
-    console.log("requesting");
-    const config = {
-        method: 'get',
-        headers: this.props.user,
-        url: `/api/v1/bookings/${this.props.location.state.bookingid}/ticket`
-    }
-    axios(config)
-        .then((res) => {
-            console.log(res);
-            var user = Api.parseHeader(res, this.props.user);
-            console.log(user);
-            const loginUser = bindActionCreators(userActionCreators.login, this.props.dispatch);
-            loginUser(user);        // save header as redux state
-        });
-}
 
 const mapStateToProps = state => (
   {

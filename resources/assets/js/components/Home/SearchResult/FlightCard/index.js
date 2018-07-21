@@ -7,6 +7,25 @@ import { MyButton } from '../../../_Main';
 
 export default class FlightCard extends Component{
 
+  static propTypes = {
+    departure_date: momentPropTypes.momentObj,
+    arrival_date: momentPropTypes.momentObj,
+    origin: PropTypes.string,
+    destination: PropTypes.string,
+    origin_iata: PropTypes.string,
+    destination_iata: PropTypes.string,
+    trip: PropTypes.string,
+    normal_fare: PropTypes.string,
+    wlps_fare: PropTypes.string,
+    facility: PropTypes.string,
+    seat_class: PropTypes.string,
+    onClick: PropTypes.func
+  };
+
+    onClick = (e) => {
+        this.props.onClick(e);
+    }
+
   render(){
     var departure_time = moment(this.props.departure_date);
     var arrival_time = moment(this.props.arrival_date);
@@ -49,25 +68,4 @@ export default class FlightCard extends Component{
       </tr>
     );
   }
-}
-
-
-
-FlightCard.propTypes = {
-    departure_date: momentPropTypes.momentObj,
-    arrival_date: momentPropTypes.momentObj,
-    origin: PropTypes.string,
-    destination: PropTypes.string,
-    origin_iata: PropTypes.string,
-    destination_iata: PropTypes.string,
-    trip: PropTypes.string,
-    normal_fare: PropTypes.string,
-    wlps_fare: PropTypes.string,
-    facility: PropTypes.string,
-    seat_class: PropTypes.string,
-    onClick: PropTypes.func
-};
-
-FlightCard.onClick = (e) => {
-    this.props.onClick(e);
 }

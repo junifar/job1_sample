@@ -2,15 +2,12 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Form } from 'reactstrap';
-import PropTypes from 'prop-types';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as userActionCreators from '../../actions/user';
 
 import { Input, Button } from '../_Main';
-
-import Api from '../../scripts/Api';
 
 class Login extends Component{
 
@@ -24,6 +21,95 @@ class Login extends Component{
       error: false
     }
   }
+
+  // *** State Modifiers ***
+
+    onEmailChange = (e) => {
+      this.setState({
+        email: e.target.value
+      });
+    }
+
+    onPasswordChange = (e) => {
+      this.setState({
+        password: e.target.value
+      });
+    }
+
+  // *** Actions ***
+
+    onLogin =  () => {
+      var error = false;
+      var err = "";
+      if (this.state.email === "") {
+        err = '^Please enter your email address.';
+        error = true;
+      } else if (this.state.password === "") {
+        err = '^Please enter your password.';
+        error = true;
+      }
+      
+      this.setState({
+        err: err,
+        error: error
+      });
+
+      // Request sign in
+      if (!error) {
+        const url = '/v1/user/login';
+        const urlUser = '/v1/user/my';
+        const params = {
+          username: this.state.email,
+          password: this.state.password
+        };
+
+        const loginUser = bindActionCreators(userActionCreators.login, this.props.dispatch);
+
+        let axiosConfig = {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        };
+
+        // request to server
+        axios.post(url, params, axiosConfig).then((res) => {
+          // *** Sign In Successfull ***
+          // Setting header/token for next request
+          if (res.data.status) {
+            const token = res.data.data[0];
+            axiosConfig = {
+              headers: {
+                'Content-Type': 'application/json',
+                'WLPS_TOKEN': token
+              }
+            };
+            //var user = Api.parseHeader(res, this.props.user);
+            axios.post(urlUser, params, axiosConfig).then((res1) => {
+              if (res1.data.status) {
+                loginUser(res1.data.data[0]);
+                this.props.onLoginState(this.props.user, token);
+                // Back to Home
+                this.props.history.push({
+                  pathname: '/'
+                });
+                window.scroll(0, 0);
+              } else {
+                this.props.openModal(`We cannot find your account.`);
+              }
+            }).catch((error) => {
+              // *** Sign In Failed ***
+              this.props.openModal(`We cannot find your account. ${error}`);
+            });
+          } else {
+            this.props.openModal(`We cannot find your account. ${res.data.message}`);
+          }
+
+        }).catch((error) => {
+          // *** Sign In Failed ***
+          this.props.openModal(`We cannot registering your account. ${error}`);
+        });
+      }
+    }
 
   // *** Render ***
 
@@ -68,97 +154,6 @@ class Login extends Component{
     );
   }
 }
-
-
-
-  // *** State Modifiers ***
-
-  Login.onEmailChange = (e) => {
-    this.setState({
-      email: e.target.value
-    });
-  }
-
-  Login.onPasswordChange = (e) => {
-    this.setState({
-      password: e.target.value
-    });
-  }
-
-// *** Actions ***
-
-Login.onLogin =  () => {
-    var error = false;
-    var err = "";
-    if (this.state.email == "") {
-      err = '^Please enter your email address.';
-      error = true;
-    } else if (this.state.password == "") {
-      err = '^Please enter your password.';
-      error = true;
-    }
-    
-    this.setState({
-      err: err,
-      error: error
-    });
-
-    // Request sign in
-    if (!error) {
-      const url = '/v1/user/login';
-      const urlUser = '/v1/user/my';
-      const params = {
-        username: this.state.email,
-        password: this.state.password
-      };
-
-      const loginUser = bindActionCreators(userActionCreators.login, this.props.dispatch);
-
-      let axiosConfig = {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      };
-
-      // request to server
-      axios.post(url, params, axiosConfig).then((res) => {
-        // *** Sign In Successfull ***
-        // Setting header/token for next request
-        if (res.data.status) {
-          const token = res.data.data[0];
-          axiosConfig = {
-            headers: {
-              'Content-Type': 'application/json',
-              'WLPS_TOKEN': token
-            }
-          };
-          //var user = Api.parseHeader(res, this.props.user);
-          axios.post(urlUser, params, axiosConfig).then((res1) => {
-            if (res1.data.status) {
-              loginUser(res1.data.data[0]);
-              this.props.onLoginState(this.props.user, token);
-              // Back to Home
-              this.props.history.push({
-                pathname: '/'
-              });
-              window.scroll(0, 0);
-            } else {
-              this.props.openModal(`We cannot find your account.`);
-            }
-          }).catch((error) => {
-            // *** Sign In Failed ***
-            this.props.openModal(`We cannot find your account. ${error}`);
-          });
-        } else {
-          this.props.openModal(`We cannot find your account. ${res.data.message}`);
-        }
-
-      }).catch((error) => {
-        // *** Sign In Failed ***
-        this.props.openModal(`We cannot registering your account. ${error}`);
-      });
-    }
-  }
 
 // *** Redux State To Props ***
 

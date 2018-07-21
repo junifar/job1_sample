@@ -2,7 +2,11 @@ import React , { Component } from 'react';
 import PropTypes from 'prop-types';
 
 export default class MyButton extends Component{
-  
+
+  static propTypes = {
+    onClick: PropTypes.func
+  }
+
   render(){
     var classStyle = "my-button-primary";
     if (this.props.outline){
@@ -21,8 +25,4 @@ export default class MyButton extends Component{
       </div>
     );
   }
-}
-
-MyButton.propTypes = {
-  onClick: PropTypes.func
 }

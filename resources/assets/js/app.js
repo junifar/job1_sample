@@ -37,6 +37,7 @@ import * as reducers from './reducers';
 import 'react-dates/lib/css/_datepicker.css';
 import 'react-select/dist/react-select.css';
 import './index.css';
+import './index-alpha.css';
 
 const reducer = combineReducers(reducers);
 // const finalCreateStore = applyMiddleware(thunk)(createStore);

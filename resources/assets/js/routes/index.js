@@ -13,10 +13,10 @@ import PropTypes from 'prop-types';
 
 export default class Routes extends React.Component {
 
-  // static propTypes = {
-  //   user: PropTypes.string,
-  //   token: PropTypes.string
-  // }
+  static propTypes = {
+    user: PropTypes.string,
+    token: PropTypes.string
+  }
 
   constructor(props){
     super(props);
@@ -50,11 +50,91 @@ export default class Routes extends React.Component {
   //   });
   // }
 
-  
+  onToggleHeaderRequesting = () => {
+       var value = !this.state.modal_header_requesting.open;
+       this.setState({
+         modal_header_requesting: {
+           open: value,
+           //isBlur: value
+         }
+       });
+     }
 
-  
+  onToggleModal = () => {
+    this.setState({
+      modal: {
+        open: !this.state.modal.open,
+        message: this.state.modal.message
+      }
+    });
+  }
 
- 
+  openModal = (message, link, title) => {
+    var new_link = null;
+    if (link) {
+      new_link = link
+    }
+
+    this.setState({
+      modal: {
+        open: true,
+        message: message,
+        link: new_link,
+        title: title
+      }
+    });
+  }
+
+  openHeaderRequesting = (op) => {
+    this.setState({
+      modal_header_requesting: {
+        open: op
+      }
+    })
+  }
+
+  onLoginState = (user, token) => {
+    //var hours = 24; // Reset when storage is more than 24hours
+    var minutes = 5; // Reset when storage using minutes
+    var now = new Date().getTime();
+    var setupTime = localStorage.getItem('setupTime');
+
+    if (setupTime == null) {
+      localStorage.setItem('setupTime', now);
+      localStorage.setItem('user', JSON.stringify(user));
+      localStorage.setItem('token', token);
+    } else {
+      if(now-setupTime > minutes*60*1000) {
+        this.openModal("Session anda sudah habis, silahkan Login kembali.");
+        localStorage.clear();
+        window.scroll(0, 0);
+      } else {
+        localStorage.setItem('setupTime',now);
+      }
+    }
+
+    this.setState({
+      user: user,
+      token: token
+    });
+  }
+
+  checkSetupTime = (token) => {
+    var minutes = 5; // Reset when storage using minutes
+    var now = new Date().getTime();
+    var setupTime = localStorage.getItem('setupTime');
+    if (token && setupTime && now-setupTime > minutes*60*1000) {
+      this.openModal("Session anda sudah habis, silahkan Login kembali.");
+      this.setState({
+        user: null,
+        token: null
+      });
+      localStorage.clear();
+      window.scroll(0, 0);
+    } else {
+      localStorage.setItem('setupTime',now);
+    }
+  }
 
   // openModalFlightDetail = (flight) => {
   //   this.setState({
@@ -106,96 +186,5 @@ export default class Routes extends React.Component {
         </div>
       </BrowserRouter>
     );
-  }
-}
-
-Routes.PropTypes = {
-  user: PropTypes.string,
-  token: PropTypes.string
-}
-
-Routes.onToggleHeaderRequesting = () => {
-  var value = !this.state.modal_header_requesting.open;
-  this.setState({
-    modal_header_requesting: {
-      open: value,
-      //isBlur: value
-    }
-  });
-}
-
-Routes.onToggleModal = () => {
-  this.setState({
-    modal: {
-      open: !this.state.modal.open,
-      message: this.state.modal.message
-    }
-  });
-}
-
-Routes.openModal = (message, link, title) => {
-  var new_link = null;
-  if (link) {
-    new_link = link
-  }
-
-  this.setState({
-    modal: {
-      open: true,
-      message: message,
-      link: new_link,
-      title: title
-    }
-  });
-}
-
-Routes.openHeaderRequesting = (op) => {
-  this.setState({
-    modal_header_requesting: {
-      open: op
-    }
-  })
-}
-
-Routes.onLoginState = (user, token) => {
-  //var hours = 24; // Reset when storage is more than 24hours
-  var minutes = 5; // Reset when storage using minutes
-  var now = new Date().getTime();
-  var setupTime = localStorage.getItem('setupTime');
-
-  if (setupTime == null) {
-    localStorage.setItem('setupTime', now);
-    localStorage.setItem('user', JSON.stringify(user));
-    localStorage.setItem('token', token);
-  } else {
-    if(now-setupTime > minutes*60*1000) {
-      this.openModal("Session anda sudah habis, silahkan Login kembali.");
-      localStorage.clear();
-      window.scroll(0, 0);
-    } else {
-      localStorage.setItem('setupTime',now);
-    }
-  }
-
-  this.setState({
-    user: user,
-    token: token
-  });
-}
-
-Routes.checkSetupTime = (token) => {
-  var minutes = 5; // Reset when storage using minutes
-  var now = new Date().getTime();
-  var setupTime = localStorage.getItem('setupTime');
-  if (token && setupTime && now-setupTime > minutes*60*1000) {
-    this.openModal("Session anda sudah habis, silahkan Login kembali.");
-    this.setState({
-      user: null,
-      token: null
-    });
-    localStorage.clear();
-    window.scroll(0, 0);
-  } else {
-    localStorage.setItem('setupTime',now);
   }
 }

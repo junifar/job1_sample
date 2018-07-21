@@ -17,7 +17,30 @@ export default class Carousel extends Component{
     };
   }
 
+  goToIndex = (newIndex) => {
+    if (this.animating) return;
+    this.setState({ activeIndex: newIndex });
+  }
 
+  onExiting = () => {
+    this.animating = true;
+  }
+
+  onExited = () => {
+    this.animating = false;
+  }
+
+  next = () => {
+    if (this.animating) return;
+    const nextIndex = this.state.activeIndex === this.props.items.length - 1 ? 0 : this.state.activeIndex + 1;
+    this.setState({ activeIndex: nextIndex });
+  }
+
+  previous = () => {
+    if (this.animating) return;
+    const nextIndex = this.state.activeIndex === 0 ? this.props.items.length - 1 : this.state.activeIndex - 1;
+    this.setState({ activeIndex: nextIndex });
+  }
 
   render(){
 
@@ -48,29 +71,4 @@ export default class Carousel extends Component{
       </RCarousel>
     );
   }
-}
-
-Carousel.goToIndex = (newIndex) => {
-    if (this.animating) return;
-    this.setState({ activeIndex: newIndex });
-}
-
-Carousel.onExiting = () => {
-    this.animating = true;
-}
-
-Carousel.onExited = () => {
-    this.animating = false;
-}
-
-Carousel.next = () => {
-    if (this.animating) return;
-    const nextIndex = this.state.activeIndex === this.props.items.length - 1 ? 0 : this.state.activeIndex + 1;
-    this.setState({ activeIndex: nextIndex });
-}
-
-Carousel.previous = () => {
-    if (this.animating) return;
-    const nextIndex = this.state.activeIndex === 0 ? this.props.items.length - 1 : this.state.activeIndex - 1;
-    this.setState({ activeIndex: nextIndex });
 }

@@ -17,6 +17,48 @@ export default class UserBooking extends Component{
   componentWillMount(){
     this.requestMyBooking();
   }
+
+  requestMyBooking = () => {
+    const url = '/v1/flight/my/booking';
+
+    let axiosConfig = {
+      headers: {
+        'Content-Type': 'application/json',
+        'WLPS_TOKEN': this.state.token
+      }};
+
+    axios.post(url,"",axiosConfig).then((res) => {
+      if (res.data.status && res.data.data.length > 0) {
+        this.setState({
+          booking: res.data.data
+        });
+      }
+
+    }).catch((error) => {
+      switch (+error) {
+        case 401: // Unauthorized
+          this.props.openModal("Your session is expired, please do relogin.");
+          this.props.history.push('/');
+          break;
+        default:
+          this.props.openModal("Maaf terdapat kesalahan pada server.");
+
+          this.props.history.push('/');
+          window.scrollTo(0,0);
+      }
+    });
+
+  }
+
+  forwardPage= (h) => {
+    this.props.history.push({
+      pathname: '/User/bookingdetail',
+      state: {
+        itinerary: h
+      }
+    });
+    window.scroll(0,0);
+  }
   render() {
     if (this.state.booking === null) {
       return (
@@ -95,50 +137,6 @@ export default class UserBooking extends Component{
     );
     }
   }
-}
-
-
-
-UserBooking.requestMyBooking = () => {
-  const url = '/v1/flight/my/booking';
-
-  let axiosConfig = {
-    headers: {
-      'Content-Type': 'application/json',
-      'WLPS_TOKEN': this.state.token
-    }};
-
-  axios.post(url,"",axiosConfig).then((res) => {
-    if (res.data.status && res.data.data.length > 0) {
-      this.setState({
-        booking: res.data.data
-      });
-    }
-
-  }).catch((error) => {
-    switch (+error) {
-      case 401: // Unauthorized
-        this.props.openModal("Your session is expired, please do relogin.");
-        this.props.history.push('/');
-        break;
-      default:
-        this.props.openModal("Maaf terdapat kesalahan pada server.");
-
-        this.props.history.push('/');
-        window.scrollTo(0,0);
-    }
-  });
-
-}
-
-UserBooking.forwardPage= (h) => {
-  this.props.history.push({
-    pathname: '/User/bookingdetail',
-    state: {
-      itinerary: h
-    }
-  });
-  window.scroll(0,0);
 }
 
 /*import React, { Component } from 'react';

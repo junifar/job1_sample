@@ -15,6 +15,47 @@ export default class mandiriclickpay extends Component{
     }
   }
 
+  onDebitChange = (e) => {
+    this.setState({
+      debit_card: e.target.value
+    });
+  }
+
+  onTokenChange = (e) => {
+    this.setState({
+      token: e.target.value
+    });
+  }
+
+  payment = () => {
+    //var booking = "bookings/"+this.props.location.state.booking.booking.id;
+    console.log('data send :'+this.props.location.state.booking.id+'-'+this.props.location.state.booking.invoiceNumber);
+    console.log('data send :'+this.props.location.state.booking.payment);
+    
+    var dataSend = {
+      bookingId : this.props.location.state.booking.id,
+      invoiceNumber :this.props.location.state.booking.invoiceNumber,
+      method : 1,
+      cardNumber : this.state.debit_card, //4616999900000028
+      authorizationCode : "000000",
+      amount : this.props.location.state.booking.payment
+    };
+    var url = "/v1/flight/payment";
+
+    console.log(dataSend);
+    let axiosConfig = {
+      headers: {
+        'Content-Type': 'application/json',
+        'WLPS_TOKEN': localStorage.getItem("token")
+    }};
+
+    axios.post(url, dataSend, axiosConfig).then((res) => {
+      console.log(res.data);
+    }).catch((error) => {
+      console.log(error);
+    });
+  }
+
   render(){
     return(
       <div className="garuda-login">
@@ -42,47 +83,4 @@ export default class mandiriclickpay extends Component{
       </div>
     );
   }
-}
-
-
-
-mandiriclickpay.onDebitChange = (e) => {
-  this.setState({
-    debit_card: e.target.value
-  });
-}
-
-mandiriclickpay.onTokenChange = (e) => {
-  this.setState({
-    token: e.target.value
-  });
-}
-
-mandiriclickpay.payment = () => {
-  //var booking = "bookings/"+this.props.location.state.booking.booking.id;
-  console.log('data send :'+this.props.location.state.booking.id+'-'+this.props.location.state.booking.invoiceNumber);
-  console.log('data send :'+this.props.location.state.booking.payment);
-  
-  var dataSend = {
-    bookingId : this.props.location.state.booking.id,
-    invoiceNumber :this.props.location.state.booking.invoiceNumber,
-    method : 1,
-    cardNumber : this.state.debit_card, //4616999900000028
-    authorizationCode : "000000",
-    amount : this.props.location.state.booking.payment
-  };
-  var url = "/v1/flight/payment";
-
-  console.log(dataSend);
-  let axiosConfig = {
-    headers: {
-      'Content-Type': 'application/json',
-      'WLPS_TOKEN': localStorage.getItem("token")
-  }};
-
-  axios.post(url, dataSend, axiosConfig).then((res) => {
-    console.log(res.data);
-  }).catch((error) => {
-    console.log(error);
-  });
 }

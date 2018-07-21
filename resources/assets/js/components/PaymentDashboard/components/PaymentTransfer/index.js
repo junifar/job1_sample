@@ -11,6 +11,27 @@ export default class PaymentTransfer extends Component{
         }
     }
 
+    openBca = () => {
+        this.setState({
+            openBca: !this.state.openBca,
+            openFinpay: false
+        });
+    }
+
+    openFinpay = () => {
+        this.setState({
+            openFinpay: !this.state.openFinpay,
+            openBca: false
+        });
+    }
+
+    sendPayment = (e) => {
+        this.props.history.push({
+            pathname: '/Payment/transferdetail'
+        });
+        window.scroll(0,0);
+    }
+
     render(){
     return(
         <div className="my-paymentdashboard">
@@ -81,25 +102,4 @@ export default class PaymentTransfer extends Component{
 
     );
   }
-}
-
-PaymentTransfer.openBca = () => {
-    this.setState({
-        openBca: !this.state.openBca,
-        openFinpay: false
-    });
-}
-
-PaymentTransfer.openFinpay = () => {
-    this.setState({
-        openFinpay: !this.state.openFinpay,
-        openBca: false
-    });
-}
-
-PaymentTransfer.sendPayment = (e) => {
-    this.props.history.push({
-        pathname: '/Payment/transferdetail'
-    });
-    window.scroll(0,0);
 }

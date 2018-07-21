@@ -5,6 +5,13 @@ import { Link } from 'react-router-dom';
 
 export default class Modal extends Component{
 
+  static props = {
+    isOpen: PropTypes.bool,
+    message: PropTypes.string,
+    modalToggle: PropTypes.func,
+    title: PropTypes.string,
+  }
+
   render(){
 
     var message = this.props.message;
@@ -27,11 +34,4 @@ export default class Modal extends Component{
       </div>
     );
   }
-}
-
-Modal.props = {
-  isOpen: PropTypes.bool,
-  message: PropTypes.string,
-  modalToggle: PropTypes.func,
-  title: PropTypes.string,
 }

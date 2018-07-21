@@ -15,6 +15,25 @@ import * as ItinerariesActionCreators from '../../actions/itineraries';
 
 class Home extends Component {
 
+  static propTypes = {
+    departure_date: momentPropTypes.momentObj,
+    arrival_date: momentPropTypes.momentObj,
+    origin: PropTypes.string,
+    destination: PropTypes.string,
+    originName: PropTypes.string,
+    destinationName: PropTypes.string,
+    originAirport: PropTypes.string,
+    destinationAirport: PropTypes.string,
+    adults: PropTypes.number,
+    children: PropTypes.number,
+    infants: PropTypes.number,
+    seat_class: PropTypes.string,
+    itineraries: PropTypes.array,
+    user: PropTypes.object,
+    openModal: PropTypes.func,
+    openRequesting: PropTypes.func,
+    token: PropTypes.string
+  }
 
   constructor(props){
     super(props);
@@ -28,7 +47,59 @@ class Home extends Component {
   }
 
   // *** State Modifiers ***
+    onChangeItineraries = (itin) => {
+      this.setState({
+        itineraries: itin
+      });
+    }
 
+    onChangeRequesting = (val) => {
+      this.setState({
+        requesting: val
+      });
+    }
+
+    onChangeReceived = (val) => {
+      this.setState({
+        received: val
+      });
+
+      this.props.history.push({
+        pathname: '/searchresult',
+        state: {
+          itineraries: this.props.itineraries,
+          seat_class: this.state.seat_class,
+          adults: this.state.adults,
+          children: this.state.children,
+          infants: this.state.infants
+        }
+      });
+      window.scrollTo(0, 0);
+    }
+
+    onChangeSeatClass = (val) => {
+      this.setState({
+        seat_class: val
+      });
+    }
+
+    onChangeAdult = (val) => {
+      this.setState({
+        adults: val
+      });
+    }
+
+    onChangeChildren = (val) => {
+      this.setState({
+        children: val
+      });
+    }
+
+    onChangeInfant = (val) => {
+      this.setState({
+        infants: val
+      });
+    }
 
   // *** Render ***
 
@@ -77,80 +148,6 @@ class Home extends Component {
     );
   }
 };
-
-Home.propTypes = {
-    departure_date: momentPropTypes.momentObj,
-    arrival_date: momentPropTypes.momentObj,
-    origin: PropTypes.string,
-    destination: PropTypes.string,
-    originName: PropTypes.string,
-    destinationName: PropTypes.string,
-    originAirport: PropTypes.string,
-    destinationAirport: PropTypes.string,
-    adults: PropTypes.number,
-    children: PropTypes.number,
-    infants: PropTypes.number,
-    seat_class: PropTypes.string,
-    itineraries: PropTypes.array,
-    user: PropTypes.object,
-    openModal: PropTypes.func,
-    openRequesting: PropTypes.func,
-    token: PropTypes.string
-}
-
-Home.onChangeItineraries = (itin) => {
-    this.setState({
-        itineraries: itin
-    });
-}
-
-Home.onChangeRequesting = (val) => {
-    this.setState({
-        requesting: val
-    });
-}
-
-Home.onChangeReceived = (val) => {
-    this.setState({
-        received: val
-    });
-
-    this.props.history.push({
-        pathname: '/searchresult',
-        state: {
-            itineraries: this.props.itineraries,
-            seat_class: this.state.seat_class,
-            adults: this.state.adults,
-            children: this.state.children,
-            infants: this.state.infants
-        }
-    });
-    window.scrollTo(0, 0);
-}
-
-Home.onChangeSeatClass = (val) => {
-    this.setState({
-        seat_class: val
-    });
-}
-
-Home.onChangeAdult = (val) => {
-    this.setState({
-        adults: val
-    });
-}
-
-Home.onChangeChildren = (val) => {
-    this.setState({
-        children: val
-    });
-}
-
-Home.onChangeInfant = (val) => {
-    this.setState({
-        infants: val
-    });
-}
 
 // *** Redux State To Props ***
 

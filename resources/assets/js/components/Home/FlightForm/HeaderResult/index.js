@@ -9,6 +9,21 @@ import * as FormActionCreators from '../../../../actions/form';
 
 class HeaderResult extends Component{
 
+  static propTypes = {
+    departure_date: momentPropTypes.momentObj,
+    arrival_date: momentPropTypes.momentObj,
+    origin: PropTypes.string,
+    destination: PropTypes.string,
+    originName: PropTypes.string,
+    destinationName: PropTypes.string,
+    originAirport: PropTypes.string,
+    destinationAirport: PropTypes.string,
+    adults: PropTypes.number,
+    children: PropTypes.number,
+    infants: PropTypes.number,
+    seat_class: PropTypes.string
+  }
+
   constructor(props){
     super(props);
 
@@ -26,7 +41,40 @@ class HeaderResult extends Component{
     this.getDestinationAirports(axiosConfig);
   }
 
+  getOriginAirports = (header) => {
+    const params =  {
+        "code" : this.props.origin,
+        "perPage" : 1000
+    };  
 
+    axios.post('/v1/flight/airport', params, header)
+    .then((res) => {
+      if (res.data != null && res.data.data.length > 0) {
+          this.setState({
+            originAirports: res.data.data[0]
+          });
+      }
+    }).catch((error) => {
+      console.log(error);
+    });
+  }
+
+  getDestinationAirports = (header) => {
+    const params =  {
+        "code" : this.props.destination,
+        "perPage" : 1000
+    };
+    axios.post('/v1/flight/airport', params, header)
+    .then((res) => {
+      if (res.data != null && res.data.data.length > 0) {
+          this.setState({
+            destinationAirports: res.data.data[0]
+          });
+      }
+    }).catch((error) => {
+      console.log(error);
+    });
+  }
 
   render(){
     return(
@@ -42,58 +90,6 @@ class HeaderResult extends Component{
       </div>
     );
   }
-}
-
-
-
-HeaderResult.propTypes = {
-    departure_date: momentPropTypes.momentObj,
-    arrival_date: momentPropTypes.momentObj,
-    origin: PropTypes.string,
-    destination: PropTypes.string,
-    originName: PropTypes.string,
-    destinationName: PropTypes.string,
-    originAirport: PropTypes.string,
-    destinationAirport: PropTypes.string,
-    adults: PropTypes.number,
-    children: PropTypes.number,
-    infants: PropTypes.number,
-    seat_class: PropTypes.string
-}
-
-HeaderResult.getOriginAirports = (header) => {
-    const params =  {
-        "code" : this.props.origin,
-        "perPage" : 1000
-    };
-
-    axios.post('/v1/flight/airport', params, header)
-        .then((res) => {
-            if (res.data != null && res.data.data.length > 0) {
-                this.setState({
-                    originAirports: res.data.data[0]
-                });
-            }
-        }).catch((error) => {
-        console.log(error);
-    });
-}
-
-HeaderResult.getDestinationAirports = (header) => {
-    const params =  {
-        "code" : this.props.destination,
-        "perPage" : 1000
-    };
-    axios.post('/v1/flight/airport', params, header)
-        .then((res) => {
-            if (res.data != null && res.data.data.length > 0) {
-                this.setState({
-                    destinationAirports: res.data.data[0]
-                });
-            }
-        }).catch((error) => {
-        console.log(error);
-    });
 }
 
 const mapStateToProps = (state) => (

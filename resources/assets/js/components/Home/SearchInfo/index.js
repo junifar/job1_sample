@@ -6,6 +6,21 @@ import { MyButton } from '../../_Main';
 
 export default class SearchInfo extends Component {
 
+  static propTypes = {
+    toggleShowForm: PropTypes.func,
+    originCity: PropTypes.string,
+    originAirport: PropTypes.string,
+    originAirportCode: PropTypes.string,
+    destinationCity: PropTypes.string,
+    destinationAirport: PropTypes.string,
+    destinationAirportCode: PropTypes.string,
+    departure_date: momentPropTypes.momentObj,
+    adults: PropTypes.number,
+    children: PropTypes.number,
+    infants: PropTypes.number,
+    seat_class: PropTypes.string,
+  };
+
   render(){
     var passengerInfo = this.props.adults + " Adult"
     if(this.props.children && this.props.children > 0){
@@ -38,17 +53,3 @@ export default class SearchInfo extends Component {
     );
   }
 }
-SearchInfo.propTypes = {
-    toggleShowForm: PropTypes.func,
-    originCity: PropTypes.string,
-    originAirport: PropTypes.string,
-    originAirportCode: PropTypes.string,
-    destinationCity: PropTypes.string,
-    destinationAirport: PropTypes.string,
-    destinationAirportCode: PropTypes.string,
-    departure_date: momentPropTypes.momentObj,
-    adults: PropTypes.number,
-    children: PropTypes.number,
-    infants: PropTypes.number,
-    seat_class: PropTypes.string,
-};

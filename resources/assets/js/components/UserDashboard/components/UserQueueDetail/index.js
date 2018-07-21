@@ -13,7 +13,74 @@ export default class UserQueueDetail extends Component{
       noauth: false,
       token: localStorage.getItem("token")
     }
-  } 
+  }
+
+  requestLeaveQueue = (e) => {
+    this.props.openModal("Leave Queue.");
+    const url = '/v1/flight/my/queue/cancel';
+    const params =  {
+      queueId: e
+    };
+    let axiosConfig = {
+      headers: {
+        'Content-Type': 'application/json',
+        'WLPS_TOKEN': this.state.token
+      }};
+
+    axios.post(url,params,axiosConfig).then((res) => {
+      if (res.data.data.length > 0) {
+        console.log("res"+res.data.data);
+        console.log("leave queue");
+      }
+    }).catch((error) => {
+      switch (+error.response.status) {
+        case 401: // Unauthorized
+          this.props.openModal("Your session is expired, please do relogin.");
+          this.props.history.push('/');
+          break;
+        default:
+          this.props.openModal("Maaf terdapat kesalahan pada server.");
+
+          this.props.history.push('/');
+        window.scrollTo(0,0);
+      }
+    });
+  }
+
+  requestSwitchToNormal = (e) => {
+    console.log("switch to normal :"+e);
+    const url = '/v1/flight/queue/to-normal';
+    const params =  {
+      queueId: e
+    };
+    let axiosConfig = {
+      headers: {
+        'Content-Type': 'application/json',
+        'WLPS_TOKEN': this.state.token
+      }};
+
+    axios.post(url,params,axiosConfig).then((res) => {
+      console.log("res"+res.data.data.status);
+      /*if (res.data.data.length > 0) {
+        this.setState({
+          queue: res.data.data
+        });
+      }*/
+    }).catch((error) => {
+      switch (+error.response.status) {
+        case 401: // Unauthorized
+          this.props.openModal("Your session is expired, please do relogin.");
+          this.props.history.push('/');
+          break;
+        default:
+          this.props.openModal("Maaf terdapat kesalahan pada server.");
+
+          this.props.history.push('/');
+          window.scrollTo(0,0);
+      }
+    });
+
+  }
 
   render(){
     var adults = 0;
@@ -237,71 +304,4 @@ export default class UserQueueDetail extends Component{
         </div>
     );
   }
-}
-
-UserQueueDetail.requestLeaveQueue = (e) => {
-  this.props.openModal("Leave Queue.");
-  const url = '/v1/flight/my/queue/cancel';
-  const params =  {
-    queueId: e
-  };
-  let axiosConfig = {
-    headers: {
-      'Content-Type': 'application/json',
-      'WLPS_TOKEN': this.state.token
-    }};
-
-  axios.post(url,params,axiosConfig).then((res) => {
-    if (res.data.data.length > 0) {
-      console.log("res"+res.data.data);
-      console.log("leave queue");
-    }
-  }).catch((error) => {
-    switch (+error.response.status) {
-      case 401: // Unauthorized
-        this.props.openModal("Your session is expired, please do relogin.");
-        this.props.history.push('/');
-        break;
-      default:
-        this.props.openModal("Maaf terdapat kesalahan pada server.");
-
-        this.props.history.push('/');
-      window.scrollTo(0,0);
-    }
-  });
-}
-
-UserQueueDetail.requestSwitchToNormal = (e) => {
-  console.log("switch to normal :"+e);
-  const url = '/v1/flight/queue/to-normal';
-  const params =  {
-    queueId: e
-  };
-  let axiosConfig = {
-    headers: {
-      'Content-Type': 'application/json',
-      'WLPS_TOKEN': this.state.token
-    }};
-
-  axios.post(url,params,axiosConfig).then((res) => {
-    console.log("res"+res.data.data.status);
-    /*if (res.data.data.length > 0) {
-      this.setState({
-        queue: res.data.data
-      });
-    }*/
-  }).catch((error) => {
-    switch (+error.response.status) {
-      case 401: // Unauthorized
-        this.props.openModal("Your session is expired, please do relogin.");
-        this.props.history.push('/');
-        break;
-      default:
-        this.props.openModal("Maaf terdapat kesalahan pada server.");
-
-        this.props.history.push('/');
-        window.scrollTo(0,0);
-    }
-  });
-
 }

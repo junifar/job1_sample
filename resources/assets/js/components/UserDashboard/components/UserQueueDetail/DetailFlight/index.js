@@ -3,6 +3,11 @@ import moment from 'moment';
 import PropTypes from 'prop-types';
 
 export default class DetailFlight extends Component{
+
+  static propTypes = {
+    itinerary: PropTypes.object
+  };
+
   render(){
     var departure_time = moment(this.props.itinerary.departureTime);
     var arrival_time = moment(this.props.itinerary.arrivalTime);
@@ -61,7 +66,3 @@ export default class DetailFlight extends Component{
     );
   }
 }
-
-DetailFlight.propTypes = {
-  itinerary: PropTypes.object
-};

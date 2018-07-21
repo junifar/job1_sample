@@ -14,7 +14,40 @@ export default class PaymentTransferDetail extends Component{
     }
   }
 
-  
+  sendReceiptToEmail = (e) => {
+    console.log("sendReceiptToEmail :"+e);
+    /*const url = '/v1/flight/queue/to-normal';
+    const params =  {
+      queueId: e
+    };
+    let axiosConfig = {
+      headers: {
+        'Content-Type': 'application/json',
+        'WLPS_TOKEN': this.state.token
+      }};
+
+    axios.post(url,params,axiosConfig).then((res) => {
+      console.log("res"+res.data.data);
+      if (res.data.data.length > 0) {
+        this.setState({
+          queue: res.data.data
+        });
+      }
+    }).catch((error) => {
+      switch (+error.response.status) {
+        case 401: // Unauthorized
+          this.props.openModal("Your session is expired, please do relogin.");
+          this.props.history.push('/');
+          break;
+        default:
+          this.props.openModal("Maaf terdapat kesalahan pada server.");
+
+          this.props.history.push('/');
+          window.scrollTo(0,0);
+      }
+    });
+*/
+  }
 
   render(){
 /*
@@ -86,39 +119,4 @@ export default class PaymentTransferDetail extends Component{
         </div>
     );
   }
-}
-
-PaymentTransferDetail.sendReceiptToEmail = (e) => {
-  console.log("sendReceiptToEmail :"+e);
-  /*const url = '/v1/flight/queue/to-normal';
-  const params =  {
-    queueId: e
-  };
-  let axiosConfig = {
-    headers: {
-      'Content-Type': 'application/json',
-      'WLPS_TOKEN': this.state.token
-    }};
-
-  axios.post(url,params,axiosConfig).then((res) => {
-    console.log("res"+res.data.data);
-    if (res.data.data.length > 0) {
-      this.setState({
-        queue: res.data.data
-      });
-    }
-  }).catch((error) => {
-    switch (+error.response.status) {
-      case 401: // Unauthorized
-        this.props.openModal("Your session is expired, please do relogin.");
-        this.props.history.push('/');
-        break;
-      default:
-        this.props.openModal("Maaf terdapat kesalahan pada server.");
-
-        this.props.history.push('/');
-        window.scrollTo(0,0);
-    }
-  });
-*/
 }

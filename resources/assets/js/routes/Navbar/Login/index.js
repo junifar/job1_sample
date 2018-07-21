@@ -20,7 +20,106 @@ export default class Login extends Component{
       isOpen: false
     }
   }
-  
+
+  toggleOpen = () => {
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
+  }
+
+    // *** State Modifiers ***
+
+    onEmailChange = (e) => {
+      this.setState({
+        email: e.target.value
+      });
+    }
+
+    onPasswordChange = (e) => {
+      this.setState({
+        password: e.target.value
+      });
+    }
+
+  // *** Actions ***
+    onLogin =  () => {
+      var error = false;
+      var err = "";
+      if (this.state.email == "") {
+        err = 'Please enter your email address';
+        error = true;
+      } else if (this.state.password == "") {
+        err = 'Please enter your password';
+        error = true;
+      }
+
+      this.setState({
+        err: err,
+        error: error
+      });
+
+      // Request sign in
+      if (!error) {
+        err = "Sorry we couldn't find an account with that email";
+
+        const url = '/v1/user/login';
+        const urlUser = '/v1/user/my';
+        const params = {
+          username: this.state.email,
+          password: this.state.password
+        };
+
+        let axiosConfig = {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        };
+
+        // request to server
+        axios.post(url, params, axiosConfig).then((res) => {
+          // *** Sign In Successfull ***
+          // Setting header/token for next request
+          if (res.data.status) {
+            const token = res.data.data[0];
+            axiosConfig = {
+              headers: {
+                'Content-Type': 'application/json',
+                'WLPS_TOKEN': token
+              }
+            };
+            axios.post(urlUser, params, axiosConfig).then((res1) => {
+              if (res1.data.status) {
+                this.props.refreshNavbar(res1.data.data[0], token);
+                this.toggleOpen();
+                window.scroll(0, 0);
+              } else {
+                this.setState({
+                  err: true,
+                  error: error
+                });
+              }
+            }).catch((error1) => {
+              // *** Sign In Failed ***
+              this.setState({
+                err: true,
+                error: error
+              });
+            });
+          } else {
+            this.setState({
+              err: true,
+              error: error
+            });
+          }
+        }).catch((error1) => {
+          // *** Sign In Failed ***
+          this.setState({
+            err: true,
+            error: error
+          });
+        });
+      }
+    }
 
   render(){
     return(
@@ -87,104 +186,5 @@ export default class Login extends Component{
         </div>
       </div>
     );
-  }
-}
-
-Login.toggleOpen = () => {
-  this.setState({
-    isOpen: !this.state.isOpen
-  });
-}
-
- // *** State Modifiers ***
-
-Login.onEmailChange = (e) => {
-  this.setState({
-    email: e.target.value
-  });
-}
-
-Login.onPasswordChange = (e) => {
-  this.setState({
-    password: e.target.value
-  });
-}
-
-Login.onLogin =  () => {
-  var error = false;
-  var err = "";
-  if (this.state.email == "") {
-    err = 'Please enter your email address';
-    error = true;
-  } else if (this.state.password == "") {
-    err = 'Please enter your password';
-    error = true;
-  }
-
-  this.setState({
-    err: err,
-    error: error
-  });
-
-  // Request sign in
-  if (!error) {
-    err = "Sorry we couldn't find an account with that email";
-
-    const url = '/v1/user/login';
-    const urlUser = '/v1/user/my';
-    const params = {
-      username: this.state.email,
-      password: this.state.password
-    };
-
-    let axiosConfig = {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    };
-
-    // request to server
-    axios.post(url, params, axiosConfig).then((res) => {
-      // *** Sign In Successfull ***
-      // Setting header/token for next request
-      if (res.data.status) {
-        const token = res.data.data[0];
-        axiosConfig = {
-          headers: {
-            'Content-Type': 'application/json',
-            'WLPS_TOKEN': token
-          }
-        };
-        axios.post(urlUser, params, axiosConfig).then((res1) => {
-          if (res1.data.status) {
-            this.props.refreshNavbar(res1.data.data[0], token);
-            this.toggleOpen();
-            window.scroll(0, 0);
-          } else {
-            this.setState({
-              err: true,
-              error: error
-            });
-          }
-        }).catch((error1) => {
-          // *** Sign In Failed ***
-          this.setState({
-            err: true,
-            error: error
-          });
-        });
-      } else {
-        this.setState({
-          err: true,
-          error: error
-        });
-      }
-    }).catch((error1) => {
-      // *** Sign In Failed ***
-      this.setState({
-        err: true,
-        error: error
-      });
-    });
   }
 }

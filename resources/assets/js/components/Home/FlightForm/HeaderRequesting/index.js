@@ -4,7 +4,10 @@ import PropTypes from 'prop-types';
 import { Progress } from 'reactstrap';
 
 export default class HeaderRequesting extends Component{
-
+  static props = {
+    isOpen: PropTypes.bool,
+    modalToggle: PropTypes.func,
+  }
 
   constructor(props){
     super(props);
@@ -31,7 +34,27 @@ export default class HeaderRequesting extends Component{
     //clearInterval(this.interval);
   }
 
+  loadingProgress = () => {
+    console.log("interval unmount :"+this.props.isOpen);
+    var a = 1;
+      if (this.props.isOpen) {
+        this.setState({
+          loadprogress: 1
+        });
+      }
+      a = a + 10 * (1 / a);
+      this.setState({
+        loadprogress: this.state.loadprogress + 10 * (1 / this.state.loadprogress)
+        //loadprogress: a
+      });
 
+      if (this.state.loadprogress > 100) {
+        clearInterval(this.interval);
+      }
+   // } else {
+    //  clearInterval(this.interval);
+    //}
+  }
 
   render(){
     console.log("interval will mount 123");
@@ -56,31 +79,4 @@ export default class HeaderRequesting extends Component{
         </div>
     );
   }
-}
-
-HeaderRequesting.props = {
-    isOpen: PropTypes.bool,
-    modalToggle: PropTypes.func,
-}
-
-HeaderRequesting.loadingProgress = () => {
-    console.log("interval unmount :"+this.props.isOpen);
-    var a = 1;
-    if (this.props.isOpen) {
-        this.setState({
-            loadprogress: 1
-        });
-    }
-    a = a + 10 * (1 / a);
-    this.setState({
-        loadprogress: this.state.loadprogress + 10 * (1 / this.state.loadprogress)
-        //loadprogress: a
-    });
-
-    if (this.state.loadprogress > 100) {
-        clearInterval(this.interval);
-    }
-    // } else {
-    //  clearInterval(this.interval);
-    //}
 }

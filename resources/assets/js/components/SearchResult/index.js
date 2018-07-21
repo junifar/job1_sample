@@ -19,7 +19,31 @@ export default class SearchResult extends Component{
     }
   }
 
-  
+  onClickFlightCard = (itinerary, itinerary_type) => {
+    if (!localStorage.getItem("user")) {
+      this.props.openModal("Untuk melanjutkan silahkan anda Login terlebih dahulu.","/login");
+    } else {
+      this.props.history.push({
+        pathname: '/booking',
+        state: {
+          itinerary: itinerary,
+          itinerary_type: itinerary_type,
+          user: JSON.parse(localStorage.getItem("user")),
+          token: localStorage.getItem("token"),
+          adults: this.props.location.state.adults,
+          children: this.props.location.state.children,
+          infants: this.props.location.state.infants
+        }
+      });
+      window.scrollTo(0, 0);
+    }
+  }
+
+  toggleShowForm = () => {
+    this.setState({
+      showForm: !this.state.showForm
+    });
+  }
 
   render(){
     return(
@@ -179,30 +203,4 @@ export default class SearchResult extends Component{
       </div>
     );
   }
-}
-
-SearchResult.onClickFlightCard = (itinerary, itinerary_type) => {
-  if (!localStorage.getItem("user")) {
-    this.props.openModal("Untuk melanjutkan silahkan anda Login terlebih dahulu.","/login");
-  } else {
-    this.props.history.push({
-      pathname: '/booking',
-      state: {
-        itinerary: itinerary,
-        itinerary_type: itinerary_type,
-        user: JSON.parse(localStorage.getItem("user")),
-        token: localStorage.getItem("token"),
-        adults: this.props.location.state.adults,
-        children: this.props.location.state.children,
-        infants: this.props.location.state.infants
-      }
-    });
-    window.scrollTo(0, 0);
-  }
-}
-
-SearchResult.toggleShowForm = () => {
-  this.setState({
-    showForm: !this.state.showForm
-  });
 }

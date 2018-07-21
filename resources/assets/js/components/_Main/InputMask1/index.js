@@ -4,6 +4,20 @@ import PropTypes from 'prop-types';
 import InputMask from 'react-input-mask';
 
 export default class InputMask1 extends Component{
+
+  static propTypes = {
+    placeholder: PropTypes.string,
+    type: PropTypes.string,
+    value: PropTypes.string,
+    className: PropTypes.string,
+    onChange: PropTypes.func,
+    mask: PropTypes.string
+  };
+
+  static defaultProps = {
+    type: "text",
+  };
+
   render(){
     return(
       <Input
@@ -23,17 +37,3 @@ export default class InputMask1 extends Component{
     );
   }
 }
-
-InputMask1.propTypes = {
-  placeholder: PropTypes.string,
-  type: PropTypes.string,
-  value: PropTypes.string,
-  className: PropTypes.string,
-  onChange: PropTypes.func,
-  mask: PropTypes.string
-};
-
-InputMask1.defaultProps = {
-  type: "text",
-};
-
