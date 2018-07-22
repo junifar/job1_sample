@@ -73,7 +73,7 @@ export default class PaymentCreditCard extends Component{
   render(){
       this.tofinnet();
     return(
-        <div className="my-paymentdashboard">
+        <div className="col-md-12">
             <div className="my-paymentdashboard-title">
                 Credit card
             </div>

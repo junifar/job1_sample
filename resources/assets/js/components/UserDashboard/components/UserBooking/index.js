@@ -113,7 +113,7 @@ export default class UserBooking extends Component{
                             </Col>
                         </Row>
                         { q.status.code == 'PAY' &&
-                        <Row className="queue-pay col-md-3">
+                        <Row className="queue-pay col-md-12">
                           <Col colSpan="6">
                             PAY
                           </Col>
@@ -126,11 +126,13 @@ export default class UserBooking extends Component{
                   );
                 })
                 }
+                <div className="row col-md-12">
                 <div className="dropdown-divider"/>
                 <div style={{marginTop: "10px"}}>
                   <MyButton outline accent queue onClick={() => this.onClick("")}>
                     <div className="my-searchresult-button-title" style={{fontSize: "1.5rem"}}>SEE BOOKING HISTORY</div>
                   </MyButton>
+                </div>
                 </div>
               </div>
             </div>
