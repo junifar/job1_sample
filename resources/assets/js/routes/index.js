@@ -163,9 +163,10 @@ export default class Routes extends React.Component {
         <div>
           <HeaderRequesting isOpen={this.state.modal_header_requesting.open} modalToggle={this.onToggleHeaderRequesting}/>
           <Modal isOpen={this.state.modal.open} link={this.state.modal.link} message={this.state.modal.message} modalToggle={this.onToggleModal}/>
+          {/*<Navbar openModal={this.openModal} onLoginState={this.onLoginState} user={this.state.user}/>*/}
           {/* <ModalFlightDetail isOpen={this.state.flight_detail.open} flight={this.state.flight_detail.flight} modalToggle={this.onToggleFlightDetail}/> */}
           <div className={`my-routes-container ${containerClass}`}>
-            <Navbar openModal={this.openModal} onLoginState={this.onLoginState} user={this.state.user}/>
+              <Navbar openModal={this.openModal} onLoginState={this.onLoginState} user={this.state.user}/>
             <Switch>
               <Route exact path="/" render={(props) => <Home {...props} openFlightDetail={this.openFlightDetail} openModal={this.openModal} openRequesting={this.openHeaderRequesting} user={this.state.user} token={this.state.token}/>} />
               <Route exact path="/Search" component={SearchResult} />

@@ -1,5 +1,17 @@
+===CHANGES LIST
+===============
+===============
+=HOME
 =NAVBAR
 == routes/navbar/index.js
 = SIGNUP
 == components/signup/index.js
 == index.css
+=PROFILE INDEX EXCLUE EDIT PROFILE(CAN'T OPEN), EDIT PASSWORD(CAN'T OPEN)
+= MY BOOKING
+= MY BOOKING DETAIL
+= MY QUEUE DETAIL
+= PAYMENT HOME
+= PAYMENT TRANSFER
+= PAYMENT CREDIT CARD
+= PAYMENT MANDIRI KLIK PAY
