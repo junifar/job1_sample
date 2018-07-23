@@ -22,7 +22,8 @@ export default class SearchResult extends Component{
       showForm: false,
       requesting: false,
       received: false,
-      itineraries: {},
+      dep_itineraries: {},
+      ret_itineraries: {},
       progress: 1
     }
   }
@@ -74,7 +75,12 @@ export default class SearchResult extends Component{
          if (res.data.data[0] == null) {
           this.props.openModal("Flight not found.");
          } else {
-           this.setState({itineraries: res.data.data[0].dep});
+           if (res.data.data[0].dep) {
+             this.setState({dep_itineraries: res.data.data[0].dep});
+           }
+           if (res.data.data[0].ret) {
+             this.setState({ret_itineraries: res.data.data[0].ret});
+           }
           }
         }
 
@@ -207,15 +213,15 @@ export default class SearchResult extends Component{
         </div>
 
         <div className="my-searchresult">
-          { this.state.itineraries && (this.state.itineraries.length > 0) &&
-          <SearchInfo itineraries={this.state.itineraries}
+          Choose Departure Flight
+          { this.state.dep_itineraries && (this.state.dep_itineraries.length > 0) &&
+          <SearchInfo itineraries={this.state.dep_itineraries}
                       seat_class={this.props.location.state.seatclass} adults={this.props.location.state.adults}
                       children={this.props.location.state.children}
                       infants={this.props.location.state.infants} toggleShowForm={this.toggleShowForm}/>
           }
           { this.state.showForm &&
-            <FlightForm
-                onChangeRequesting={this.onChangeRequesting}/>
+            <FlightForm onChangeRequesting={this.onChangeRequesting}/>
           }
           { (this.state.progress > 1 && this.state.progress < 100) &&
           <div className="my-headerrequesting">
@@ -225,16 +231,15 @@ export default class SearchResult extends Component{
           }
           <table className="my-searchresult-table">
             <tbody>
-            <ResultHeader
-                seat_class={this.props.location.state.seatclass}/>
+            <ResultHeader seat_class={this.props.location.state.seatclass}/>
 
-            { this.state.itineraries && (this.state.itineraries.length > 0) && this.state.itineraries.map((itinerary, index) => {
+            { this.state.dep_itineraries && (this.state.dep_itineraries.length > 0) && this.state.dep_itineraries.map((itinerary, index) => {
               return(
-                  <tr id={index}>
+                  <tr key={`Dep${index}`}>
                     <td colSpan="7">
                       <table style={{width: "100%", backgroundColor: "#FFFFFF",  border: "1px solid #dddddd"}}>
                       <FlightCard
-                          key={`FlightCard${index}`}
+                          key={`FlightCardDep${index}`}
                           aircraft={itinerary.aircraft}
                           origin_iata={itinerary.origin.iata}
                           destination_iata={itinerary.destination.iata}
@@ -255,6 +260,39 @@ export default class SearchResult extends Component{
                           onClick={(e) => this.onClickFlightCard(itinerary, e)}
                       />
                     </table>
+                    </td>
+                  </tr>
+              );
+            })
+            }
+
+            { this.state.ret_itineraries && (this.state.ret_itineraries.length > 0) && this.state.ret_itineraries.map((itinerary, index) => {
+              return(
+                  <tr key={`Ret${index}`}>
+                    <td colSpan="7">
+                      <table style={{width: "100%", backgroundColor: "#FFFFFF",  border: "1px solid #dddddd"}}>
+                        <FlightCard
+                            key={`FlightCardRet${index}`}
+                            aircraft={itinerary.aircraft}
+                            origin_iata={itinerary.origin.iata}
+                            destination_iata={itinerary.destination.iata}
+                            origin={itinerary.origin.name}
+                            destination={itinerary.destination.name}
+                            origin_city={itinerary.origin.city}
+                            destination_city={itinerary.destination.city}
+                            departure_date={moment(itinerary.departureTime)}
+                            arrival_date={moment(itinerary.arrivalTime)}
+                            normal_fare={(itinerary.fare == null ? null : itinerary.fare.totalPrice)}
+                            wlps_fare={(itinerary.wlpsFare == null ? null : itinerary.wlpsFare.totalPrice)}
+                            duration={itinerary.duration}
+                            trip={itinerary.flightType}
+                            currency="IDR"
+                            facility="20kg baggage"
+                            itinerarty_type="normal"
+                            seat_class={this.props.location.state.seatclass}
+                            onClick={(e) => this.onClickFlightCard(itinerary, e)}
+                        />
+                      </table>
                     </td>
                   </tr>
               );

@@ -26,10 +26,46 @@ export default class PaymentTransfer extends Component{
     }
 
     sendPayment = (e) => {
-        this.props.history.push({
-            pathname: '/Payment/transferdetail'
+        var dataSend = {
+            bookingId : this.props.booking.id,
+            invoiceNumber :this.props.booking.invoiceNumber,
+            method : 3,
+            amount : this.props.booking.payment
+        };
+        var url = "/v1/flight/payment";
+
+        console.log(dataSend);
+        let axiosConfig = {
+            headers: {
+                'Content-Type': 'application/json',
+                'WLPS_TOKEN': this.props.token
+            }};
+
+        axios.post(url, dataSend, axiosConfig).then((res) => {
+            if (res.data.status) {
+                this.props.history.push({
+                    pathname: '/Payment/transferdetail',
+                    state: {
+                        paymentCode: res.data.data[0].paymentCode,
+                        timeLimit: this.props.booking.timeLimit
+                    }
+                });
+                window.scroll(0,0);
+            } else {
+                this.props.openModal("Failed :."+(res.data.message == null ? '' : res.data.message));
+            }
+
+        }).catch((error) => {
+            console.log('err :'+error.status);
+            switch (error.status) {
+                case 401: // Unauthorized
+                    this.props.openModal("Anda perlu mendaftar/masuk sebagai pengguna untuk dapat menggunakan fitur ini.");
+                    break;
+                default:
+                    this.props.openModal("Maaf terdapat kesalahan pada server.");
+            }
         });
-        window.scroll(0,0);
+
     }
 
     render(){

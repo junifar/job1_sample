@@ -161,7 +161,7 @@ class Booking extends Component{
           pathname: '/payment',
           state: {
             booking: res.data.data[0],
-            token: this.props.location.state.token
+            token: localStorage.getItem('token')
           }
         });
         window.scrollTo(0,0);
@@ -299,6 +299,7 @@ class Booking extends Component{
     }
 
     onFullNameChange = (pass, index, value) => {
+      console.log("pass :"+value);
       switch (pass) {
         case this.ADULTS:
           this.state.adults[index].full_name = value;
@@ -379,6 +380,7 @@ class Booking extends Component{
                                     date_of_birth={adult.date_of_birth}
                                     passenger_type={this.ADULTS}
                                     review={this.state.review}
+                                    openModal={this.props.openModal}
                                 />
                             );
                           })
@@ -397,6 +399,7 @@ class Booking extends Component{
                                     date_of_birth={child.date_of_birth}
                                     passenger_type={this.CHILDREN}
                                     review={this.state.review}
+                                    openModal={this.props.openModal}
                                 />
                             );
                           })
@@ -414,6 +417,7 @@ class Booking extends Component{
                                     date_of_birth={infant.date_of_birth}
                                     passenger_type={this.INFANTS}
                                     review={this.state.review}
+                                    openModal={this.props.openModal}
                                 />
                             );
                           })
@@ -485,12 +489,12 @@ class Booking extends Component{
                                 <td style={{textAlign: "left"}}>Admin Fee </td>
                                 { this.props.location.state.itinerary_type != 'QUEUE' &&
                                 <td style={{textAlign: "right"}}>
-                                  IDR { (this.props.location.state.itinerary.fare.adminFee.infant != null ? `${Number(this.props.location.state.itinerary.fare.adminFee.infant).toLocaleString()}` : `0`) }</td>
+                                  IDR { (this.props.location.state.itinerary.fare.adminFee != null ? `${Number(this.props.location.state.itinerary.fare.adminFee).toLocaleString()}` : `0`) }</td>
                                 }
 
                                 { this.props.location.state.itinerary_type == 'QUEUE' &&
                                 <td style={{textAlign: "right"}}>
-                                  IDR { (this.props.location.state.itinerary.wlpsFare.adminFee.infant != null ? `${Number(this.props.location.state.itinerary.wlpsFare.adminFee.infant).toLocaleString()}` : `0`) }</td>
+                                  IDR { (this.props.location.state.itinerary.wlpsFare.adminFee != null ? `${Number(this.props.location.state.itinerary.wlpsFare.adminFee).toLocaleString()}` : `0`) }</td>
                                 }
                               </tr>
                               <tr>
@@ -507,12 +511,12 @@ class Booking extends Component{
                                 <td style={{textAlign: "left"}}>Total Price</td>
                                 { this.props.location.state.itinerary_type != 'QUEUE' &&
                                 <td style={{textAlign: "right"}}>
-                                  IDR { (this.props.location.state.itinerary.fare.totalPrice != null ? `${Number(this.props.location.state.itinerary.fare.totalPrice).toLocaleString()}` : `0`) }</td>
+                                  IDR { (this.props.location.state.itinerary.fare.totalPrice != null ? `${Number(this.props.location.state.itinerary.fare.totalPay).toLocaleString()}` : `0`) }</td>
                                 }
 
                                 { this.props.location.state.itinerary_type == 'QUEUE' &&
                                 <td style={{textAlign: "right"}}>
-                                  IDR { (this.props.location.state.itinerary.wlpsFare.totalPrice != null ? `${Number(this.props.location.state.itinerary.wlpsFare.totalPrice).toLocaleString()}` : `0`) }</td>
+                                  IDR { (this.props.location.state.itinerary.wlpsFare.totalPrice != null ? `${Number(this.props.location.state.itinerary.wlpsFare.totalPay).toLocaleString()}` : `0`) }</td>
                                 }
                               </tr>
                               </tbody>

@@ -278,161 +278,151 @@ class FlightForm extends Component{
     const updateArrivalDate = bindActionCreators(FormActionCreators.updateArrivalDate, dispatch);
 
     return(
+      <div className="flight-form">
         <Row className="flight-form__body">
-            <Col xs="12" md="12" className="flight-form__place">
-              <Row>
-                  <FormGroup className="wlps-form-group col flight-form__origin">
-                      <span className="wlps-form-icon"><i className="material-icons fas fa-plane-departure"></i></span>
-                      <VirtualizedSelect
-                          name="select-origin"
-                          placeholder="Origin"
-                          value={this.props.origin}
-                          onChange={updateOrigin}
-                          searchable
-                          clearable={false}
-                          simpleValue
-                          options={arrayOfAirports}
-                          onInputChange={this.updateQuery}
-                          noResultsText=""
-                      />
+          <Col xs="12" md="12" className="flight-form__place">
+            <Row>
+              <FormGroup className="wlps-form-group col flight-form__origin">
+                <span className="wlps-form-icon"><i className="material-icons fas fa-plane-departure"></i></span>
+                <VirtualizedSelect
+                  name="select-origin"
+                  placeholder="Origin"
+                  value={this.props.origin}
+                  onChange={updateOrigin}
+                  searchable
+                  clearable={false}
+                  simpleValue
+                  options={arrayOfAirports}
+                  onInputChange={this.updateQuery}
+                  noResultsText=""
+                />
+              </FormGroup>
+            </Row>
+            <Row>
+              <FormGroup className="wlps-form-group col flight-form__destination">
+                <span className="wlps-form-icon"><i className="material-icons fas fa-plane-arrival"></i></span>
+                <VirtualizedSelect
+                  name="select-destination"
+                  placeholder="Destination"
+                  value={this.props.destination}
+                  onChange={updateDestination}
+                  searchable
+                  simpleValue
+                  clearable={false}
+                  options={arrayOfAirports}
+                  onInputChange={this.updateQuery}
+                  noResultsText=""
+                />
+              </FormGroup>
+            </Row>
+          </Col>
+          <Col xs="12" className="flight-form__date">
+            <Row>
+              <Col xs="12" md="6">
+              <FormGroup className="wlps-form-group col flight-form__origin">
+                <span className="wlps-form-icon"><i className="material-icons fas fa-calendar-alt"></i></span>
+                <SingleDatePicker
+                  date={this.props.departure_date}
+                  onDateChange={updateDepartureDate}
+                  focused={this.state.departure_focused}
+                  onFocusChange={({ focused }) => this.setState({ departure_focused: focused })}
+                  placeholder="When you go?"
+                  numberOfMonths={2}
+                  hideKeyboardShortcutsPanel={true}
+                  displayFormat="DD MMM YYYY"
+                  withPortal={portal}
+                  id="departure_date"
+                  anchorDirection="right"
+                />
+              </FormGroup>
+              </Col>
+              <Col xs="12" md="6" style={{display:(this.state.showArvDate ? '' : 'none')}}>
+                <FormGroup className="wlps-form-group col flight-form__origin">
+                  <span className="wlps-form-icon"><i className="material-icons fas fa-calendar-alt"></i></span>
+                  <SingleDatePicker
+                      date={this.props.arrival_date}
+                      onDateChange={updateArrivalDate}
+                      focused={this.state.arrival_focused}
+                      onFocusChange={({ focused }) => this.setState({ arrival_focused: focused })}
+                      placeholder="Return?"
+                      numberOfMonths={2}
+                      hideKeyboardShortcutsPanel={true}
+                      displayFormat="DD MMM YYYY"
+                      withPortal={portal}
+                      id="arrival_date"
+                      anchorDirection="right"
+                      isOutsideRange={(day) => day.isBefore(this.props.departure_date)}
+                  />
                   </FormGroup>
-              </Row>
-              <Row>
-                  <FormGroup className="wlps-form-group col flight-form__destination">
-                      <span className="wlps-form-icon"><i className="material-icons fas fa-plane-arrival"></i></span>
-                      <VirtualizedSelect
-                          name="select-destination"
-                          placeholder="Destination"
-                          value={this.props.destination}
-                          onChange={updateDestination}
-                          searchable
-                          simpleValue
-                          clearable={false}
-                          options={arrayOfAirports}
-                          onInputChange={this.updateQuery}
-                          noResultsText=""
-                      />
-                  </FormGroup>
-              </Row>
-            </Col>
-            <Col xs="12" className="flight-form__date">
-                <Row>
-                    <Col xs="12" md="6">
-                        <FormGroup className="wlps-form-group col flight-form__origin">
-                            <span className="wlps-form-icon"><i className="material-icons fas fa-calendar-alt"></i></span>
-                            <SingleDatePicker
-                                date={this.props.departure_date}
-                                onDateChange={updateDepartureDate}
-                                focused={this.state.departure_focused}
-                                onFocusChange={({ focused }) => this.setState({ departure_focused: focused })}
-                                placeholder="When you go?"
-                                numberOfMonths={2}
-                                hideKeyboardShortcutsPanel={true}
-                                displayFormat="DD MMM YYYY"
-                                withPortal={portal}
-                                id="departure_date"
-                                anchorDirection="right"
-                            />
-                        </FormGroup>
-                    </Col>
-                    <Col xs="12" md="6" style={{display:(this.state.showArvDate ? '' : 'none')}}>
-                        <FormGroup className="wlps-form-group col flight-form__origin">
-                            <span className="wlps-form-icon"><i className="material-icons fas fa-calendar-alt"></i></span>
-                            <SingleDatePicker
-                                date={this.props.arrival_date}
-                                onDateChange={updateArrivalDate}
-                                focused={this.state.arrival_focused}
-                                onFocusChange={({ focused }) => this.setState({ arrival_focused: focused })}
-                                placeholder="Return?"
-                                numberOfMonths={2}
-                                hideKeyboardShortcutsPanel={true}
-                                displayFormat="DD MMM YYYY"
-                                withPortal={portal}
-                                id="arrival_date"
-                                anchorDirection="right"
-                                isOutsideRange={(day) => day.isBefore(this.props.departure_date)}
-                            />
-                        </FormGroup>
-                    </Col>
-                </Row>
-            </Col>
-            <Col xs="12" className="flight-form__date">
-                <Row>
-                    <Col xs="6" md="6">
-                        <FormGroup className="wlps-form-group col flight-form__origin">
-                            <span className="wlps-form-icon"><i className="material-icons fas fa-plane"></i></span>
-                            <Dropdown color="black" size="lg" header={this.state.trip} items={["One-Way", "Return"]} onChange={this.updateTrip}/>
-                        </FormGroup>
-                    </Col>
-                    <Col xs="6" md="6">
-                        <FormGroup className="wlps-form-group col flight-form__origin">
-                            <span className="wlps-form-icon"><i className="material-icons fas fa-hand-holding-usd"></i></span>
-                            <Dropdown color="black" size="lg" header={this.state.seat_class} items={["Economy Class", "Business Class", "First Class"]} onChange={this.updateSeatClass}/>
-                        </FormGroup>
-                    </Col>
-                </Row>
-            </Col>
-            <Col xs="12" md="12" className="flight-form__place">
-                <Row>
-                    <Col xs="2" md="2">
-                        <span className="wlps-form-icon"><img className="navbar-brand-icon" src="/images/adults.jpg"/></span>
-                    </Col>
-                    <Col xs="7" md="6">
-                        <div className="my-passengerhome-popup-item-label">Adults (>11 years)</div>
-                    </Col>
-                    <Col xs="3" md="4">
-                        <div className="my-passengerhome-popup-item-counter pull-right">
-                        {/*<Col xs="12" md="12">*/}
-                            <div className="my-passengerhome-popup-item-counter-in clickable" onClick={() => this.updatePassenger('adults', this.state.adults-1)}><i className="material-icons">remove</i></div>
-                            <div className="my-passengerhome-popup-item-counter-in" style={{paddingTop: "1em"}}>{this.state.adults}</div>
-                            <div className="my-passengerhome-popup-item-counter-in clickable" onClick={() => this.updatePassenger('adults', this.state.adults+1)}><i className="material-icons">add</i></div>
-                        {/*</Col>*/}
-                        </div>
-                    </Col>
-                </Row>
-            </Col>
-            <Col xs="12" md="12" className="flight-form__place">
-                <Row>
-                    <Col xs="2" md="2">
-                        <span className="wlps-form-icon" style={{paddingLeft: "1.3em"}}><img className="navbar-brand-icon" src="/images/children.jpg"/></span>
-                    </Col>
-                    <Col xs="7" md="6">
-                        <div className="my-passengerhome-popup-item-label">Children (2-11 years)</div>
-                    </Col>
-                    <Col xs="3" md="4">
-                        <div className="my-passengerhome-popup-item-counter pull-right">
-                            <div className="my-passengerhome-popup-item-counter-in clickable" onClick={() => this.updatePassenger('children', this.state.children-1)}><i className="material-icons">remove</i></div>
-                            <div className="my-passengerhome-popup-item-counter-in" style={{paddingTop: "1em"}}>{this.state.children}</div>
-                            <div className="my-passengerhome-popup-item-counter-in clickable" onClick={() => this.updatePassenger('children', this.state.children+1)}><i className="material-icons">add</i></div>
-                        </div>
-                    </Col>
-                </Row>
-            </Col>
-            <Col xs="12" md="12" className="flight-form__place">
-                <Row>
-                    <Col xs="2" md="2">
-                        <span className="wlps-form-icon"><img className="navbar-brand-icon" src="/images/infant.jpg"/></span>
-                    </Col>
-                    <Col xs="7" md="6">
-                        <div className="my-passengerhome-popup-item-label">Infant ({'<'}2 years)</div>
-                    </Col>
-                    <Col xs="3" md="4">
-                        <div className="my-passengerhome-popup-item-counter pull-right">
-                            <div className="my-passengerhome-popup-item-counter-in clickable" onClick={() => this.updatePassenger('infants', this.state.infants-1)}><i className="material-icons">remove</i></div>
-                            <div className="my-passengerhome-popup-item-counter-in" style={{paddingTop: "1em"}}>{this.state.infants}</div>
-                            <div className="my-passengerhome-popup-item-counter-in clickable" onClick={() => this.updatePassenger('infants', this.state.infants+1)}><i className="material-icons">add</i></div>
-                        </div>
-                    </Col>
-                </Row>
-            </Col>
-            <Col xs="12" md="12" className="flight-form__place">
-                <Row>
-                    <Button className="wlps-search-btn" color="danger" onClick={this.requestFlights}>
-                        <span>Search flight</span>
-                    </Button>
-                </Row>
-            </Col>
+                </Col>
+            </Row>
+          </Col>
+          <Col xs="12" className="flight-form__date">
+            <Row>
+              <Col xs="12" md="6">
+                <FormGroup className="wlps-form-group col flight-form__origin">
+                  <span className="wlps-form-icon"><i className="material-icons fas fa-plane"></i></span>
+                  <Dropdown color="black" size="lg" header={this.state.trip} items={["One-Way", "Return"]} onChange={this.updateTrip}/>
+                </FormGroup>
+              </Col>
+              <Col xs="12" md="6">
+                <FormGroup className="wlps-form-group col flight-form__origin">
+                  <span className="wlps-form-icon"><i className="material-icons fas fa-hand-holding-usd"></i></span>
+                  <Dropdown color="black" size="lg" header={this.state.seat_class} items={["Economy Class", "Business Class", "First Class"]} onChange={this.updateSeatClass}/>
+                </FormGroup>
+              </Col>
+            </Row>
+          </Col>
+          <Col xs="12" md="12" className="flight-form__place">
+            <Row>
+              <FormGroup className="wlps-form-group col flight-form__origin">
+                <span className="wlps-form-icon"><img className="navbar-brand-icon" src="/images/adults.jpg"/></span>
+                <div className="my-passengerhome-popup-item">
+                  <div className="my-passengerhome-popup-item-label">Adults (>11 years)</div>
+                  <div className="my-passengerhome-popup-item-counter">
+                    <div className="my-passengerhome-popup-item-counter-in clickable" onClick={() => this.updatePassenger('adults', this.state.adults-1)}><i className="material-icons">remove</i></div>
+                    <div className="my-passengerhome-popup-item-counter-in" style={{paddingTop: "1em"}}>{this.state.adults}</div>
+                    <div className="my-passengerhome-popup-item-counter-in clickable" onClick={() => this.updatePassenger('adults', this.state.adults+1)}><i className="material-icons">add</i></div>
+                  </div>
+                </div>
+              </FormGroup>
+            </Row>
+            <Row>
+              <FormGroup className="wlps-form-group col flight-form__origin">
+                <span className="wlps-form-icon" style={{paddingLeft: "1.3em"}}><img className="navbar-brand-icon" src="/images/children.jpg"/></span>
+                <div className="my-passengerhome-popup-item">
+                  <div className="my-passengerhome-popup-item-label">Children (2-11 years)</div>
+                  <div className="my-passengerhome-popup-item-counter">
+                    <div className="my-passengerhome-popup-item-counter-in clickable" onClick={() => this.updatePassenger('children', this.state.children-1)}><i className="material-icons">remove</i></div>
+                    <div className="my-passengerhome-popup-item-counter-in" style={{paddingTop: "1em"}}>{this.state.children}</div>
+                    <div className="my-passengerhome-popup-item-counter-in clickable" onClick={() => this.updatePassenger('children', this.state.children+1)}><i className="material-icons">add</i></div>
+                  </div>
+                </div>
+              </FormGroup>
+            </Row>
+            <Row>
+              <FormGroup className="wlps-form-group col flight-form__origin">
+                <span className="wlps-form-icon"><img className="navbar-brand-icon" src="/images/infant.jpg"/></span>
+                <div className="my-passengerhome-popup-item">
+                  <div className="my-passengerhome-popup-item-label">Infant ({'<'}2 years)</div>
+                  <div className="my-passengerhome-popup-item-counter">
+                    <div className="my-passengerhome-popup-item-counter-in clickable" onClick={() => this.updatePassenger('infants', this.state.infants-1)}><i className="material-icons">remove</i></div>
+                    <div className="my-passengerhome-popup-item-counter-in" style={{paddingTop: "1em"}}>{this.state.infants}</div>
+                    <div className="my-passengerhome-popup-item-counter-in clickable" onClick={() => this.updatePassenger('infants', this.state.infants+1)}><i className="material-icons">add</i></div>
+                  </div>
+                </div>
+              </FormGroup>
+            </Row>
+          </Col>
+          <Col xs="12" md="12" className="flight-form__place">
+            <Row>
+              <Button className="wlps-search-btn" color="danger" onClick={this.requestFlights}>
+                <span>Search flight</span>
+              </Button>
+            </Row>
+          </Col>
         </Row>
+      </div>
     );
   }
 }

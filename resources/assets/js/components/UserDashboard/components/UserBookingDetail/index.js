@@ -100,7 +100,7 @@ export default class UserBookingDetail extends Component{
             <table className="my-userdashboard-table">
               <tbody>
               <tr className="my-userdashboard-tr">
-                <td className="my-userdashboard-td-left">Airline Booking Code : {this.props.location.state.itinerary.id}</td>
+                <td className="my-userdashboard-td-left">Airline Booking Code : {this.props.location.state.itinerary.pnr}</td>
                 <td className="my-userdashboard-td-right">
                   <MyButton accent queue onClick={() => this.sendReceiptToEmail(this.props.location.state.itinerary.id)}>
                     <div className="my-searchresult-button-title" style={{fontSize: "1.5rem"}}>Send Receipt to Email</div>
@@ -174,7 +174,7 @@ export default class UserBookingDetail extends Component{
                   <span style={{display: "block",  marginBottom: "5px"}}>Travel Booking ID</span>
                 </td>
                 <td className="my-userdashboard-td-left1">
-                  <span style={{display: "block",  marginBottom: "5px", color: "red"}}>{this.props.location.state.itinerary.id}</span>
+                  <span style={{display: "block",  marginBottom: "5px", color: "red"}}>{this.props.location.state.itinerary.code}</span>
                 </td>
               </tr>
               </tbody>

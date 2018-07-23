@@ -26,21 +26,18 @@ export default class PaymentDashboard extends Component{
 
   render(){
     return(
-      <div className="container garuda-top-margin">
-          <div className="row">
-              <div className="col-md-4">
-                  <MenuPayment />
-              </div>
-              <div className="col-md-8">
-                  <Redirect exact from="/" to="/Payment/pay" />
-                  <Route path="/Payment/pay" component={PaymentPay}/>
-                  <Route path="/Payment/transfer" component={PaymentTransfer}/>
-                  <Route path="/Payment/transferDetail" component={PaymentTransferDetail}/>
-                  <Route path="/Payment/creditcard" render={(props) => <PaymentCreditCard {...props} openModal={this.props.openModal} booking={this.state.booking} token={this.state.token}/>}/>
-                  <Route path="/Payment/mandiri" render={(props) => <PaymentMandiri {...props} openModal={this.props.openModal} booking={this.state.booking} token={this.state.token}/>}/>
-              </div>
-          </div>
-
+      <div className="my-dashboard">
+        <div>
+          <MenuPayment />
+        </div>
+        <div className="my-dashboardcontent">
+            <Redirect exact from="/" to="/Payment/pay" />
+            <Route path="/Payment/pay" component={PaymentPay}/>
+            <Route path="/Payment/transfer" render={(props) => <PaymentTransfer {...props} openModal={this.props.openModal} booking={this.state.booking} token={this.state.token}/>}/>
+            <Route path="/Payment/transferDetail" component={PaymentTransferDetail}/>
+            <Route path="/Payment/creditcard" render={(props) => <PaymentCreditCard {...props} openModal={this.props.openModal} booking={this.state.booking} token={this.state.token}/>}/>
+            <Route path="/Payment/mandiri" render={(props) => <PaymentMandiri {...props} openModal={this.props.openModal} booking={this.state.booking} token={this.state.token}/>}/>
+        </div>
       </div>
     );
   }

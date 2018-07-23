@@ -6,6 +6,8 @@ import * as userActionCreators from '../../../actions/user';
 import Api from '../../../scripts/Api';
 import { Input, Button } from '../../../components/_Main';
 import PropTypes from 'prop-types';
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
+import GoogleLogin from 'react-google-login';
 
 export default class Login extends Component{
 
@@ -41,7 +43,7 @@ export default class Login extends Component{
       });
     }
 
-  // *** Actions ***
+    // *** Actions ***
     onLogin =  () => {
       var error = false;
       var err = "";
@@ -121,6 +123,14 @@ export default class Login extends Component{
       }
     }
 
+  responseFacebook = (response) => {
+    console.log(response);
+  }
+
+  responseGoogle = (response) => {
+    console.log(response);
+  }
+
   render(){
     return(
       <div className="my-logindropdown">
@@ -167,10 +177,25 @@ export default class Login extends Component{
                     </div>
                     <div className="my-logindropdown-popup-button">
                       <div className="my-logindropdown-popup-button-item">
-                        <Button facebook><strong>facebook</strong></Button>
+                        <FacebookLogin
+                            appId="1088597931155576"
+                            autoLoad={true}
+                            fields="name,email,picture"
+                            callback={this.responseFacebook}
+                            render={renderProps => (
+                              <Button facebook onClick={renderProps.onClick}><strong>facebook</strong></Button>
+                            )}
+                        />
                       </div>
                       <div className="my-logindropdown-popup-button-item">
-                        <Button googleplus><strong>Google+</strong></Button>
+                        <GoogleLogin
+                            clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
+                            buttonText="Google+"
+                            onSuccess={this.responseGoogle}
+                            onFailure={this.responseGoogle}
+                            style={{backgroundColor: "#4285f4", color: "#FFFFFF", fontSize: "14px", padding: "0.4em", textAlign: "center", fontWeight: "bold", borderRadius: "2px",
+                                  boxShadow: "0 0 2px rgba(0, 0, 0, 0.12), 0 2px 2px rgba(0, 0, 0, 0.24)", marginTop: "0.5em", marginBottom: "0.5em"}}
+                        />
                       </div>
                     </div>
                     <div className="garuda-login-card">

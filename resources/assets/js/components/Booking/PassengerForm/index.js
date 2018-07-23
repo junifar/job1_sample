@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import moment from 'moment';
+import Select from 'react-select';
 import PropTypes from 'prop-types';
 import { Form } from 'reactstrap';
 import { Input, Button } from '../../_Main';
 import Dropdown from '../../_Main/Dropdown/Dropdown';
+import VirtualizedSelect from 'react-virtualized-select';
 
 export default class PassengerForm extends Component{
 
@@ -24,7 +26,8 @@ export default class PassengerForm extends Component{
       title: "Title",
       day: "Tanggal",
       month: "Bulan",
-      year: "Tahun"
+      year: "Tahun",
+      names: {},
     };
   }
 
@@ -55,6 +58,59 @@ export default class PassengerForm extends Component{
 
     this.props.onDateOfBirthChange(this.state.day + "-" + this.state.month + "-" + e.target.innerHTML);
   }
+
+  updateQuery = (value) => {
+    // Assume minimal 1 character before request to server
+    if(value.length >= 1){
+      this.setState({
+        query: value
+      });
+
+      // Create timeout to give user time to type
+      clearTimeout(this.triggerRequest);
+      this.triggerRequest = setTimeout(this.requestName(value), 200);
+    }
+  }
+
+  requestName = (value) => {
+    const params =  {
+      "keyword" : value,
+      "perPage" : 1000
+    };
+
+    const url = '/v1/user/my/saved-passenger';
+
+    let axiosConfig = {
+      headers: {
+        'Content-Type': 'application/json',
+        'WLPS_TOKEN': localStorage.getItem('token')
+      }};
+
+    axios.post(url,params,axiosConfig).then((res) => {
+      // *** Success Get Airport ***
+      res.data.data.forEach((pass, index) => {
+        var namesOption = this.state.names;
+        namesOption[pass.id] = `${pass.name}`;
+        this.setState({
+          names: namesOption
+        });
+
+      });
+
+    }).catch((error) => {
+      console.log('err :'+error.response.status);
+      switch (error.response.status) {
+        case 401: // Unauthorized
+          this.props.openModal("Your session is gone, please do relogin");
+          break;
+        default:
+          this.props.openModal("Your session is gone, please do relogin");
+      }
+
+    });
+
+    clearTimeout(this.triggerRequest); // Set timout for interval 200ms while witing user to type
+  };
 
   render(){    
     var label_passenger = "";
@@ -91,6 +147,12 @@ export default class PassengerForm extends Component{
       }
     }
 
+    var arrayOfName = [];
+    for (var key in this.state.names) {
+      var name = {value: key, label: this.state.names[key]}
+        arrayOfName.push(name);
+    }
+
 
     return(
         <div className="garuda-login-card">
@@ -119,8 +181,20 @@ export default class PassengerForm extends Component{
                         onChange={this.onPassTitleChange}/>
               }
               <div className="my-auth-input-label">Full Name - As on ID card/passport/driving license</div>
-              <Input className="my-auth-input" placeholder="Nama Lengkap" type="text"
-                     onChange={(e) => this.props.onFullNameChange(e.target.value)} value={this.props.full_name}/>
+              <Select name="select-category" options={arrayOfName} onInputChange={this.updateQuery} value={this.props.full_name} onChange={(e) => this.props.onFullNameChange(e.label)} clearable={true}/>
+              {/*
+              <VirtualizedSelect
+                  name="full-name"
+                  placeholder="Full Name"
+                  value={this.props.full_name}
+                  onChange={(e) => this.props.onFullNameChange(e)}
+                  searchable
+                  clearable={false}
+                  simpleValue
+                  options={arrayOfName}
+                  onInputChange={this.updateQuery}
+                  noResultsText=""
+              />*/}
               { !(this.props.passenger_type == "adults") &&
               <div>
                 <Dropdown color="link" size="lg" header={this.state.day} items={dayArr}

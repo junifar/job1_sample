@@ -65,7 +65,7 @@ export default class PaymentTransferDetail extends Component{
               <tbody>
               <tr className="my-userdashboard-tr">
                 <td className="my-userdashboard-td-left">
-                  <span style={{display: "block",  marginBottom: "5px", fontWeight: "bold", fontSize: "17px"}}>20:28 today </span>
+                  <span style={{display: "block",  marginBottom: "5px", fontWeight: "bold", fontSize: "17px"}}>{this.props.location.state.timeLimit} today </span>
                 </td>
               </tr>
               </tbody>
@@ -81,7 +81,7 @@ export default class PaymentTransferDetail extends Component{
                   <span style={{display: "block",  marginBottom: "5px"}}>Account Number</span>
                 </td>
                 <td className="my-userdashboard-td-left1">
-                  <span style={{display: "block",  marginBottom: "5px", color: "red"}}>Copy</span>
+                  <span style={{display: "block",  marginBottom: "5px", color: "red"}}>{this.props.location.state.paymentCode}</span>
                 </td>
               </tr>
               <tr className="my-userdashboard-tr">

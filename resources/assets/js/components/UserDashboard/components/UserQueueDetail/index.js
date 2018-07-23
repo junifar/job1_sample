@@ -3,6 +3,7 @@ import moment from 'moment';
 import DetailFlight from './DetailFlight';
 import { Redirect } from "react-router";
 import { MyButton } from '../../../_Main';
+import { Modal as RModal, ModalBody, ModalHeader } from 'reactstrap';
 
 export default class UserQueueDetail extends Component{
   constructor(props){
@@ -11,7 +12,8 @@ export default class UserQueueDetail extends Component{
     this.state = {
       queue: null,
       noauth: false,
-      token: localStorage.getItem("token")
+      token: localStorage.getItem("token"),
+      isOpen: false
     }
   }
 
@@ -48,8 +50,8 @@ export default class UserQueueDetail extends Component{
   }
 
   requestSwitchToNormal = (e) => {
-    console.log("switch to normal :"+e);
-    const url = '/v1/flight/queue/to-normal';
+    this.setState({ isOpen: true });
+    /*const url = '/v1/flight/queue/to-normal';
     const params =  {
       queueId: e
     };
@@ -66,7 +68,7 @@ export default class UserQueueDetail extends Component{
           queue: res.data.data
         });
       }*/
-    }).catch((error) => {
+    /*}).catch((error) => {
       switch (+error.response.status) {
         case 401: // Unauthorized
           this.props.openModal("Your session is expired, please do relogin.");
@@ -78,7 +80,7 @@ export default class UserQueueDetail extends Component{
           this.props.history.push('/');
           window.scrollTo(0,0);
       }
-    });
+    });*/
 
   }
 
@@ -116,6 +118,16 @@ export default class UserQueueDetail extends Component{
     }
 
     return(
+        <div>
+        <div>
+          <RModal isOpen={this.state.isOpen} modalTransition={{ timeout: 20 }} backdropTransition={{ timeout: 10 }}>
+            <ModalHeader>Confirmation</ModalHeader>
+            <ModalBody>
+              <span>test</span>
+            </ModalBody>
+          </RModal>
+        </div>
+
         <div style={{backgroundColor: "#FFFFFF"}}>
           <div className="my-userdashboard-body">
             <div className="my-booking-detail-title" style={{width: "100%", border: "1px solid rgb(179, 177, 177)"}}>Queue Status</div>
@@ -144,7 +156,7 @@ export default class UserQueueDetail extends Component{
                     <div className="my-searchresult-button-title" style={{fontSize: "1.5rem", marginRight: "10px"}}>Leave Queue</div>
                   </MyButton>
                   <MyButton accent queue onClick={() => this.requestSwitchToNormal(this.props.location.state.itinerary.queueId)}>
-                    <div className="my-searchresult-button-title" style={{fontSize: "1.5rem"}}>Buy Now</div>
+                    <div className="my-searchresult-button-title" style={{fontSize: "1.5rem"}}>Switch To Normal</div>
                   </MyButton>
                 </td>
               </tr>
@@ -301,6 +313,7 @@ export default class UserQueueDetail extends Component{
               </tbody>
             </table>
           </div>
+        </div>
         </div>
     );
   }

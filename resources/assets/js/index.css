@@ -2071,6 +2071,9 @@ tbody.collapse.show {
 .dropdown {
   position: relative; }
 
+.wlps-dropdown.dropdown-toggle {
+  text-align: left; }
+
 .dropdown-toggle::after {
   display: inline-block;
   width: 0;
@@ -6458,7 +6461,7 @@ body {
         cursor: pointer; }
 
 .my-routes-container {
-  margin-top: 80px; }
+  margin-top: 54px; }
   .my-routes-container.blur {
     -webkit-filter: blur(10px);
     filter: blur(10px); }
@@ -6626,7 +6629,7 @@ body {
   .wlps-form-group .Select .VirtualizedSelectOption {
     color: #000000;
     padding: 0.75em;
-    font-size: 0.75rem; }
+    font-size: 1.3rem; }
   .wlps-form-group .Select-control {
     background-color: rgba(255, 255, 255, 0.25);
     border: 0;
@@ -6666,6 +6669,11 @@ body {
     display: none; }
   .wlps-form-group .Select.is-focused > .Select-control {
     background-color: rgba(255, 255, 255, 0.5); }
+
+.garuda-login-form .Select {
+  width: 100%;
+  text-align: left;
+  font-size: 1.3rem; }
 
 @media (min-width: 768px) {
   .wlps-form-group {
@@ -6800,7 +6808,7 @@ body {
   padding: 1em;
   flex: 1;
   color: black;
-  /*width: 360px;*/
+  width: 360px;
   text-align: left;}
 .my-passengerhome-popup-item-counter {
   display: flex; }
@@ -7270,7 +7278,6 @@ body {
   background-color: #FFFFFF; }
 
 .garuda-login {
-  margin-top: 100px;
   display: flex;
   justify-content: center;}
   .garuda-login-container {
@@ -7289,7 +7296,7 @@ body {
   .garuda-login-title {
     color: #000000;
     padding: 0.8em 0.8em 0 0;
-    text-align: center;
+    text-align: left;
     font-size: 17px}
   .garuda-login-subtitle {
     color: #FFFFFF;
