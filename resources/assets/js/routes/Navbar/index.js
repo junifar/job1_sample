@@ -27,64 +27,65 @@ export default class Navbar extends Component {
   render(){
     console.log("navbar user :"+this.props.user);
     return(
-      <div className="wlps-navbar">
+      <div>
         <RNavbar className="wlps-navbar" fixed="top" expand="md">
-          <Link className='navbar-brand' to='/'><img className="navbar-brand-icon" src="/images/icon.png" style={{height: "63px", marginTop: "-17px"}}/></Link>
-          <NavbarToggler onClick={this.toggle}><i className="material-icons">menu</i></NavbarToggler>
-          <Collapse isOpen={this.state.isOpen} navbar>
-            <Nav className="ml-auto" navbar>
-              { (this.props.user) &&
-              <NavItem>
-                <Link to='/user/booking' className='nav-link'>My Booking</Link>
-              </NavItem>
-              }
-              <NavItem>
-                <NavLink href="/Service">Help</NavLink>
-              </NavItem>
-              <UncontrolledDropdown nav inNavbar>
-                <DropdownToggle nav caret>
-                  ID
-                </DropdownToggle>
-                <DropdownMenu right>
-                  <DropdownItem>
-                    ID (Bahasa Indonesia)
-                  </DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem>
-                    EN (English)
-                  </DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown>
-              <UncontrolledDropdown nav inNavbar>
-                <DropdownToggle nav caret>
-                  IDR
-                </DropdownToggle>
-                <DropdownMenu right>
-                  <DropdownItem>
-                    Indonesia Rupiah
-                  </DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem>
-                    US Dollar
-                  </DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown>
-              <NavItem>
+            <Link className='navbar-brand' to='/'><img className="navbar-brand-icon" src="/images/icon.png" style={{height: "78px", marginTop: "-32px"}}/></Link>
+            <NavbarToggler onClick={this.toggle}><i className="material-icons">menu</i></NavbarToggler>
 
-                { !(this.props.user) &&
+            <Collapse isOpen={this.state.isOpen} navbar>
+                <Nav className="ml-auto" navbar>
+                    { (this.props.user) &&
+                    <NavItem>
+                        <Link to='/user/booking' className='nav-link'>My Booking</Link>
+                    </NavItem>
+                    }
+                    <NavItem>
+                        <NavLink href="/Service">Help</NavLink>
+                    </NavItem>
+                    <UncontrolledDropdown nav inNavbar>
+                        <DropdownToggle nav caret>
+                            ID
+                        </DropdownToggle>
+                        <DropdownMenu right>
+                            <DropdownItem>
+                                ID (Bahasa Indonesia)
+                            </DropdownItem>
+                            <DropdownItem divider />
+                            <DropdownItem>
+                                EN (English)
+                            </DropdownItem>
+                        </DropdownMenu>
+                    </UncontrolledDropdown>
+                    <UncontrolledDropdown nav inNavbar>
+                        <DropdownToggle nav caret>
+                            IDR
+                        </DropdownToggle>
+                        <DropdownMenu right>
+                            <DropdownItem>
+                                Indonesia Rupiah
+                            </DropdownItem>
+                            <DropdownItem divider />
+                            <DropdownItem>
+                                US Dollar
+                            </DropdownItem>
+                        </DropdownMenu>
+                    </UncontrolledDropdown>
+                    <NavItem>
 
-                  <Login openModal={this.props.openModal} refreshNavbar={this.refreshNavbar}/>
-                }
-                { (this.props.user) &&
-                  <Link to='/user/profile' className='nav-link'>
-                    {this.props.user.name}
-                    <div className="my-logindropdown-label-icon"><i className="material-icons">arrow_drop_down</i></div>
-                  </Link>
-                }
+                        { !(this.props.user) &&
 
-              </NavItem>
-            </Nav>
-          </Collapse>
+                        <Login openModal={this.props.openModal} refreshNavbar={this.refreshNavbar}/>
+                        }
+                        { (this.props.user) &&
+                        <Link to='/user/profile' className='nav-link'>
+                            {this.props.user.name}
+                            <div className="my-logindropdown-label-icon"><i className="material-icons">arrow_drop_down</i></div>
+                        </Link>
+                        }
+
+                    </NavItem>
+                </Nav>
+            </Collapse>
         </RNavbar>
       </div>
     )

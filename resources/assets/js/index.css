@@ -6461,7 +6461,7 @@ body {
         cursor: pointer; }
 
 .my-routes-container {
-  margin-top: 54px; }
+  margin-top: 80px; }
   .my-routes-container.blur {
     -webkit-filter: blur(10px);
     filter: blur(10px); }
@@ -6671,6 +6671,7 @@ body {
     background-color: rgba(255, 255, 255, 0.5); }
 
 .garuda-login-form .Select {
+  margin-top: 100px;
   width: 100%;
   text-align: left;
   font-size: 1.3rem; }
@@ -6808,7 +6809,7 @@ body {
   padding: 1em;
   flex: 1;
   color: black;
-  width: 360px;
+  /*width: 360px;*/
   text-align: left;}
 .my-passengerhome-popup-item-counter {
   display: flex; }
