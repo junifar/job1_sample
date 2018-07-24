@@ -64,6 +64,9 @@ export default class FlightCard extends Component{
             <span onClick={this.detailFLight} className="my-booking-button-edit garuda-button">
                 Detail Flight
             </span>
+            <span onClick={this.detailFLight} className="my-booking-button-edit garuda-button">
+                Detail Flight
+            </span>
         </td>
         <td className="my-searchresult-column" style={{width: "15%"}}>
             <p className="my-searchresult-text">{departure_time.format("HH:mm")}</p>
@@ -124,52 +127,52 @@ export default class FlightCard extends Component{
           </td>
           }
       </ReactCSSTransitionGroup>
-      { this.state.detail_flight &&
-         <tr><td colSpan="7">
-      <tbody>
-      <tr>
-        <td colSpan="6" style={{ paddingLeft: "110px"}}><hr/></td>
-        </tr>
-        <tr>
-        <td colSpan="2">
-            <table>
+        { this.state.detail_flight &&
+        <tr><td colSpan="7">
+            <tbody>
             <tr>
-            <td style={{padding: "0px 10px 20px 10px"}}>
+                <td colSpan="6" style={{ paddingLeft: "110px"}}><hr/></td>
+            </tr>
+            <tr>
+                <td colSpan="2">
+                    <table>
+                        <tr>
+                            <td style={{padding: "0px 10px 20px 10px"}}>
     <span style={{display: "flex", width: "25px", height: "25px"}}>
     <img src="https://www.gstatic.com/flights/airline_logos/70px/GA.png" className="img-fluid flight-result-card__img" alt="Responsive" />
             </span>
-            <span style={{display: "flex"}}>Garuda</span>
-        <span style={{display: "flex"}}>{this.props.seat_class}</span>
-    </td>
-        <td>
-        </td>
-    </tr>
-    </table>
-    </td>
-        <td>
-            <span className="my-booking-detail-time" style={{display: "flex"}}>{moment(this.props.departure_date).format("HH:mm")}</span>
-            <span className="my-booking-detail-time" style={{display: "flex"}}>{moment(this.props.departure_date).format("dddd, DD MMM")}</span>
-            <span className="my-booking-detail-time" style={{display: "flex"}}>{this.props.duration}</span>
-            <span className="my-booking-detail-time" style={{display: "flex"}}>{moment(this.props.arrival_date).format("HH:mm")}</span>
-            <span className="my-booking-detail-time" style={{display: "flex"}}>{moment(this.props.arrival_date).format("dddd, DD MMM")}</span>
-        </td>
-        <td colSpan="2">
-            <span className="my-booking-detail-time" style={{display: "flex"}}>{`${this.props.origin_city} (${this.props.origin_iata})`}</span>
-            <span className="my-booking-detail-time" style={{display: "flex"}}>{this.props.origin}</span>
-            <span className="my-booking-detail-time" style={{display: "flex"}}></span>
-            <span className="my-booking-detail-time" style={{display: "flex"}}>{`${this.props.destination_city} (${this.props.destination_iata})`}</span>
-            <span className="my-booking-detail-time" style={{display: "flex"}}>{this.props.destination}</span>
-        </td>
-        <td colSpan="2">
-            <span className="my-booking-detail-time" style={{display: "flex"}}>Model Boeing-737</span>
-            <span className="my-booking-detail-time" style={{display: "flex"}}>Seat layout 3-3</span>
-            <span className="my-booking-detail-time" style={{display: "flex"}}>Cabin Baggage 7kg</span>
-        </td>
-    </tr>
-      </tbody>
-              </td></tr>
-          }
-    </tbody>
+                                <span style={{display: "flex"}}>Garuda</span>
+                                <span style={{display: "flex"}}>{this.props.seat_class}</span>
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                    <span className="my-booking-detail-time" style={{display: "flex"}}>{moment(this.props.departure_date).format("HH:mm")}</span>
+                    <span className="my-booking-detail-time" style={{display: "flex"}}>{moment(this.props.departure_date).format("dddd, DD MMM")}</span>
+                    <span className="my-booking-detail-time" style={{display: "flex"}}>{this.props.duration}</span>
+                    <span className="my-booking-detail-time" style={{display: "flex"}}>{moment(this.props.arrival_date).format("HH:mm")}</span>
+                    <span className="my-booking-detail-time" style={{display: "flex"}}>{moment(this.props.arrival_date).format("dddd, DD MMM")}</span>
+                </td>
+                <td colSpan="2">
+                    <span className="my-booking-detail-time" style={{display: "flex"}}>{`${this.props.origin_city} (${this.props.origin_iata})`}</span>
+                    <span className="my-booking-detail-time" style={{display: "flex"}}>{this.props.origin}</span>
+                    <span className="my-booking-detail-time" style={{display: "flex"}}></span>
+                    <span className="my-booking-detail-time" style={{display: "flex"}}>{`${this.props.destination_city} (${this.props.destination_iata})`}</span>
+                    <span className="my-booking-detail-time" style={{display: "flex"}}>{this.props.destination}</span>
+                </td>
+                <td colSpan="2">
+                    <span className="my-booking-detail-time" style={{display: "flex"}}>Model Boeing-737</span>
+                    <span className="my-booking-detail-time" style={{display: "flex"}}>Seat layout 3-3</span>
+                    <span className="my-booking-detail-time" style={{display: "flex"}}>Cabin Baggage 7kg</span>
+                </td>
+            </tr>
+            </tbody>
+        </td></tr>
+        }
+</tbody>
     );
   }
 }

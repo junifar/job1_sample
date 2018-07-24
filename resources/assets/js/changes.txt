@@ -1,41 +1,42 @@
 ===CHANGES LIST UPDATE NEW===
 
-=js/components/Home/FlightForm/index.js
+=js/components/Home/FlightForm/index.js ++RESOLVED
 ==line 281-423 => modifikasi style layout dengan menambahkan tag bootsrapt (div, row, col-md-??) sehingga tampilan sesuai untuk mobile (logic tidak berubah)
-=js/components/home/index.js
+=js/components/home/index.js ++RESOLVED
 ==line 6, 9, 14, 44, 105, 109-160 => mengubah style layout dan carousel logic menggunakan reactstrap (sehingga dapat sesuai untuk tampilan mobile) (modifikasi logic carousel)
-=js/components/PaymentDashboard/components/MenuPayment/index.js
+=js/components/PaymentDashboard/components/MenuPayment/index.js ++RESOLVED
 ==line 3 : penambahan import untuk library dibutuhkan (Listgroup & list group item)
 ==line 7-13 : modifikasi layout mengubah struktur namun logic tidak diubah
-=js/components/PaymentDashboard/components/PaymentCreditCard/index.js
+=js/components/PaymentDashboard/components/PaymentCreditCard/index.js ++RESOLVED
 ==line 76 : modifikasi div id dengan menggunakan id style bootstrap
-=js/components/PaymentDashboard/components/index.js
+=js/components/PaymentDashboard/index.js ++RESOLVED
 ==line 29-40 : modifikasi layout untuk mobile untuk logic lainnya tidak berubah
-=js/components/UserDashboard/components/UserBooking/index.js
+=js/components/UserDashboard/components/UserBooking/index.js ++RESOLVED
 ==line 116 : modifikasi div untuk style
 ==line 129, 135 : menambahkan div
-=js/UserDashboard/components/menu/index.js
+=js/UserDashboard/components/menu/index.js ++RESOLVED
 ==line 3 : menambahkan library reactstrap
 ==line 8-14 : modifikasi layout
-=js/UserDashboard/components/UserBooking/index.js
+=js/UserDashboard/components/UserBooking/index.js ++RESOLVED
 ==line 93-114 : modifikasi div dengan bootstrap
-=js/UserDashboard/components/UserProfile/index.js
+=js/UserDashboard/components/UserProfile/index.js ++RESOLVED
 ==line 52-66 : modifikasi DIV
-=js/UserDashboard/components/UserQueue/index.js
+=js/UserDashboard/components/UserQueue/index.js ++RESOLVED
 ==line 83-108: modifikasi div dengan bootstrap
-=js/UserDashboard/components/index.js
+=js/UserDashboard/index.js ++RESOLVED
 ==line 15-28 : modifikasi layout untuk menu
-=js/components/SignUp/index.js
+=js/components/SignUp/index.js ++RESOLVED
 ==line 113 - 141 : modifikasi layout penambahan div
-=js/routes/navbar/index.js
+=js/routes/navbar/index.js ++RESOLVED
 ==line 11 : penambahan toggle binding untuk aktifkan action click mobilenya (awalnya error warning sehingga tampilan mobile tidak dapat di klik / memodifikasi logic)
 ==line 30-87 : modifikasi style layout sehingga sesuai untuk tampilan mobile untuk logic tidak ada pengaruh
-=js/index-apha.css
+=js/index-apha.css ++RESOLVED
 ==penambahan class garuda-top-margin
-=js/index.css
+=js/index.css ++RESOLVED
 ==line 6461 : modifikasi top margin menjadi 80 agar header navbar dapat sesuai lebarnya menutupi logo
 ==line 6803 : comment width: 360px; << line code ini berdampak ketika web di akses pada mobile sehingga sizenya tidak ikut mengecil secara fleksible sehingga perlu di non aktifkan
 ==line 7272 : modifikasi top margin menjadi 100 agar header navbar dapat sesuai lebarnya
+
 
 ===CHANGES LIST
 ===============

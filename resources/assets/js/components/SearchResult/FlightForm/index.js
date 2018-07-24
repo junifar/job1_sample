@@ -253,18 +253,17 @@ export default class FlightForm extends Component{
     }
 
     return(
-      <div>
-        <div className="flight-form-searchresult">
-          <div className="flight-form__header">
-            <DropdownSearch color="link" size="sm" header={this.state.adults + " Passengers"} items={["1", "2", "3", "4", "5", "6"]} onChange={this.updateAdults}/>
-            <DropdownSearch color="link" size="sm" header={this.state.seat_class} items={["Economy Class", "Business Class", "First Class"]} onChange={this.updateSeatClass}/>
-          </div>
-          <Row className="flight-form__body_searchresult">
-            <Col xs="12" md="6" className="flight-form__place">
-              <Row>
-                <FormGroup className="wlps-form-group col flight-form__searchresult">
-                  <span className="wlps-form-icon"><i className="material-icons" style={{color:"white"}}>place</i></span>
-                    <VirtualizedSelect
+      <div className="flight-form-searchresult-rev">
+        <div className="flight-form__header">
+          <DropdownSearch color="link" size="sm" header={this.state.adults + " Passengers"} items={["1", "2", "3", "4", "5", "6"]} onChange={this.updateAdults}/>
+          <DropdownSearch color="link" size="sm" header={this.state.seat_class} items={["Economy Class", "Business Class", "First Class"]} onChange={this.updateSeatClass}/>
+        </div>
+        <Row className="flight-form__body_searchresult">
+          <Col xs="12" md="6" className="flight-form__place">
+            <Row>
+              <FormGroup className="wlps-form-group col flight-form__searchresult">
+                <span className="wlps-form-icon"><i className="material-icons" style={{color:"white"}}>place</i></span>
+                  <VirtualizedSelect
                       name="select-origin"
                       placeholder="Origin"
                       value={this.state.origin}
@@ -275,10 +274,10 @@ export default class FlightForm extends Component{
                       options={arrayOfAirports}
                       onInputChange={this.updateQuery}
                       noResultsText=""
-                    />
-                </FormGroup>
-                <FormGroup className="wlps-form-group col flight-form__searchresult">
-                    <VirtualizedSelect
+                  />
+              </FormGroup>
+              <FormGroup className="wlps-form-group col flight-form__searchresult">
+                  <VirtualizedSelect
                       name="select-destination"
                       placeholder="Where to?"
                       value={this.state.destination}
@@ -289,58 +288,57 @@ export default class FlightForm extends Component{
                       options={arrayOfAirports}
                       onInputChange={this.updateQuery}
                       noResultsText=""
-                    />
-                </FormGroup>
-              </Row>
-            </Col>
-            <Col xs="12" md="6" className="flight-form__date_searchresult">
-              <Row>
-                <FormGroup className="wlps-form-group col flight-form__searchresult">
-                  <Label for="departure_date" hidden>Departure Date</Label>
-                  <span className="wlps-form-icon"><i className="material-icons" style={{color:"white"}}>date_range</i></span>
-                    <SingleDatePicker
-                      date={this.state.departure_date}
-                      onDateChange={date => this.setState({ departure_date: date })}
-                      focused={this.state.departure_focused}
-                      onFocusChange={({ focused }) => this.setState({ departure_focused: focused })}
-                      placeholder="When you go?"
-                      numberOfMonths={2}
-                      hideKeyboardShortcutsPanel={true}
-                      displayFormat="DD MMM YYYY"
-                      id="departure_date"
-                      withPortal={portal}
-                    />
-                </FormGroup>
-                <FormGroup className="wlps-form-group col flight-form__searchresult">
-                  <Label for="arrival_date" hidden>Arrival Date</Label>
-                    <SingleDatePicker
-                      date={this.state.arrival_date}
-                      onDateChange={date => this.setState({ arrival_date: date })}
-                      focused={this.state.arrival_focused}
-                      onFocusChange={({ focused }) => this.setState({ arrival_focused: focused })}
-                      placeholder="Return?"
-                      numberOfMonths={2}
-                      hideKeyboardShortcutsPanel={true}
-                      displayFormat="DD MMM YYYY"
-                      id="arrival_date"
-                      withPortal={portal}
-                      isOutsideRange={(day) => day.isBefore(this.state.departure_date)}
-                    />
-                </FormGroup>
-                <Button className="wlps-search-btn" color="danger" onClick={this.requestFlights}><span className="wlps-form-icon"><i className="material-icons" style={{color:"#FFFFFF"}}>search</i></span><span className="wlps-search-label">SEARCH</span></Button>
-              </Row>
-            </Col>
-            <Col xs="12" className="wlps-search-container">
+                  />
+              </FormGroup>
+            </Row>
+          </Col>
+          <Col xs="12" md="6" className="flight-form__date_searchresult">
+            <Row>
+              <FormGroup className="wlps-form-group col flight-form__searchresult">
+                <Label for="departure_date" hidden>Departure Date</Label>
+                <span className="wlps-form-icon"><i className="material-icons" style={{color:"white"}}>date_range</i></span>
+                  <SingleDatePicker
+                    date={this.state.departure_date}
+                    onDateChange={date => this.setState({ departure_date: date })}
+                    focused={this.state.departure_focused}
+                    onFocusChange={({ focused }) => this.setState({ departure_focused: focused })}
+                    placeholder="When you go?"
+                    numberOfMonths={2}
+                    hideKeyboardShortcutsPanel={true}
+                    displayFormat="DD MMM YYYY"
+                    id="departure_date"
+                    withPortal={portal}
+                  />
+              </FormGroup>
+              <FormGroup className="wlps-form-group col flight-form__searchresult">
+                <Label for="arrival_date" hidden>Arrival Date</Label>
+                  <SingleDatePicker
+                    date={this.state.arrival_date}
+                    onDateChange={date => this.setState({ arrival_date: date })}
+                    focused={this.state.arrival_focused}
+                    onFocusChange={({ focused }) => this.setState({ arrival_focused: focused })}
+                    placeholder="Return?"
+                    numberOfMonths={2}
+                    hideKeyboardShortcutsPanel={true}
+                    displayFormat="DD MMM YYYY"
+                    id="arrival_date"
+                    withPortal={portal}
+                    isOutsideRange={(day) => day.isBefore(this.state.departure_date)}
+                  />
+              </FormGroup>
+              <Button className="wlps-search-btn wlps-search-btn-rev" color="danger" onClick={this.requestFlights}><span className="wlps-form-icon"><i className="material-icons" style={{color:"#FFFFFF"}}>search</i></span><span className="wlps-search-label">SEARCH</span></Button>
+            </Row>
+          </Col>
+          <Col xs="12" className="wlps-search-container">
 
-            </Col>
-          </Row>
-        </div>
-        { (this.state.progress > 1 && this.state.progress < 100) &&
-        <div className="my-headerrequesting">
-          <div className="my-headerrequesting-title">Searching.. {this.state.progress.toFixed(0)} %</div>
-          <Progress animated color="info" max="100" value={this.state.progress}/>
-        </div>
-        }
+          </Col>
+        </Row>
+          { (this.state.progress > 1 && this.state.progress < 100) &&
+          <div className="my-headerrequesting">
+              <div className="my-headerrequesting-title">Searching.. {this.state.progress.toFixed(0)} %</div>
+              <Progress animated color="info" max="100" value={this.state.progress}/>
+          </div>
+          }
       </div>
     );
   }

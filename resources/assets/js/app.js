@@ -39,6 +39,7 @@ import 'react-select/dist/react-select.css';
 /*import './index.css';*/
 import './index.css';
 import './index-alpha.css';
+import './morgan_style.css';
 
 const reducer = combineReducers(reducers);
 // const finalCreateStore = applyMiddleware(thunk)(createStore);

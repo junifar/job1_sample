@@ -43,7 +43,7 @@ export default class SearchInfo extends Component {
               <div className="garuda-searchinfo-info">{moment(this.props.departure_date).format('dddd, DD MMM YYYY')}    |    {passengerInfo}     |    {this.props.seat_class}</div>
             </div>
           </div>
-          <div style={{padding: "4rem 0 1rem 21rem"}}>
+          <div className="change_search_button">
           <MyButton onClick={this.props.toggleShowForm}>
             <div className="garuda-searchinfo-button">Change Search</div>
           </MyButton>
