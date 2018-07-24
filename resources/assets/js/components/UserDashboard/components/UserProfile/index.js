@@ -53,10 +53,10 @@ export default class UserProfile extends Component{
           <div className="row">&nbsp;</div>
           <div className="row pull-right">
               <div className="col-md-12">
-                  <div className="garuda-button garuda-userdashboard-submit">
+                  <div className="garuda-button garuda-userdashboard-submit button">
                       <strong>Edit Profile</strong>
                   </div>
-                  <div className="garuda-button garuda-userdashboard-submit">
+                  <div className="garuda-button garuda-userdashboard-submit button">
                       <strong>Edit Password</strong>
                   </div>
               </div>

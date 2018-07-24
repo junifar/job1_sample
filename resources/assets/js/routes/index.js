@@ -9,6 +9,7 @@ import HeaderRequesting from '../components/Home/FlightForm/HeaderRequesting';
 import Navbar from './Navbar';
 import Modal from './Modal';
 import PropTypes from 'prop-types';
+import Service from "../components/Service";
 // import FlightDetail as ModalFlightDetail from './FlightDetail';
 
 export default class Routes extends React.Component {
@@ -179,6 +180,7 @@ export default class Routes extends React.Component {
               <Route exact path="/FlightDetail" render={(props) => <FlightDetail {...props} openModal={this.openModal}/>}/>
               <Route path="/User" render={(props) => <UserDashboard {...props} openModal={this.openModal} token={this.state.token}/>}/>
               <Route path="/Payment" render={(props) => <PaymentDashboard {...props} openModal={this.openModal}/>}/>
+              <Route exact path="/Service" component={Service} />
               <Route component={NotFound}/>
             </Switch>
           </div>

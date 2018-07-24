@@ -7357,7 +7357,8 @@ body {
   font-size: 13px;
   display: inline;
   font-weight: 300;
-  margin-left: 10px; }
+  margin-left: 10px;
+}
 .garuda-userdashboard-submit:hover{
   background-color: #fb73a1; }
 .my-auth-input {
@@ -7889,22 +7890,22 @@ body {
     float:left; 
 }
 
-.my-userdashboard-tr{
-    margin-top:20px;
-    margin-bottom:20px;
-    padding-top:20px;
-    padding-bottom:20px;
-    border: 0px solid #b3b1b1;
-    float:left;
-    width:40%;
-    padding:0 20px;
-}
+/*.my-userdashboard-tr{*/
+    /*margin-top:20px;*/
+    /*margin-bottom:20px;*/
+    /*padding-top:20px;*/
+    /*padding-bottom:20px;*/
+    /*border: 0px solid #b3b1b1;*/
+    /*float:left;*/
+    /*width:40%;*/
+    /*padding:0 20px;*/
+/*}*/
 
-.garuda-userdashboard-submit{
-    float:left;
-    width:20%;
-    padding:15px;
-    margin-top:7px;
-    text-align:center;
-}
+/*.garuda-userdashboard-submit{*/
+    /*float:left;*/
+    /*width:20%;*/
+    /*padding:15px;*/
+    /*margin-top:7px;*/
+    /*text-align:center;*/
+/*}*/
 /**********************/

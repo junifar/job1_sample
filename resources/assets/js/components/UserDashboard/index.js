@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, BrowserRouter } from 'react-router-dom';
 import { Menu, UserBooking, UserBookingDetail, UserProfile, UserQueue, UserQueueDetail, UserPassenger, UserLogout} from './components';
 
 export default class UserDashboard extends Component{
@@ -12,8 +12,8 @@ export default class UserDashboard extends Component{
 
   render(){
     return(
-        <BrowserRouter>
         <div className="container garuda-top-margin">
+            <BrowserRouter>
             <div class="row">
                 <div class="col-md-4">
                     <Menu/>
@@ -28,8 +28,8 @@ export default class UserDashboard extends Component{
                     <Route path="/User/logout" component={UserLogout}/>
                 </div>
             </div>
+            </BrowserRouter>
         </div>
-        </BrowserRouter>
     );
   }
 }
