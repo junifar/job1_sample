@@ -279,8 +279,9 @@ class FlightForm extends Component{
 
     return(
         <Row className="flight-form__body">
-            <Col xs="12" md="12" className="flight-form__place">
+            <Col xs="12" className="flight-form__place">
               <Row>
+                  <Col xs="12" md="6">
                   <FormGroup className="wlps-form-group col flight-form__origin">
                       <span className="wlps-form-icon"><i className="material-icons fas fa-plane-departure"></i></span>
                       <VirtualizedSelect
@@ -296,8 +297,8 @@ class FlightForm extends Component{
                           noResultsText=""
                       />
                   </FormGroup>
-              </Row>
-              <Row>
+                  </Col>
+                  <Col xs="12" md="6">
                   <FormGroup className="wlps-form-group col flight-form__destination">
                       <span className="wlps-form-icon"><i className="material-icons fas fa-plane-arrival"></i></span>
                       <VirtualizedSelect
@@ -313,6 +314,7 @@ class FlightForm extends Component{
                           noResultsText=""
                       />
                   </FormGroup>
+                  </Col>
               </Row>
             </Col>
             <Col xs="12" className="flight-form__date">
@@ -358,13 +360,13 @@ class FlightForm extends Component{
             </Col>
             <Col xs="12" className="flight-form__date">
                 <Row>
-                    <Col xs="6" md="6">
+                    <Col xs="12" md="6">
                         <FormGroup className="wlps-form-group col flight-form__origin">
                             <span className="wlps-form-icon"><i className="material-icons fas fa-plane"></i></span>
                             <Dropdown color="black" size="lg" header={this.state.trip} items={["One-Way", "Return"]} onChange={this.updateTrip}/>
                         </FormGroup>
                     </Col>
-                    <Col xs="6" md="6">
+                    <Col xs="12" md="6">
                         <FormGroup className="wlps-form-group col flight-form__origin">
                             <span className="wlps-form-icon"><i className="material-icons fas fa-hand-holding-usd"></i></span>
                             <Dropdown color="black" size="lg" header={this.state.seat_class} items={["Economy Class", "Business Class", "First Class"]} onChange={this.updateSeatClass}/>
@@ -372,13 +374,17 @@ class FlightForm extends Component{
                     </Col>
                 </Row>
             </Col>
-            <Col xs="12" md="12" className="flight-form__place">
+            <Col xs="12" className="flight-form__date">
                 <Row>
-                    <Col xs="2" md="2">
-                        <span className="wlps-form-icon"><img className="navbar-brand-icon" src="/images/adults.jpg"/></span>
-                    </Col>
-                    <Col xs="7" md="6">
-                        <div className="my-passengerhome-popup-item-label">Adults (>11 years)</div>
+                    {/*<Col xs="12" md="6">*/}
+                    {/*<Col xs="2" md="2">*/}
+                        {/*<span className="wlps-form-icon" xs="2" md="2"><img className="navbar-brand-icon" src="/images/adults.jpg"/></span>*/}
+                    {/*</Col>*/}
+                    <Col xs="9" md="6">
+                        <FormGroup className="wlps-form-group col flight-form__origin">
+                            <span className="wlps-form-icon"><img className="navbar-brand-icon" src="/images/adults.jpg"/></span>
+                            <div className="my-passengerhome-popup-item-label">Adults (>11 years)</div>
+                        </FormGroup>
                     </Col>
                     <Col xs="3" md="4">
                         <div className="my-passengerhome-popup-item-counter pull-right">
@@ -389,15 +395,19 @@ class FlightForm extends Component{
                         {/*</Col>*/}
                         </div>
                     </Col>
+                    {/*</Col>*/}
                 </Row>
             </Col>
-            <Col xs="12" md="12" className="flight-form__place">
+            <Col xs="12" className="flight-form__date">
                 <Row>
-                    <Col xs="2" md="2">
-                        <span className="wlps-form-icon" style={{paddingLeft: "1.3em"}}><img className="navbar-brand-icon" src="/images/children.jpg"/></span>
-                    </Col>
-                    <Col xs="7" md="6">
-                        <div className="my-passengerhome-popup-item-label">Children (2-11 years)</div>
+                    {/*<Col xs="2" md="2">*/}
+                        {/*<span className="wlps-form-icon" style={{paddingLeft: "1.3em"}}><img className="navbar-brand-icon" src="/images/children.jpg"/></span>*/}
+                    {/*</Col>*/}
+                    <Col xs="9" md="6">
+                        <FormGroup className="wlps-form-group col flight-form__origin">
+                            <span className="wlps-form-icon"><img className="navbar-brand-icon" src="/images/children.jpg"/></span>
+                            <div className="my-passengerhome-popup-item-label">Children (2-11 years)</div>
+                        </FormGroup>
                     </Col>
                     <Col xs="3" md="4">
                         <div className="my-passengerhome-popup-item-counter pull-right">
@@ -408,13 +418,16 @@ class FlightForm extends Component{
                     </Col>
                 </Row>
             </Col>
-            <Col xs="12" md="12" className="flight-form__place">
+            <Col xs="12" className="flight-form__place">
                 <Row>
-                    <Col xs="2" md="2">
-                        <span className="wlps-form-icon"><img className="navbar-brand-icon" src="/images/infant.jpg"/></span>
-                    </Col>
-                    <Col xs="7" md="6">
-                        <div className="my-passengerhome-popup-item-label">Infant ({'<'}2 years)</div>
+                    {/*<Col xs="2" md="2">*/}
+                        {/*<span className="wlps-form-icon"><img className="navbar-brand-icon" src="/images/infant.jpg"/></span>*/}
+                    {/*</Col>*/}
+                    <Col xs="9" md="6">
+                        <FormGroup className="wlps-form-group col flight-form__origin">
+                            <span className="wlps-form-icon"><img className="navbar-brand-icon" src="/images/infant.jpg"/></span>
+                            <div className="my-passengerhome-popup-item-label">Infant ({'<'}2 years)</div>
+                        </FormGroup>
                     </Col>
                     <Col xs="3" md="4">
                         <div className="my-passengerhome-popup-item-counter pull-right">
